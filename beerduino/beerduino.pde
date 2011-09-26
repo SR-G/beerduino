@@ -23,13 +23,13 @@
 // #include <EEPROM.h>
 // #include <PString.h>
 
-// Data wire is plugged into pin 10 on the Arduino
+// Data wire is plugged into pin 9 on the Arduino (beware, pins 10,11,12 are used by the ethernet shield so don't use them !)
 #define ONE_WIRE_BUS 9
 
-// Max number of sensors on the board
+// Max number of sensors on the board (read carefully about parasitic and normal power mode here : http://www.arduino.cc/playground/Learning/OneWire )
 #define MAX_SENSORS 10
 
-// Level of webduino debut
+// Level of webduino debug information
 #define WEBDUINO_SERIAL_DEBUGGING 9
 
 // This creates an instance of the webserver.  By specifying a prefix

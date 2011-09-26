@@ -1,0 +1,14 @@
+BEERDUINO is a small arduino project.
+Designed to read various Dallas DS18B20 sensors (on a 1wire bus).
+The program is designed to run on Arduino Board + Ethernet Shield.
+Reads multiple sensors temperatures.
+Embed a small web-server able to load simple HTML page and XML page with the temperature values.
+Can send a mail if temperature limits are reached.
+
+Use a few libraries :
+- OneWire (v2) 
+- Webduino
+- Serial
+- DallasTemperature
+
+Contact : serge.simon@gmail.com

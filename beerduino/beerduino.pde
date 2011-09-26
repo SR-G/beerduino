@@ -23,18 +23,18 @@
 // #include <EEPROM.h>
 // #include <PString.h>
 
-/* This creates an instance of the webserver.  By specifying a prefix
- * of "/", all pages will be at the root of the server. */
-#define PREFIX ""
-
 // Data wire is plugged into pin 10 on the Arduino
 #define ONE_WIRE_BUS 9
+
+// Max number of sensors on the board
+#define MAX_SENSORS 10
 
 // Level of webduino debut
 #define WEBDUINO_SERIAL_DEBUGGING 9
 
-// Max number of sensors on the board
-#define MAX_SENSORS 10
+// This creates an instance of the webserver.  By specifying a prefix
+// of "/", all pages will be at the root of the server. 
+#define PREFIX ""
 
 // Ports, webserver + destination smtp
 #define WEBSERVER_PORT 80
@@ -47,27 +47,20 @@
 #define MEASURE_TEMPO 1000
 
 // Standard ethernet parameters
-byte mac[] = { 
-  0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
-byte subnet[] = { 
-  255, 255, 255, 0 };
+byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
+byte subnet[] = { 255, 255, 255, 0 };
 
 // Specific ethernet parameters
-byte ip[] = { 
-  192, 168, 0, 101 };
-byte gateway[] = { 
-  192, 168, 0, 254 };
-byte smtpServer[] = { 
-  212, 27, 48, 4 }; // smtp.free.fr
+byte ip[] = { 192, 168, 0, 101 };
+byte gateway[] = { 192, 168, 0, 254 };
+byte smtpServer[] = { 212, 27, 48, 4 }; // smtp.free.fr
 // byte ip[] = { 10, 90, 156, 160 }; // ip PSA
 // byte gateway[] = { 10, 90, 156, 254 }; // gateway PSA
 // byte smtpServer[] = { 10, 68, 184, 66 }; // smtp.inetpsa.com
 
 // Arrays that will hold found temperaturs and values under or over which mails will be sent
 float currentTemperature[MAX_SENSORS];
-float seuilTemperature[MAX_SENSORS] = {
-  26.0, 26.0, 26.0, 26.0, 26.0, 26.0, 26.0, 26.0, 26.0, 26.0};
-
+float seuilTemperature[MAX_SENSORS] = {26.0, 26.0, 26.0, 26.0, 26.0, 26.0, 26.0, 26.0, 26.0, 26.0};
 
 // Internal variables
 int foundSensors = 0; // Number of 1wire sensors found on the 1wire bus
@@ -355,11 +348,11 @@ void sendMail() {
     smtpClient << "AUTH LOGIN PLAIN CRAM-MD5" << endl; /* a tester si besoin d'authentification sur smtp.free.fr */
     delay(SMTP_TEMPO);
 
-    smtpClient << "8498e6ecf343c526c98388bbf310044a" << endl; /* serge.simon encodé en MD5 */
-    delay(SMTP_TEMPO);
+    // smtpClient << "8498e6ecf343c526c98388bbf310044a" << endl; /* serge.simon encodé en MD5 */
+    // delay(SMTP_TEMPO);
 
-    smtpClient << "b521ee1496a258a40a7bd962bae7851b" << endl; /* password encodé en MD5 */
-    delay(SMTP_TEMPO);
+    // smtpClient << "" << endl; /* password encodé en MD5 */
+    // delay(SMTP_TEMPO);
 
     smtpClient << "DATA" << endl;
     delay(SMTP_TEMPO);

@@ -47,20 +47,26 @@
 #define MEASURE_TEMPO 1000
 
 // Standard ethernet parameters
-byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
-byte subnet[] = { 255, 255, 255, 0 };
+byte mac[] = { 
+  0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
+byte subnet[] = { 
+  255, 255, 255, 0 };
 
 // Specific ethernet parameters
-byte ip[] = { 192, 168, 0, 101 };
-byte gateway[] = { 192, 168, 0, 254 };
-byte smtpServer[] = { 212, 27, 48, 4 }; // smtp.free.fr
+byte ip[] = { 
+  192, 168, 0, 101 };
+byte gateway[] = { 
+  192, 168, 0, 254 };
+byte smtpServer[] = { 
+  212, 27, 48, 4 }; // smtp.free.fr
 // byte ip[] = { 10, 90, 156, 160 }; // ip PSA
 // byte gateway[] = { 10, 90, 156, 254 }; // gateway PSA
 // byte smtpServer[] = { 10, 68, 184, 66 }; // smtp.inetpsa.com
 
 // Arrays that will hold found temperaturs and values under or over which mails will be sent
 float currentTemperature[MAX_SENSORS];
-float seuilTemperature[MAX_SENSORS] = {26.0, 26.0, 26.0, 26.0, 26.0, 26.0, 26.0, 26.0, 26.0, 26.0};
+float seuilTemperature[MAX_SENSORS] = {
+  26.0, 26.0, 26.0, 26.0, 26.0, 26.0, 26.0, 26.0, 26.0, 26.0};
 
 
 // Internal variables
@@ -122,12 +128,12 @@ void aboutCmd(WebServer &server, WebServer::ConnectionType type, char *url_tail,
  */
 /*
 void configurationCmd(WebServer &server, WebServer::ConnectionType type, char *url_tail, bool tail_complete) {
-  server.httpSuccess();
-  sendHeaderPage(server);
-  sendConfigurationPage(server);
-  sendFormButtons(server);
-}
-*/
+ server.httpSuccess();
+ sendHeaderPage(server);
+ sendConfigurationPage(server);
+ sendFormButtons(server);
+ }
+ */
 
 /*
 void saveCmd(WebServer &server, WebServer::ConnectionType type, char *url_tail, bool tail_complete) {
@@ -146,9 +152,9 @@ void setup() {
   // Unused ports reinitialisation
   /*
   for (int i = 2 ; i < 8; i++) {
-    pinMode(i, INPUT);
-  }
-  */
+   pinMode(i, INPUT);
+   }
+   */
 
   // Start standard serial port
   Serial.begin(9600);
@@ -159,10 +165,11 @@ void setup() {
 
   // Find 1wire devices on the 1wire bus
   foundSensors = sensors.getDeviceCount();
-  
+
   if ( foundSensors > MAX_SENSORS ) {
     Serial << "ERROR " << foundSensors << " devices on 1wire bus whereas max allowed is " << MAX_SENSORS;
-  } else {
+  } 
+  else {
     Serial << "Found " << foundSensors << " devices on 1wire bus";
   }
 
@@ -208,13 +215,13 @@ void loop() {
 void sendAboutPage(WebServer &server) {
   /*
   server.println("<li>Arduino Duemilanove AT328</li>");
-  server.println("<li>Arduino Ethernet Shield</li>");
-  server.println("<li>Arduino Proto Shield</li>");
-  server.println("<li>Arduino library 022</li>");
-  server.println("<li>Additionnal libraries : Time.h, OneWire.h, DallasTemperature.h, Wedbuino, Streaming</li>");
-  server.println("<li>Thermal sensors : Dallas DS18B20</li>");
-  server.println("Contact: <a href=\"mailto:serge.simon@gmail.com\">serge.simon@gmail.com</a>.");
-  */
+   server.println("<li>Arduino Ethernet Shield</li>");
+   server.println("<li>Arduino Proto Shield</li>");
+   server.println("<li>Arduino library 022</li>");
+   server.println("<li>Additionnal libraries : Time.h, OneWire.h, DallasTemperature.h, Wedbuino, Streaming</li>");
+   server.println("<li>Thermal sensors : Dallas DS18B20</li>");
+   server.println("Contact: <a href=\"mailto:serge.simon@gmail.com\">serge.simon@gmail.com</a>.");
+   */
 }
 
 
@@ -236,25 +243,25 @@ void sendHeaderPage(WebServer &server) {
  */
 /*
 void sendConfigurationPage( WebServer &server ) {
-  server.println("<h2>Configuration</h2>");
-
-  // server.println("IP serveur SMTP : <input type=text name=smtp value=\"\"><br />");
-  /*
-  server.print("Seuil temperature1 : <input type=text name=seuil value=\"");
-  server.print(seuilTemperature1);
-  server.print("\"><br />"); 
-
-  // Display a form button to update the display
-  /*
-  server.println("<p><form METHOD='POST' action='" PREFIX "/configuration'>");
-   server.println("Mails destinataires :<br>");
-   server.println("IP Serveur SMTP : <br>");
-   server.println("Seuil temperature 1 (Celsius) : <br>");
-   server.println("Seuil temperature 2 (Celsius) : <br>");
-   server << "<input type=submit value=\"Save Configuration\">" << endl;
-   server.println("</form></p>");
-   */
-  // server.println("<input type=text name=emails>");
+ server.println("<h2>Configuration</h2>");
+ 
+ // server.println("IP serveur SMTP : <input type=text name=smtp value=\"\"><br />");
+/*
+ server.print("Seuil temperature1 : <input type=text name=seuil value=\"");
+ server.print(seuilTemperature1);
+ server.print("\"><br />"); 
+ 
+ // Display a form button to update the display
+/*
+ server.println("<p><form METHOD='POST' action='" PREFIX "/configuration'>");
+ server.println("Mails destinataires :<br>");
+ server.println("IP Serveur SMTP : <br>");
+ server.println("Seuil temperature 1 (Celsius) : <br>");
+ server.println("Seuil temperature 2 (Celsius) : <br>");
+ server << "<input type=submit value=\"Save Configuration\">" << endl;
+ server.println("</form></p>");
+ */
+// server.println("<input type=text name=emails>");
 //}
 
 /**
@@ -389,4 +396,5 @@ void sendMail() {
     Serial << "Can't send mail" << endl;
   }
 }
+
 

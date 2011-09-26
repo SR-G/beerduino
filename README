@@ -5,10 +5,16 @@ Reads multiple sensors temperatures.
 Embed a small web-server able to load simple HTML page and XML page with the temperature values.
 Can send a mail if temperature limits are reached.
 
-Use a few libraries :
-- OneWire (v2) 
-- Webduino
-- Serial
-- DallasTemperature
+Use a few libraries (included in this github) :
+- OneWire (v2) ( http://www.pjrc.com/teensy/td_libs_OneWire.html ) ;
+- Webduino ( https://github.com/sirleech/Webduino ) ;
+- Streaming ( http://arduiniana.org/2009/04/new-streaming-library/ ) ;
+- DallasTemperature ( http://www.milesburton.com/?title=Dallas_Temperature_Control_Library ) ;
+
+Links :
+- A good tutorial (for electric schema and various other information on 1wire) : http://www.mon-club-elec.fr/pmwiki_mon_club_elec/pmwiki.php?n=MAIN.ArduinoExpertCapteursComplexesDS18B20Detection
+- Dallas DS18B20 specs : http://datasheets.maxim-ic.com/en/ds/DS18B20.pdf
+- Arduino utorial about 1wire : http://www.arduino.cc/playground/Learning/OneWire
+- Dallas sensors can be bought on ebay or here : http://www.domadoo.fr
 
 Contact : serge.simon@gmail.com

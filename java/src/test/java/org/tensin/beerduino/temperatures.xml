@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sensors time="1">
+	<sensor id="1" value="27" type="C" seuil="30" />
+	<sensor id="2" value="25" type="C" seuil="30" />
+	<sensor id="3" value="26" type="C" seuil="31" />
+</sensors>

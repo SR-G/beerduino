@@ -1,0 +1,11 @@
+Beeruino alert.
+
+$explanation
+
+Dernières stats lues :
+#foreach($result in $results)
+  - Capteur #$result.sensorId : $result.temperature°$result.type (seuil : $result.limit) $result.state
+#end																	
+
+<img src="cid:$graph.getCid()" alt="$graph.getLabel()" width="$graph.getWidth()" height="$graph.getHeight()" />
+

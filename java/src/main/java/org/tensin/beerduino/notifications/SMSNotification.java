@@ -1,5 +1,6 @@
 package org.tensin.beerduino.notifications;
 
+import org.simpleframework.xml.Root;
 import org.tensin.beerduino.CoreException;
 import org.tensin.beerduino.TemperatureResults;
 
@@ -7,6 +8,7 @@ import org.tensin.beerduino.TemperatureResults;
 /**
  * The Class SMSNotification.
  */
+@Root
 public class SMSNotification implements INotification {
 
     /* (non-Javadoc)

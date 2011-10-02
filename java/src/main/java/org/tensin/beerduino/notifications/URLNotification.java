@@ -6,6 +6,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.simpleframework.xml.Attribute;
+import org.simpleframework.xml.Root;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tensin.beerduino.CoreException;
@@ -17,6 +18,7 @@ import org.tensin.beerduino.helpers.CloseHelper;
 /**
  * The Class URLNotification.
  */
+@Root
 public class URLNotification implements INotification {
 
     /** The Constant LOGGER. */

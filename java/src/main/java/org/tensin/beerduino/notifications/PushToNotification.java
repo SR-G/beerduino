@@ -10,6 +10,7 @@ import org.apache.commons.httpclient.HttpVersion;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.eclipse.jetty.http.HttpStatus;
 import org.simpleframework.xml.Attribute;
+import org.simpleframework.xml.Root;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tensin.beerduino.CoreException;
@@ -22,6 +23,7 @@ import org.tensin.beerduino.helpers.CloseHelper;
 /**
  * The Class PushToNotification.
  */
+@Root
 public class PushToNotification extends URLNotification implements INotification {
 
     /** The Constant LOGGER. */

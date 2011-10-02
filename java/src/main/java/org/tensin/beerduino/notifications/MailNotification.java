@@ -16,6 +16,7 @@ import org.apache.commons.mail.HtmlEmail;
 import org.rrd4j.core.Util;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.ElementList;
+import org.simpleframework.xml.Root;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tensin.beerduino.Beerduino;
@@ -31,6 +32,7 @@ import org.tensin.beerduino.VelociMail;
 /**
  * The Class MailNotification.
  */
+@Root
 public class MailNotification implements INotification {
 
     /** The Constant LOGGER. */

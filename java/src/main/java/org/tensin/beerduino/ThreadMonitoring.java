@@ -54,7 +54,6 @@ public class ThreadMonitoring extends AbstractThread {
     @Override
     public void run() {
         setName("THREAD-MONITORING");
-        String u = "http://localhost:8080/";
         Serializer serializer = new Persister();
         URL url = null;
         InputStream is = null;
@@ -64,7 +63,7 @@ public class ThreadMonitoring extends AbstractThread {
             sleepMilliSeconds(1000);
             LOGGER.info("now acquiring");
             try {
-                url = new URL(u);
+                url = new URL(Beerduino.getInstance().getPreferences().getArduinoUrl());
                 is = url.openStream();
                 results = serializer.read(TemperatureResults.class, is);
                 for (TemperatureResult result : results.getResults()) {
@@ -90,11 +89,11 @@ public class ThreadMonitoring extends AbstractThread {
                 }
                 LOGGER.info("Results : \n" + results.toString());
             } catch (MalformedURLException e) {
-                LOGGER.error("Error while getting results", e);
+                LOGGER.error("Error while getting results from [" + Beerduino.getInstance().getPreferences().getArduinoUrl() + "]", e);
             } catch (IOException e) {
-                LOGGER.error("Error while getting results", e);
+                LOGGER.error("Error while getting results from [" + Beerduino.getInstance().getPreferences().getArduinoUrl() + "]", e);
             } catch (Exception e) {
-                LOGGER.error("Error while getting results", e);
+                LOGGER.error("Error while getting results from [" + Beerduino.getInstance().getPreferences().getArduinoUrl() + "]", e);
             } finally {
                 CloseHelper.close(is);
             }

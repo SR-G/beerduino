@@ -24,6 +24,7 @@ public class ThreadNotify extends AbstractThread {
             try {
                 final TemperatureResults results = queue.take();
 
+                LOGGER.info("Notification emited due to new state [" + results.getState() + "]");
                 Collection<INotification> notifiers = Beerduino.getInstance().getPreferences().getNotifiers();
                 for (final INotification notifier : notifiers) {
                     new Thread() {

@@ -77,6 +77,10 @@ public class Preferences {
         return arduinoPort;
     }
 
+    public String getArduinoUrl() {
+        return "http://" + arduinoIp + ":" + arduinoPort + "/";
+    }
+
     public TemperatureLimit getLimitForSensor(final String sensorId) {
         if (StringUtils.isNotEmpty(sensorId)) {
             for (TemperatureLimit limit : limits) {

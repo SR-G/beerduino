@@ -14,28 +14,11 @@ import org.simpleframework.xml.core.Persister;
 
 public class ArduinoSimulator extends MockHttpServer {
 
-    /**
-     * Test the MockHttpServer.
-     */
-    /*
-    @Test
-    public void testMockHappyFlow() throws Exception {
-        startServer();
-        ClassPathResource responseResource = new ClassPathResource("org/tensin/beerduino/temperatures.xml");
-        setResponseResource(responseResource);
-        Thread.sleep(250);
-        InputStream is = new URL("http://localhost:8080/").openStream();
-        Assert.assertEquals(IOUtils.toString(responseResource.getInputStream()), IOUtils.toString(is));
-        stopServer();
-    }
-    */
-
     public static void main(final String[] args) throws CoreException {
 
         BasicConfigurator.configure();
         ArduinoSimulator simulator = new ArduinoSimulator(8080);
         simulator.startServer();
-        // simulator.setResponseResource(new ClassPathResource("org/tensin/beerduino/temperatures.xml"));
         try {
             Thread.sleep(250);
         } catch (InterruptedException e) {

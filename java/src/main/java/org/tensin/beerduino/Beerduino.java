@@ -52,7 +52,10 @@ public class Beerduino {
 
     private void initLog() {
         // Set up a simple configuration that logs on the console.
+        BasicConfigurator.resetConfiguration();
         BasicConfigurator.configure();
+        org.apache.log4j.Logger rootLogger = org.apache.log4j.Logger.getRootLogger();
+        rootLogger.setLevel(org.apache.log4j.Level.INFO);
         LOGGER.info("Starting Beerduino v" + BeerduinoConstants.PROGRAM_VERSION);
     }
 

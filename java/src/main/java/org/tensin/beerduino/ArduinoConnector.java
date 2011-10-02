@@ -1,8 +1,9 @@
 package org.tensin.beerduino;
 
 /**
- * @author u248663
+ * The Class ArduinoConnector.
  *
+ * @author u248663
  */
 public class ArduinoConnector {
 

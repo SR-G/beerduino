@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package org.tensin.beerduino;
 
 import java.io.File;
@@ -10,10 +13,20 @@ import org.simpleframework.xml.core.Persister;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+
+/**
+ * The Class XMLTemperatureReadingTestCase.
+ */
 public class XMLTemperatureReadingTestCase extends AbstractTestCase {
 
+    /** The Constant LOGGER. */
     private static final Logger LOGGER = LoggerFactory.getLogger(XMLTemperatureReadingTestCase.class);
 
+    /**
+     * Test xml temperature reading.
+     *
+     * @throws CoreException the core exception
+     */
     @Test
     public void testXMLTemperatureReading() throws CoreException {
         try {

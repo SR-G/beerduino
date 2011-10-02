@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package org.tensin.beerduino;
 
 import java.io.IOException;
@@ -14,15 +17,16 @@ import org.eclipse.jetty.server.bio.SocketConnector;
 import org.eclipse.jetty.server.handler.AbstractHandler;
 import org.springframework.core.io.Resource;
 
+
 /**
- * Very simple {@link Server} to mock http traffic
- * 
+ * Very simple {@link Server} to mock http traffic.
  */
 public class MockHttpServer extends AbstractHandler {
 
     /*
      * The Jetty Server responsible for opening the Socket
      */
+    /** The server. */
     private Server server;
 
     /*
@@ -30,19 +34,22 @@ public class MockHttpServer extends AbstractHandler {
      * accessible through the server instance and must be accessible from the
      * classpath
      */
+    /** The response resource. */
     private Resource responseResource;
 
     /**
-     * Construct MockHtppServer
-     * 
-     * @param port
-     *            the port for starting up the HTTP server
+     * Construct MockHtppServer.
+     *
+     * @param port the port for starting up the HTTP server
      */
     public MockHttpServer(final int port) {
         super();
         initServer(port);
     }
 
+    /* (non-Javadoc)
+     * @see org.eclipse.jetty.server.Handler#handle(java.lang.String, org.eclipse.jetty.server.Request, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     */
     @Override
     public void handle(final String target, final Request baseRequest, final HttpServletRequest request, final HttpServletResponse response)
             throws IOException, ServletException {
@@ -54,6 +61,11 @@ public class MockHttpServer extends AbstractHandler {
 
     /*
      * Initialize the server
+     */
+    /**
+     * Inits the server.
+     *
+     * @param port the port
      */
     private void initServer(final int port) {
         server = new Server();
@@ -67,6 +79,9 @@ public class MockHttpServer extends AbstractHandler {
     /*
      * Check the response to render back
      */
+    /**
+     * Invariant.
+     */
     protected void invariant() {
         if (responseResource == null) {
             throw new RuntimeException("No responseResource set");
@@ -74,8 +89,9 @@ public class MockHttpServer extends AbstractHandler {
     }
 
     /**
-     * @param responseResource
-     *            the responseResource to set
+     * Sets the response resource.
+     *
+     * @param responseResource the responseResource to set
      */
     public void setResponseResource(final Resource responseResource) {
         this.responseResource = responseResource;
@@ -102,7 +118,7 @@ public class MockHttpServer extends AbstractHandler {
     }
 
     /**
-     * Stop the server
+     * Stop the server.
      */
     public void stopServer() {
         try {

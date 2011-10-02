@@ -13,13 +13,24 @@ import org.tensin.beerduino.TemperatureResults;
 import org.tensin.beerduino.TemperatureState;
 import org.tensin.beerduino.helpers.CloseHelper;
 
+
+/**
+ * The Class URLNotification.
+ */
 public class URLNotification implements INotification {
 
+    /** The Constant LOGGER. */
     private static final Logger LOGGER = LoggerFactory.getLogger(URLNotification.class);
 
+    /** The url. */
     @Attribute(required = false)
     private String url;
 
+    /**
+     * Activate url.
+     *
+     * @param address the address
+     */
     protected void activateUrl(final String address) {
         try {
             URL u = new URL(address);
@@ -32,6 +43,9 @@ public class URLNotification implements INotification {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.tensin.beerduino.notifications.INotification#execute(org.tensin.beerduino.TemperatureResults)
+     */
     @Override
     public void execute(final TemperatureResults results) throws CoreException {
         if (results.getState().compareTo(TemperatureState.OVERHEAT) == 0) {

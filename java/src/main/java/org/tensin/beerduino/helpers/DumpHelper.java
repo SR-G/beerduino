@@ -13,6 +13,7 @@ import java.util.Properties;
 import java.util.TreeMap;
 import java.util.Vector;
 
+
 /**
  * Dump Helper.
  * 
@@ -22,6 +23,7 @@ import java.util.Vector;
  */
 public final class DumpHelper {
 
+    /** The Constant CARRIAGE_RETURN. */
     private static final Object CARRIAGE_RETURN = "\n";
 
     /**
@@ -47,10 +49,9 @@ public final class DumpHelper {
     }
 
     /**
-     * Dump du contenu d'une énumération
-     * 
-     * @param e
-     *            L'énumération à dumper
+     * Dump du contenu d'une énumération.
+     *
+     * @param e L'énumération à dumper
      * @return La représentation textuelle
      */
     public static String dump(final Enumeration<?> e) {
@@ -67,10 +68,9 @@ public final class DumpHelper {
     }
 
     /**
-     * Dump du contenu d'une map
-     * 
-     * @param h
-     *            La map a dumper
+     * Dump du contenu d'une map.
+     *
+     * @param h La map a dumper
      * @return La représentation textuelle
      */
     public static String dump(final HashMap<?, ?> h) {
@@ -97,10 +97,9 @@ public final class DumpHelper {
     }
 
     /**
-     * Dump du contenu d'une liste
-     * 
-     * @param l
-     *            La liste à dumper
+     * Dump du contenu d'une liste.
+     *
+     * @param l La liste à dumper
      * @return La représentation textuelle
      */
     public static String dump(final List<?> l) {
@@ -124,10 +123,9 @@ public final class DumpHelper {
     }
 
     /**
-     * Dump du contenu d'une Hashmap
-     * 
-     * @param h
-     *            La map a dumper
+     * Dump du contenu d'une Hashmap.
+     *
+     * @param h La map a dumper
      * @return La représentation textuelle
      */
     public static String dump(final Map<?, ?> h) {
@@ -155,10 +153,9 @@ public final class DumpHelper {
     }
 
     /**
-     * Dump d'un objet
-     * 
-     * @param o
-     *            L'objet a dumper
+     * Dump d'un objet.
+     *
+     * @param o L'objet a dumper
      * @return La représentation textuelle
      */
     public static String dump(final Object o) {
@@ -178,10 +175,9 @@ public final class DumpHelper {
     }
 
     /**
-     * Dump d'un ensemble de properties
-     * 
-     * @param p
-     *            L'objet Properties à dumper
+     * Dump d'un ensemble de properties.
+     *
+     * @param p L'objet Properties à dumper
      * @return La représentation textuelle
      */
     public static String dump(final Properties p) {
@@ -209,10 +205,9 @@ public final class DumpHelper {
     }
 
     /**
-     * Dump du contenu d'une liste
-     * 
-     * @param l
-     *            La liste à dumper
+     * Dump du contenu d'une liste.
+     *
+     * @param l La liste à dumper
      * @return La représentation textuelle
      */
     public static String singleDump(final Collection<?> l) {
@@ -237,10 +232,9 @@ public final class DumpHelper {
     }
 
     /**
-     * Dump du contenu d'une liste
-     * 
-     * @param l
-     *            La liste à dumper
+     * Dump du contenu d'une liste.
+     *
+     * @param l La liste à dumper
      * @return La représentation textuelle
      */
     public static String singleDump(final List<?> l) {

@@ -27,31 +27,48 @@ import org.tensin.beerduino.TemperatureState;
 import org.tensin.beerduino.TemplatedGraph;
 import org.tensin.beerduino.VelociMail;
 
+
+/**
+ * The Class MailNotification.
+ */
 public class MailNotification implements INotification {
 
+    /** The Constant LOGGER. */
     private static final Logger LOGGER = LoggerFactory.getLogger(MailNotification.class);
 
+    /** The smtp hostname. */
     @Attribute(required = false)
     public String smtpHostname = "smtp.gmail.com";
 
+    /** The smtp login. */
     @Attribute(required = false)
     public String smtpLogin = "beerduino@gmail.com";
 
+    /** The smtp password. */
     @Attribute(required = false)
     public String smtpPassword = "duino1234";
 
+    /** The smtp port. */
     @Attribute(required = false)
     public int smtpPort = 587;
 
+    /** The recipients. */
     @ElementList(name = "destinataires", required = true)
     public Collection<Recipient> recipients = new ArrayList<Recipient>();
 
+    /**
+     * Instantiates a new mail notification.
+     */
     public MailNotification() {
         super();
     }
 
+    /* (non-Javadoc)
+     * @see org.tensin.beerduino.notifications.INotification#execute(org.tensin.beerduino.TemperatureResults)
+     */
     @Override
     public void execute(final TemperatureResults results) throws CoreException {
+    	LOGGER.info("Sending mail notification");
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.host", smtpHostname);

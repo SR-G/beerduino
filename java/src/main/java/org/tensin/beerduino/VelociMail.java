@@ -27,33 +27,35 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.tensin.beerduino.helpers.DumpHelper;
 
+
 /**
+ * The Class VelociMail.
+ *
  * @author u248663
  * @version $Revision: 1.1 $
  * @since 6 mai 2011 15:38:02
- * 
  */
 public class VelociMail {
     
-    /** loader */
+    /** loader. */
     private static final ClassLoader loader = Thread.currentThread().getContextClassLoader();
 
-    /** Logger */
+    /** Logger. */
     private static final Logger LOGGER = LoggerFactory.getLogger(VelociMail.class);
 
-    /** template */
+    /** template. */
     private String template;
     
-    /** layout */
+    /** layout. */
     private String layout;
     
-    /** velocityContext */
+    /** velocityContext. */
     private VelocityContext velocityContext;
 
     /**
      * Method.
      *
-     * @return
+     * @return the velocity context
      */
     public VelocityContext getVelocityContext() {
         return velocityContext;
@@ -62,8 +64,8 @@ public class VelociMail {
         /**
          * Method.
          *
-         * @param key
-         * @param object
+         * @param key the key
+         * @param object the object
          */
     public void addContext(String key, Object object) {
         velocityContext.put(key, object);
@@ -72,7 +74,7 @@ public class VelociMail {
     /**
      * Method.
      *
-     * @param velocityContext
+     * @param velocityContext the new velocity context
      */
     public void setVelocityContext(VelocityContext velocityContext) {
         this.velocityContext = velocityContext;
@@ -81,7 +83,7 @@ public class VelociMail {
     /**
      * Method.
      *
-     * @return
+     * @return the template
      */
     public String getTemplate() {
         return template;
@@ -90,7 +92,7 @@ public class VelociMail {
     /**
      * Method.
      *
-     * @param template
+     * @param template the new template
      */
     public void setTemplate(String template) {
         this.template = template;
@@ -99,7 +101,7 @@ public class VelociMail {
     /**
      * Method.
      *
-     * @return
+     * @return the layout
      */
     public String getLayout() {
         return layout;
@@ -108,7 +110,7 @@ public class VelociMail {
     /**
      * Method.
      *
-     * @param layout
+     * @param layout the new layout
      */
     public void setLayout(String layout) {
         this.layout = layout;
@@ -139,10 +141,8 @@ public class VelociMail {
     /**
      * Method.
      *
-     * @param email
-     * @param velocityContext
-     * @param packageName
-     * @param listUsedImages 
+     * @param email the email
+     * @param listUsedImages the list used images
      */
     private void loadImagesIntoContext(HtmlEmail email, Set<String> listUsedImages) {
         PathMatchingResourcePatternResolver pmrspr = new PathMatchingResourcePatternResolver();
@@ -174,6 +174,11 @@ public class VelociMail {
         LOGGER.info("Registered images : \n" + DumpHelper.dump(registeredImages));
     }
     
+    /**
+     * Render.
+     *
+     * @return the string
+     */
     public String render() {
         StringWriter w = new StringWriter();
         try {
@@ -199,8 +204,8 @@ public class VelociMail {
     /**
      * Method.
      *
-     * @param email
-     * @return
+     * @param email the email
+     * @return the string
      */
     public String render(HtmlEmail email) {
         StringWriter w = new StringWriter();
@@ -227,8 +232,8 @@ public class VelociMail {
     /**
      * Method.
      *
-     * @return
-     * @throws LTPException
+     * @return the sets the
+     * @throws CoreException the core exception
      */
     private Set<String> loadUsedImagesFromTemplate() throws CoreException {
         Set<String> listUsedImages = new TreeSet<String>();
@@ -256,9 +261,9 @@ public class VelociMail {
     /**
      * Method.
      *
-     * @param templatePath
-     * @return
-     * @throws LTPException
+     * @param templatePath the template path
+     * @return the input stream reader
+     * @throws CoreException the core exception
      */
     private Reader getInputStreamReader(String templatePath) throws CoreException {
         InputStream is = loader.getResourceAsStream(templatePath);
@@ -271,8 +276,8 @@ public class VelociMail {
     /**
      * Method.
      *
-     * @param resourceName
-     * @return
+     * @param resourceName the resource name
+     * @return true, if is image
      */
     public static boolean isImage(final String resourceName) {
         if ( StringUtils.isNotEmpty(resourceName)) {

@@ -7,16 +7,30 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tensin.beerduino.notifications.INotification;
 
+
+/**
+ * The Class ThreadNotify.
+ */
 public class ThreadNotify extends AbstractThread {
 
+    /** The Constant LOGGER. */
     private static final Logger LOGGER = LoggerFactory.getLogger(ThreadNotify.class);
 
+    /** The queue. */
     private final LinkedBlockingQueue<TemperatureResults> queue;
 
+    /**
+     * Instantiates a new thread notify.
+     *
+     * @param notifications the notifications
+     */
     public ThreadNotify(final LinkedBlockingQueue<TemperatureResults> notifications) {
         queue = notifications;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Thread#run()
+     */
     @Override
     public void run() {
         setName("THREAD-NOTIFY");

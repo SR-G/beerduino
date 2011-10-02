@@ -12,20 +12,39 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tensin.beerduino.helpers.CloseHelper;
 
+
+/**
+ * The Class ThreadMonitoring.
+ */
 public class ThreadMonitoring extends AbstractThread {
 
+    /** The Constant LOGGER. */
     private static final Logger LOGGER = LoggerFactory.getLogger(ThreadMonitoring.class);
 
+    /** The notifications. */
     private final LinkedBlockingQueue<TemperatureResults> notifications;
 
+    /** The temperatures. */
     private final LinkedBlockingQueue<TemperatureResults> temperatures;
 
+    /**
+     * Instantiates a new thread monitoring.
+     *
+     * @param temperatures the temperatures
+     * @param notifications the notifications
+     */
     public ThreadMonitoring(final LinkedBlockingQueue<TemperatureResults> temperatures, final LinkedBlockingQueue<TemperatureResults> notifications) {
         super();
         this.notifications = notifications;
         this.temperatures = temperatures;
     }
 
+    /**
+     * Are temperatures back to normal.
+     *
+     * @param results the results
+     * @return true, if successful
+     */
     private boolean areTemperaturesBackToNormal(final TemperatureResults results) {
         int temperaturesBelowCount = 0;
         int checkedLimitsCount = 0;
@@ -42,6 +61,12 @@ public class ThreadMonitoring extends AbstractThread {
         }
     }
 
+    /**
+     * Are temperatures overheat.
+     *
+     * @param results the results
+     * @return true, if successful
+     */
     private boolean areTemperaturesOverheat(final TemperatureResults results) {
         for (TemperatureResult result : results.getResults()) {
             if (result.getTemperature() >= result.getLimit()) {
@@ -51,6 +76,9 @@ public class ThreadMonitoring extends AbstractThread {
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Thread#run()
+     */
     @Override
     public void run() {
         setName("THREAD-MONITORING");

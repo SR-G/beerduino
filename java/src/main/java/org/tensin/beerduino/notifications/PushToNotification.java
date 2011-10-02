@@ -18,21 +18,33 @@ import org.tensin.beerduino.TemperatureResults;
 import org.tensin.beerduino.TemperatureState;
 import org.tensin.beerduino.helpers.CloseHelper;
 
+
+/**
+ * The Class PushToNotification.
+ */
 public class PushToNotification extends URLNotification implements INotification {
 
+    /** The Constant LOGGER. */
     private static final Logger LOGGER = LoggerFactory.getLogger(PushToNotification.class);
 
+    /** The pushto url. */
     @Attribute(name = "pushto-url", required = false)
     private String pushtoUrl = "http://pushme.to/";
 
+    /** The pushto id. */
     @Attribute(name = "id")
     private String pushtoId;
 
+    /** The pushto signature. */
     @Attribute(name = "signature", required = false)
     private String pushtoSignature = "beerduino";
 
+    /* (non-Javadoc)
+     * @see org.tensin.beerduino.notifications.URLNotification#execute(org.tensin.beerduino.TemperatureResults)
+     */
     @Override
     public void execute(final TemperatureResults results) throws CoreException {
+    	LOGGER.info("Sending PushTo notification to [" + pushtoId + "]");
 
         StringBuilder sb = new StringBuilder();
         if (results.getState().compareTo(TemperatureState.OVERHEAT) == 0) {
@@ -89,30 +101,65 @@ public class PushToNotification extends URLNotification implements INotification
 
     }
 
+    /**
+     * Gets the pushto id.
+     *
+     * @return the pushto id
+     */
     public String getPushtoId() {
         return pushtoId;
     }
 
+    /**
+     * Gets the pushto signature.
+     *
+     * @return the pushto signature
+     */
     public String getPushtoSignature() {
         return pushtoSignature;
     }
 
+    /**
+     * Gets the pushto url.
+     *
+     * @return the pushto url
+     */
     public String getPushtoUrl() {
         return pushtoUrl;
     }
 
+    /**
+     * Gets the url.
+     *
+     * @return the url
+     */
     private String getUrl() {
         return getPushtoUrl() + getPushtoId() + "/";
     }
 
+    /**
+     * Sets the pushto id.
+     *
+     * @param pushtoId the new pushto id
+     */
     public void setPushtoId(final String pushtoId) {
         this.pushtoId = pushtoId;
     }
 
+    /**
+     * Sets the pushto signature.
+     *
+     * @param pushtoSignature the new pushto signature
+     */
     public void setPushtoSignature(final String pushtoSignature) {
         this.pushtoSignature = pushtoSignature;
     }
 
+    /**
+     * Sets the pushto url.
+     *
+     * @param pushtoUrl the new pushto url
+     */
     public void setPushtoUrl(final String pushtoUrl) {
         this.pushtoUrl = pushtoUrl;
     }

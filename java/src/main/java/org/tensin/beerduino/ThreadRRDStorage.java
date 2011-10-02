@@ -7,29 +7,52 @@ import org.rrd4j.core.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+
+/**
+ * The Class ThreadRRDStorage.
+ */
 public class ThreadRRDStorage extends AbstractThread {
 
+    /** The Constant LOGGER. */
     private static final Logger LOGGER = LoggerFactory.getLogger(ThreadRRDStorage.class);
 
+    /** The queue. */
     private final LinkedBlockingQueue<TemperatureResults> queue;
 
+    /** The rrd. */
     private RRDTemperature rrd;
 
+    /**
+     * Instantiates a new thread rrd storage.
+     */
     private ThreadRRDStorage() {
         rrd = null;
         queue = null;
     }
 
+    /**
+     * Instantiates a new thread rrd storage.
+     *
+     * @param queue the queue
+     */
     public ThreadRRDStorage(final LinkedBlockingQueue<TemperatureResults> queue) {
         super();
         this.queue = queue;
         rrd = null;
     }
 
+    /**
+     * Gets the rrd.
+     *
+     * @return the rrd
+     */
     public RRDTemperature getRrd() {
         return rrd;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Thread#run()
+     */
     @Override
     public void run() {
         setName("THREAD-RRD-STORAGE");

@@ -1,17 +1,28 @@
 package org.tensin.beerduino;
 
+
 /**
+ * The Class TemplatedGraph.
+ *
  * @author u248663
  * @version $Revision: 1.1 $
  * @since 20 juil. 2011 23:13:25
- * 
  */
 public class TemplatedGraph {
 
+    /** The url. */
     private String url;
+    
+    /** The cid. */
     private String cid;
+    
+    /** The width. */
     private String width;
+    
+    /** The height. */
     private String height;
+    
+    /** The label. */
     private String label;
 
     /**

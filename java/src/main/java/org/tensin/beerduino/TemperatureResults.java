@@ -15,7 +15,7 @@ import org.simpleframework.xml.Root;
 public class TemperatureResults {
 
     /** The state. */
-    private TemperatureState state;
+    private TemperatureState state = TemperatureState.UNKNOWN;
 
     /** The results. */
     @ElementList(inline = true)

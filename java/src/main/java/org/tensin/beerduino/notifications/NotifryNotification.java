@@ -21,34 +21,34 @@ import org.tensin.beerduino.helpers.CloseHelper;
 
 
 /**
- * The Class PushToNotification.
- * Use : http://pushme.to (iOS only)
+ * The Class NotifryNotification.
+ * Use : https://notifrier.appspot.com (Android only)
  * 
  */
 @Root
-public class PushToNotification extends URLNotification implements INotification {
+public class NotifryNotification extends URLNotification implements INotification {
 
     /** The Constant LOGGER. */
-    private static final Logger LOGGER = LoggerFactory.getLogger(PushToNotification.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(NotifryNotification.class);
 
     /** The pushto url. */
-    @Attribute(name = "pushto-url", required = false)
-    private String pushtoUrl = "http://pushme.to/";
+    @Attribute(name = "notifry-url", required = false)
+    private String notifryUrl = "https://notifrier.appspot.com/notifry";
 
     /** The pushto id. */
-    @Attribute(name = "id")
-    private String pushtoId;
+    @Attribute(name = "source")
+    private String notifrySource;
 
     /** The pushto signature. */
     @Attribute(name = "signature", required = false)
-    private String pushtoSignature = "beerduino";
+    private String notifrySignature = "beerduino";
 
     /* (non-Javadoc)
      * @see org.tensin.beerduino.notifications.URLNotification#execute(org.tensin.beerduino.TemperatureResults)
      */
     @Override
     public void execute(final TemperatureResults results) throws CoreException {
-    	LOGGER.info("Sending PushTo notification to [" + pushtoId + "]");
+    	LOGGER.info("Sending PushTo notification to [" + notifrySource + "]");
 
         StringBuilder sb = new StringBuilder();
         if (results.getState().compareTo(TemperatureState.OVERHEAT) == 0) {
@@ -75,9 +75,11 @@ public class PushToNotification extends URLNotification implements INotification
 
         BufferedReader br = null;
 
-        PostMethod method = new PostMethod(getUrl());
+        PostMethod method = new PostMethod(getNotifryUrl());
+        method.addParameter("format", "json");
+        method.addParameter("source", notifrySource);
         method.addParameter("message", sb.toString());
-        method.addParameter("signature", getPushtoSignature());
+        method.addParameter("title", getNotifrySignature());
 
         try {
             int returnCode = client.executeMethod(method);
@@ -110,8 +112,8 @@ public class PushToNotification extends URLNotification implements INotification
      *
      * @return the pushto id
      */
-    public String getPushtoId() {
-        return pushtoId;
+    public String getNotifrySource() {
+        return notifrySource;
     }
 
     /**
@@ -119,8 +121,8 @@ public class PushToNotification extends URLNotification implements INotification
      *
      * @return the pushto signature
      */
-    public String getPushtoSignature() {
-        return pushtoSignature;
+    public String getNotifrySignature() {
+        return notifrySignature;
     }
 
     /**
@@ -128,8 +130,8 @@ public class PushToNotification extends URLNotification implements INotification
      *
      * @return the pushto url
      */
-    public String getPushtoUrl() {
-        return pushtoUrl;
+    public String getNotifryUrl() {
+        return notifryUrl;
     }
 
     /**
@@ -138,7 +140,7 @@ public class PushToNotification extends URLNotification implements INotification
      * @return the url
      */
     private String getUrl() {
-        return getPushtoUrl() + getPushtoId() + "/";
+        return getNotifryUrl() + getNotifrySource() + "/";
     }
 
     /**
@@ -146,8 +148,8 @@ public class PushToNotification extends URLNotification implements INotification
      *
      * @param pushtoId the new pushto id
      */
-    public void setPushtoId(final String pushtoId) {
-        this.pushtoId = pushtoId;
+    public void setNotifrySource(final String notifryId) {
+        this.notifrySource = notifryId;
     }
 
     /**
@@ -155,8 +157,8 @@ public class PushToNotification extends URLNotification implements INotification
      *
      * @param pushtoSignature the new pushto signature
      */
-    public void setPushtoSignature(final String pushtoSignature) {
-        this.pushtoSignature = pushtoSignature;
+    public void setNotifrySignature(final String notifrySignature) {
+        this.notifrySignature = notifrySignature;
     }
 
     /**
@@ -164,8 +166,7 @@ public class PushToNotification extends URLNotification implements INotification
      *
      * @param pushtoUrl the new pushto url
      */
-    public void setPushtoUrl(final String pushtoUrl) {
-        this.pushtoUrl = pushtoUrl;
+    public void setNotifryUrl(final String notifryUrl) {
+        this.notifryUrl = notifryUrl;
     }
-
 }

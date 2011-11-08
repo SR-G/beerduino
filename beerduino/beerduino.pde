@@ -213,7 +213,6 @@ void sendAboutPage(WebServer &server) {
    server.println("<li>Arduino library 022</li>");
    server.println("<li>Additionnal libraries : Time.h, OneWire.h, DallasTemperature.h, Wedbuino, Streaming</li>");
    server.println("<li>Thermal sensors : Dallas DS18B20</li>");
-   server.println("Contact: <a href=\"mailto:serge.simon@gmail.com\">serge.simon@gmail.com</a>.");
    */
 }
 
@@ -339,16 +338,16 @@ void sendMail() {
     smtpClient << "HELO beerduino" << endl;
     delay(SMTP_TEMPO);
 
-    smtpClient << "MAIL FROM:serge.simon@free.fr" << endl; /* identify sender */
+    smtpClient << "MAIL FROM:destemail@free.fr" << endl; /* identify sender */
     delay(SMTP_TEMPO);
 
-    smtpClient << "RCPT TO:serge.simon@free.fr" << endl; /* identify recipient */
+    smtpClient << "RCPT TO:destemail@free.fr" << endl; /* identify recipient */
     delay(SMTP_TEMPO);
 
     smtpClient << "AUTH LOGIN PLAIN CRAM-MD5" << endl; /* a tester si besoin d'authentification sur smtp.free.fr */
     delay(SMTP_TEMPO);
 
-    // smtpClient << "8498e6ecf343c526c98388bbf310044a" << endl; /* serge.simon encodé en MD5 */
+    // smtpClient << "8498e6ecf343c526c98388bbf310044a" << endl; /* destemail encodé en MD5 */
     // delay(SMTP_TEMPO);
 
     // smtpClient << "" << endl; /* password encodé en MD5 */

@@ -7,7 +7,6 @@ import org.rrd4j.core.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
  * The Class ThreadRRDStorage.
  */
@@ -32,8 +31,9 @@ public class ThreadRRDStorage extends AbstractThread {
 
     /**
      * Instantiates a new thread rrd storage.
-     *
-     * @param queue the queue
+     * 
+     * @param queue
+     *            the queue
      */
     public ThreadRRDStorage(final LinkedBlockingQueue<TemperatureResults> queue) {
         super();
@@ -43,22 +43,26 @@ public class ThreadRRDStorage extends AbstractThread {
 
     /**
      * Gets the rrd.
-     *
+     * 
      * @return the rrd
      */
     public RRDTemperature getRrd() {
         return rrd;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.lang.Thread#run()
      */
     @Override
     public void run() {
         setName("THREAD-RRD-STORAGE");
+        TemperatureResults results;
+        Sample s;
         while (alive) {
             try {
-                TemperatureResults results = queue.take();
+                results = queue.take();
                 if (rrd == null) {
                     rrd = new RRDTemperature();
                     rrd.setRrdFileName(Beerduino.getInstance().getPreferences().getWorkDir() + "temperatures.rrd");
@@ -68,7 +72,7 @@ public class ThreadRRDStorage extends AbstractThread {
                     }
                 }
 
-                Sample s = rrd.acquireSample();
+                s = rrd.acquireSample();
                 s.setTime(Util.getTime());
 
                 for (TemperatureResult result : results.getResults()) {

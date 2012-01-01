@@ -1,15 +1,23 @@
+/* 
+ * This part deals with the "ENC28J60" arduino network card.
+ * Cheaper than the official one but a lot of stuff has to be done by hand about the TCP/IP stack.
+ * Right now uses the standard ENC28J60 library available on : http://www.nuelectronics.com/estore/index.php?main_page=project_eth
+ * The other library available seems to be bugged, the arduino hangs from time to time with that one (http://blog.thiseldo.co.uk/?p=329).
+ * Had no luck at this time with the library that handles both network card (available on github : https://github.com/turicas/Ethernet_ENC28J60 ) 
+ * Check too : http://iteadstudio.com/application-note/ethernet-shield-go-with-arduino-libraries/
+ */
 #include "etherShield.h"
 #include <stdlib.h>
 
 // please modify the following two lines. mac and ip have to be unique
 // in your local area network. You can not have the same numbers in
 // two devices:
-static uint8_t mymac[6] = { 0x54,0x55,0x58,0x10,0x00,0x24};
-static uint8_t myip[4] = { 192,168,1,101};
+static uint8_t mymac[6] = { 0x54, 0x55, 0x58, 0x10, 0x00, 0x24};
+static uint8_t myip[4] = { 192, 168, 1, 101 };
 static char baseurl[]="http://192.168.1.101/";
-// or on a different port:
-//static char baseurl[]="http://10.0.0.24:88/"; + WEBSERVER_PORT to be set to 88
-//
+/* On a different port use :
+ * static char baseurl[]="http://10.0.0.24:88/"; + WEBSERVER_PORT to be set to 88
+ */
 
 #define BUFFER_SIZE 500
 static uint8_t buf[BUFFER_SIZE+1];
@@ -17,50 +25,53 @@ static uint8_t buf[BUFFER_SIZE+1];
 #define STR_BUFFER_SIZE 22
 static char strbuf[STR_BUFFER_SIZE+1];
 
+// Main etherShield object to deal network stuff
 EtherShield es = EtherShield();
 
-// prepare the webpage by writing the data to the tcp send buffer
+// Prepare the webpage by writing the data to the tcp send buffer
 uint16_t print_webpage(uint8_t *buf);
 int8_t analyse_cmd(char *str);
 
+// Method called from the main setup arduino method. Has to define everything about the network (IP, and so on).
 void setupNetwork() {
-   /*initialize enc28j60*/
+   // Initialize enc28j60
    es.ES_enc28j60Init(mymac);
    es.ES_enc28j60clkout(2); // change clkout from 6.25MHz to 12.5MHz
    delay(10);
         
-	/* Magjack leds configuration, see enc28j60 datasheet, page 11 */
-	// LEDA=greed LEDB=yellow
-	//
-	// 0x880 is PHLCON LEDB=on, LEDA=on
-	// enc28j60PhyWrite(PHLCON,0b0000 1000 1000 00 00);
-	es.ES_enc28j60PhyWrite(PHLCON,0x880);
-	delay(500);
-	//
-	// 0x990 is PHLCON LEDB=off, LEDA=off
-	// enc28j60PhyWrite(PHLCON,0b0000 1001 1001 00 00);
-	es.ES_enc28j60PhyWrite(PHLCON,0x990);
-	delay(500);
-	//
-	// 0x880 is PHLCON LEDB=on, LEDA=on
-	// enc28j60PhyWrite(PHLCON,0b0000 1000 1000 00 00);
-	es.ES_enc28j60PhyWrite(PHLCON,0x880);
-	delay(500);
-	//
-	// 0x990 is PHLCON LEDB=off, LEDA=off
-	// enc28j60PhyWrite(PHLCON,0b0000 1001 1001 00 00);
-	es.ES_enc28j60PhyWrite(PHLCON,0x990);
-	delay(500);
-	//
+  /* Magjack leds configuration, see enc28j60 datasheet, page 11 */
+  // LEDA=greed LEDB=yellow
+  
+  // 0x880 is PHLCON LEDB=on, LEDA=on
+  // enc28j60PhyWrite(PHLCON,0b0000 1000 1000 00 00);
+  es.ES_enc28j60PhyWrite(PHLCON,0x880);
+  delay(500);
+  
+  // 0x990 is PHLCON LEDB=off, LEDA=off
+  // enc28j60PhyWrite(PHLCON,0b0000 1001 1001 00 00);
+  es.ES_enc28j60PhyWrite(PHLCON,0x990);
+  delay(500);
+  
+  // 0x880 is PHLCON LEDB=on, LEDA=on
+  // enc28j60PhyWrite(PHLCON,0b0000 1000 1000 00 00);
+  es.ES_enc28j60PhyWrite(PHLCON,0x880);
+  delay(500);
+  
+  // 0x990 is PHLCON LEDB=off, LEDA=off
+  // enc28j60PhyWrite(PHLCON,0b0000 1001 1001 00 00);
+  es.ES_enc28j60PhyWrite(PHLCON,0x990);
+  delay(500);
+  
   // 0x476 is PHLCON LEDA=links status, LEDB=receive/transmit
   // enc28j60PhyWrite(PHLCON,0b0000 0100 0111 01 10);
   es.ES_enc28j60PhyWrite(PHLCON,0x476);
-	delay(100);
+  delay(100);
         
   //init the ethernet/ip layer:
   es.ES_init_ip_arp_udp_tcp(mymac,myip,80);
 }
 
+// Main loop (called from the arduino "loop()" method). Has to deal everything about the embedeed webserver.
 void network_loop(){
   uint16_t plen, dat_p;
   int8_t cmd;
@@ -69,7 +80,7 @@ void network_loop(){
 
   /*plen will ne unequal to zero if there is a valid packet (without crc error) */
   if(plen!=0){
-	           
+             
     // arp is broadcast if unknown but a host may also verify the mac address by sending it to a unicast address.
     if(es.ES_eth_type_is_arp_and_my_ip(buf,plen)){
       es.ES_make_arp_answer_from_request(buf);
@@ -102,12 +113,12 @@ void network_loop(){
           return;
         }
         if (strncmp("GET ",(char *)&(buf[dat_p]),4)!=0){
-          	// head, post and other methods for possible status codes see:
+            // head, post and other methods for possible status codes see:
             // http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
             plen=es.ES_fill_tcp_data_p(buf,0,PSTR("HTTP/1.0 200 OK\r\nContent-Type: text/html\r\n\r\n<h1>200 OK</h1>"));
             goto SENDTCP;
         }
- 	if (strncmp("/ ",(char *)&(buf[dat_p+4]),2)==0){
+   if (strncmp("/ ",(char *)&(buf[dat_p+4]),2)==0){
                 plen=print_webpage(buf);
             goto SENDTCP;
          }
@@ -203,24 +214,23 @@ uint16_t writeFloatToBuffer(uint8_t *buffer, uint16_t pos, float value) {
 }  
 
 uint16_t print_webpage(uint8_t *buf) {
-        uint16_t plen;
+  uint16_t plen;
         
-     	plen=es.ES_fill_tcp_data_p(buf,0,PSTR("HTTP/1.0 200 OK\r\nContent-Type: text/xml\r\n\r\n"));
+  plen=es.ES_fill_tcp_data_p(buf,0,PSTR("HTTP/1.0 200 OK\r\nContent-Type: text/xml\r\n\r\n"));
 
-        plen=es.ES_fill_tcp_data_p(buf,plen,PSTR("<?xml version=\"1.0\" encoding=\"UTF-8\"?>"));
-        plen=es.ES_fill_tcp_data_p(buf,plen,PSTR("<sensors time=\""));
-        plen=writeLongToBuffer(buf,plen,millis());
-        plen=es.ES_fill_tcp_data_p(buf,plen,PSTR("\">"));
+  plen=es.ES_fill_tcp_data_p(buf,plen,PSTR("<?xml version=\"1.0\" encoding=\"UTF-8\"?>"));
+  plen=es.ES_fill_tcp_data_p(buf,plen,PSTR("<sensors time=\""));
+  plen=writeLongToBuffer(buf,plen,millis());
+  plen=es.ES_fill_tcp_data_p(buf,plen,PSTR("\">"));
   for ( int i = 0 ; i < foundSensors ; i++ ) {
-        plen=es.ES_fill_tcp_data_p(buf,plen,PSTR("    <sensor id=\""));
-        plen=writeIntToBuffer(buf,plen,(i+1));
-        plen=es.ES_fill_tcp_data_p(buf,plen,PSTR("\" value=\""));
-        plen=writeFloatToBuffer(buf,plen,currentTemperature[i]);
-        plen=es.ES_fill_tcp_data_p(buf,plen,PSTR("\" type=\"C\" seuil=\""));
-        plen=writeFloatToBuffer(buf,plen,seuilTemperature[i]);
-        plen=es.ES_fill_tcp_data_p(buf,plen,PSTR("\"/>\n"));
+    plen=es.ES_fill_tcp_data_p(buf,plen,PSTR("    <sensor id=\""));
+    plen=writeIntToBuffer(buf,plen,(i+1));
+    plen=es.ES_fill_tcp_data_p(buf,plen,PSTR("\" value=\""));
+    plen=writeFloatToBuffer(buf,plen,currentTemperature[i]);
+    plen=es.ES_fill_tcp_data_p(buf,plen,PSTR("\" type=\"C\" seuil=\""));
+    plen=writeFloatToBuffer(buf,plen,seuilTemperature[i]);
+    plen=es.ES_fill_tcp_data_p(buf,plen,PSTR("\"/>\n"));
   }
-        plen=es.ES_fill_tcp_data_p(buf,plen,PSTR("</sensors>\n"));
-
-        return(plen);
- }
+  plen=es.ES_fill_tcp_data_p(buf,plen,PSTR("</sensors>\n"));
+  return(plen);
+}

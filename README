@@ -11,6 +11,9 @@ Binary size < 16384 octets at this time.
 For the JAVA program :
 - the sketchbook whole project is an Eclipse workspace (switch workspace to it), and the "java/" path is a Eclipse project ;
 - needs Maven (external to Eclipse or embedded Maven 3 with Eclipse 3.7+) ;
+- if Maven embedded, just right click project > Maven > Update dependencies ;
+- configure "beerduino.cfg" as needed (arduino ip address, notifications, ...) ;
+- run "src/main/java/Beerduino.java" (main entry point) ;
 
 Use a few libraries (included in this github) :
 - OneWire (v2) ( http://www.pjrc.com/teensy/td_libs_OneWire.html ) ;

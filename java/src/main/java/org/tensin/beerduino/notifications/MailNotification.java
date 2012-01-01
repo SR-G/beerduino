@@ -52,7 +52,7 @@ public class MailNotification implements INotification {
 
     /** The smtp password. */
     @Attribute(required = false)
-    public String smtpPassword = ""; // should be put in configuration file
+    public String smtpPassword = "duino1234"; // should be put in configuration file
 
     /** The smtp port. */
     @Attribute(required = false)

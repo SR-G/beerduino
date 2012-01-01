@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tensin.beerduino.notifications.INotification;
 
-
 /**
  * The Class ThreadNotify.
  */
@@ -21,14 +20,17 @@ public class ThreadNotify extends AbstractThread {
 
     /**
      * Instantiates a new thread notify.
-     *
-     * @param notifications the notifications
+     * 
+     * @param notifications
+     *            the notifications
      */
     public ThreadNotify(final LinkedBlockingQueue<TemperatureResults> notifications) {
         queue = notifications;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.lang.Thread#run()
      */
     @Override
@@ -45,15 +47,16 @@ public class ThreadNotify extends AbstractThread {
                         @Override
                         public void run() {
                             try {
+                                setName("THREAD-NOTIFY-" + notifier.getClass().getSimpleName().toUpperCase());
                                 notifier.execute(results);
                             } catch (CoreException e) {
-                                LOGGER.error("Error while notifying", e);
+                                LOGGER.error("Error while notifying with notifier [" + notifier.getClass().getSimpleName() + "]", e);
                             }
                         }
                     }.start();
                 }
             } catch (InterruptedException e) {
-                LOGGER.error("Error while notifying", e);
+                LOGGER.error("Global error while notifying", e);
             }
         }
     }

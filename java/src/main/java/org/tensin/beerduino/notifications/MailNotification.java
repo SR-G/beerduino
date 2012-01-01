@@ -10,6 +10,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Properties;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.HtmlEmail;
@@ -28,7 +29,6 @@ import org.tensin.beerduino.TemperatureState;
 import org.tensin.beerduino.TemplatedGraph;
 import org.tensin.beerduino.VelociMail;
 
-
 /**
  * The Class MailNotification.
  */
@@ -37,6 +37,10 @@ public class MailNotification implements INotification {
 
     /** The Constant LOGGER. */
     private static final Logger LOGGER = LoggerFactory.getLogger(MailNotification.class);
+
+    /** The recipients. */
+    @ElementList(name = "destinataires", required = true)
+    public Collection<Recipient> recipients = new ArrayList<Recipient>();
 
     /** The smtp hostname. */
     @Attribute(required = false)
@@ -48,15 +52,11 @@ public class MailNotification implements INotification {
 
     /** The smtp password. */
     @Attribute(required = false)
-    public String smtpPassword = "duino1234";
+    public String smtpPassword = ""; // should be put in configuration file
 
     /** The smtp port. */
     @Attribute(required = false)
     public int smtpPort = 587;
-
-    /** The recipients. */
-    @ElementList(name = "destinataires", required = true)
-    public Collection<Recipient> recipients = new ArrayList<Recipient>();
 
     /**
      * Instantiates a new mail notification.
@@ -65,12 +65,14 @@ public class MailNotification implements INotification {
         super();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.tensin.beerduino.notifications.INotification#execute(org.tensin.beerduino.TemperatureResults)
      */
     @Override
     public void execute(final TemperatureResults results) throws CoreException {
-    	LOGGER.info("Sending mail notification");
+        LOGGER.info("Sending mail notification");
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.host", smtpHostname);
@@ -82,6 +84,11 @@ public class MailNotification implements INotification {
         RRDTemperature rrd = Beerduino.getInstance().getRrd();
 
         try {
+
+            if (StringUtils.isEmpty(smtpPassword)) {
+                LOGGER.warn("Password is blank !");
+            }
+
             HtmlEmail email = new HtmlEmail();
             email.setSmtpPort(smtpPort);
             email.setAuthenticator(new DefaultAuthenticator(smtpLogin, smtpPassword));
@@ -105,7 +112,8 @@ public class MailNotification implements INotification {
             if (graphFilename.startsWith("/")) {
                 graphFilename = "file://" + graphFilename; // cas où les fichiers générés ont un path complet
             } else {
-                graphFilename = "file:///" + System.getProperty("user.dir") + File.separator + graphFilename; // cas où les fichiers générés ont un path relatifs
+                graphFilename = "file:///" + System.getProperty("user.dir") + File.separator + graphFilename; // cas où les fichiers générés ont un path
+                                                                                                              // relatifs
             }
             String cid = email.embed(new URL(graphFilename), "Temperatures"); // graphFileName est supposé avoir un path complet
             graph.setCid(cid);
@@ -140,26 +148,26 @@ public class MailNotification implements INotification {
         }
 
         /*
-        try {
-            Session session = Session.getDefaultInstance(props);
-            // session.setDebug(true);
-        
-        	// Needs javaee-api.jar
-        	MimeMessage message = new MimeMessage(session);
-        	message.setFrom(new InternetAddress(smtpLogin));
-        	message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipient));
-        	message.setSubject("Beerduino");
-        	message.setText("Test");
-        
-        	Transport transport = session.getTransport("smtp");
-        	transport.connect(smtpHostname, smtpPort, smtpLogin, smtpPassword);
-            message.saveChanges();
-
-        	transport.sendMessage(message, message.getAllRecipients());
-        	transport.close();
-        } catch (MessagingException e) {
-        	throw new CoreException(e);
-        }
-        */
+         * try {
+         * Session session = Session.getDefaultInstance(props);
+         * // session.setDebug(true);
+         * 
+         * // Needs javaee-api.jar
+         * MimeMessage message = new MimeMessage(session);
+         * message.setFrom(new InternetAddress(smtpLogin));
+         * message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipient));
+         * message.setSubject("Beerduino");
+         * message.setText("Test");
+         * 
+         * Transport transport = session.getTransport("smtp");
+         * transport.connect(smtpHostname, smtpPort, smtpLogin, smtpPassword);
+         * message.saveChanges();
+         * 
+         * transport.sendMessage(message, message.getAllRecipients());
+         * transport.close();
+         * } catch (MessagingException e) {
+         * throw new CoreException(e);
+         * }
+         */
     }
 }

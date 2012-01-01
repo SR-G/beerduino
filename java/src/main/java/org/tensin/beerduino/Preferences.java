@@ -19,10 +19,9 @@ import org.tensin.beerduino.notifications.PushToNotification;
 import org.tensin.beerduino.notifications.SMSNotification;
 import org.tensin.beerduino.notifications.URLNotification;
 
-
 /**
  * The Class Preferences.
- *
+ * 
  * @author u248663
  */
 @Root
@@ -33,18 +32,15 @@ public class Preferences {
 
     /**
      * Load configuration.
-     *
-     * @param configurationFilename the configuration filename
+     * 
+     * @param configurationFilename
+     *            the configuration filename
      * @return the preferences
-     * @throws CoreException the core exception
+     * @throws CoreException
+     *             the core exception
      */
     public static Preferences loadConfiguration(final String configurationFilename) throws CoreException {
         LOGGER.info("Loading configuration from file [" + configurationFilename + "]");
-        /*
-        MailNotification mn = new MailNotification();
-        mn.recipients.add(new Recipient("serge.simon@gmail.com", "Serge SIMON"));
-        notifiers.add(mn);
-        */
         Serializer serializer = new Persister();
         File source = new File(configurationFilename);
 
@@ -57,6 +53,18 @@ public class Preferences {
         }
     }
 
+    /** The arduino ip. */
+    @Element
+    private String arduinoIp = "127.0.0.1";
+
+    /** The arduino port. */
+    @Element
+    private int arduinoPort = 8080;
+
+    /** The limits. */
+    @ElementList(name = "seuils", required = false)
+    private Collection<TemperatureLimit> limits = new ArrayList<TemperatureLimit>();
+
     /** The notifiers. */
     @ElementListUnion({ @ElementList(entry = "mail", inline = true, type = MailNotification.class),
             @ElementList(entry = "sms", inline = true, type = SMSNotification.class),
@@ -64,26 +72,15 @@ public class Preferences {
             @ElementList(entry = "url", inline = true, type = URLNotification.class) })
     private Collection<INotification> notifiers = new ArrayList<INotification>();
 
-    /** The limits. */
-    @ElementList(name = "seuils", required = false)
-    private Collection<TemperatureLimit> limits = new ArrayList<TemperatureLimit>();
-
-    /** The arduino ip. */
-    @Element
-    private String arduinoIp = "127.0.0.1";
-
     /** The work dir. */
     @Element(required = false)
     private String workDir = System.getProperty("user.dir") + File.separator + "work" + File.separator;
 
-    /** The arduino port. */
-    @Element
-    private int arduinoPort = 8080;
-
     /**
      * Adds the.
-     *
-     * @param notifier the notifier
+     * 
+     * @param notifier
+     *            the notifier
      */
     public void add(final INotification notifier) {
         notifiers.add(notifier);
@@ -91,7 +88,7 @@ public class Preferences {
 
     /**
      * Gets the arduino ip.
-     *
+     * 
      * @return the arduino ip
      */
     public String getArduinoIp() {
@@ -100,7 +97,7 @@ public class Preferences {
 
     /**
      * Gets the arduino port.
-     *
+     * 
      * @return the arduino port
      */
     public int getArduinoPort() {
@@ -109,7 +106,7 @@ public class Preferences {
 
     /**
      * Gets the arduino url.
-     *
+     * 
      * @return the arduino url
      */
     public String getArduinoUrl() {
@@ -118,8 +115,9 @@ public class Preferences {
 
     /**
      * Gets the limit for sensor.
-     *
-     * @param sensorId the sensor id
+     * 
+     * @param sensorId
+     *            the sensor id
      * @return the limit for sensor
      */
     public TemperatureLimit getLimitForSensor(final String sensorId) {
@@ -135,7 +133,7 @@ public class Preferences {
 
     /**
      * Gets the limits.
-     *
+     * 
      * @return the limits
      */
     public Collection<TemperatureLimit> getLimits() {
@@ -144,7 +142,7 @@ public class Preferences {
 
     /**
      * Gets the notifiers.
-     *
+     * 
      * @return the notifiers
      */
     public Collection<INotification> getNotifiers() {
@@ -153,7 +151,7 @@ public class Preferences {
 
     /**
      * Gets the work dir.
-     *
+     * 
      * @return the work dir
      */
     public String getWorkDir() {
@@ -162,8 +160,9 @@ public class Preferences {
 
     /**
      * Save configuration.
-     *
-     * @param configurationFilename the configuration filename
+     * 
+     * @param configurationFilename
+     *            the configuration filename
      */
     public void saveConfiguration(final String configurationFilename) {
         Serializer serializer = new Persister();
@@ -178,8 +177,9 @@ public class Preferences {
 
     /**
      * Sets the arduino ip.
-     *
-     * @param arduinoIp the new arduino ip
+     * 
+     * @param arduinoIp
+     *            the new arduino ip
      */
     public void setArduinoIp(final String arduinoIp) {
         this.arduinoIp = arduinoIp;
@@ -187,8 +187,9 @@ public class Preferences {
 
     /**
      * Sets the arduino port.
-     *
-     * @param arduinoPort the new arduino port
+     * 
+     * @param arduinoPort
+     *            the new arduino port
      */
     public void setArduinoPort(final int arduinoPort) {
         this.arduinoPort = arduinoPort;
@@ -196,8 +197,9 @@ public class Preferences {
 
     /**
      * Sets the limits.
-     *
-     * @param limits the new limits
+     * 
+     * @param limits
+     *            the new limits
      */
     public void setLimits(final Collection<TemperatureLimit> limits) {
         this.limits = limits;
@@ -205,8 +207,9 @@ public class Preferences {
 
     /**
      * Sets the notifiers.
-     *
-     * @param notifiers the new notifiers
+     * 
+     * @param notifiers
+     *            the new notifiers
      */
     public void setNotifiers(final Collection<INotification> notifiers) {
         this.notifiers = notifiers;
@@ -214,8 +217,9 @@ public class Preferences {
 
     /**
      * Sets the work dir.
-     *
-     * @param workDir the new work dir
+     * 
+     * @param workDir
+     *            the new work dir
      */
     public void setWorkDir(final String workDir) {
         this.workDir = workDir;

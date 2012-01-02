@@ -35,7 +35,7 @@
 #define WEBDUINO_SERIAL_DEBUGGING 9
 
 // This creates an instance of the webserver.  By specifying a prefix
-// of "/", all pages will be at the root of the server. 
+// of "/", all pages will be at the root of the server.
 #define PREFIX ""
 
 // Ports, webserver + destination smtp
@@ -59,110 +59,110 @@ OneWire oneWire(ONE_WIRE_BUS);
 DallasTemperature sensors(&oneWire);
 
 void setupSensors() {
-  // Unused ports reinitialisation
-  /*
-  for (int i = 2 ; i < 8; i++) {
-   pinMode(i, INPUT);
-   }
-   */
+    // Unused ports reinitialisation
+    /*
+    for (int i = 2 ; i < 8; i++) {
+     pinMode(i, INPUT);
+     }
+     */
 
-  // Start standard serial port
-  Serial.begin(9600);
-  Serial << "Dallas Temperature IC Control Library Demo" << endl;
+    // Start standard serial port
+    Serial.begin(9600);
+    Serial << "Dallas Temperature IC Control Library Demo" << endl;
 
-  // Start up the 1wire Dallas library
-  sensors.begin();
+    // Start up the 1wire Dallas library
+    sensors.begin();
 
-  // Find 1wire devices on the 1wire bus
-  foundSensors = sensors.getDeviceCount();
+    // Find 1wire devices on the 1wire bus
+    foundSensors = sensors.getDeviceCount();
 
-  if ( foundSensors > MAX_SENSORS ) {
-    Serial << "ERROR " << foundSensors << " devices on 1wire bus whereas max allowed is " << MAX_SENSORS;
-  } 
-  else {
-    Serial << "Found " << foundSensors << " devices on 1wire bus";
-  }
+    if ( foundSensors > MAX_SENSORS ) {
+        Serial << "ERROR " << foundSensors << " devices on 1wire bus whereas max allowed is " << MAX_SENSORS;
+    }
+    else {
+        Serial << "Found " << foundSensors << " devices on 1wire bus";
+    }
 }
 
 /**
  * ARDUINO Setup
  */
 void setup() {
-  setupSensors();
-  setupNetwork();
+    setupSensors();
+    setupNetwork();
 }
 
 /**
  * Get temperature values from connected sensors and generate the XML
  */
- /*
+/*
 void sendXMLValues(WebServer &server) {
-  server << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" 
-    << "<sensors time=\"" << millis() << "\">";
-  for ( int i = 0 ; i < foundSensors ; i++ ) {
-    server << "    <sensor id=\"" << (i+1) << "\" value=\"" << currentTemperature[i] << "\" type=\"C\" seuil=\"" << seuilTemperature[i] << "\"/>\n";
-  }    
-  server << "</sensors>" << endl;
+ server << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+   << "<sensors time=\"" << millis() << "\">";
+ for ( int i = 0 ; i < foundSensors ; i++ ) {
+   server << "    <sensor id=\"" << (i+1) << "\" value=\"" << currentTemperature[i] << "\" type=\"C\" seuil=\"" << seuilTemperature[i] << "\"/>\n";
+ }
+ server << "</sensors>" << endl;
 }
 */
 
-/** 
+/**
  * Get temperateurs from the sensors.
  */
 void getDatas() {
-  // call sensors.requestTemperatures() to issue a global temperature
-  // request to all devices on the bus
-  Serial << "Requesting temperatures ...";
-  sensors.requestTemperatures(); // Send the command to get temperatures
-  Serial << " DONE" << endl;
+    // call sensors.requestTemperatures() to issue a global temperature
+    // request to all devices on the bus
+    Serial << "Requesting temperatures ...";
+    sensors.requestTemperatures(); // Send the command to get temperatures
+    Serial << " DONE" << endl;
 
-  Serial << "[" << millis() << "] Temperatures : ";
-  for (int i = 0 ; i < foundSensors ; i++ ) {
-    currentTemperature[i] = sensors.getTempCByIndex(i);
-    Serial << currentTemperature[i] << " | ";
-  }
-  Serial << endl;
-
-  /*
-  // Code for mail notification
-  if ( overheat == 0 ) {  
+    Serial << "[" << millis() << "] Temperatures : ";
     for (int i = 0 ; i < foundSensors ; i++ ) {
-      if ( currentTemperature[i] >= seuilTemperature[i] ) {
-        overheat = 1;
-      }
-      if ( overheat == 1 ) {
-        sendMail();
+        currentTemperature[i] = sensors.getTempCByIndex(i);
+        Serial << currentTemperature[i] << " | ";
+    }
+    Serial << endl;
+
+    /*
+    // Code for mail notification
+    if ( overheat == 0 ) {
+      for (int i = 0 ; i < foundSensors ; i++ ) {
+        if ( currentTemperature[i] >= seuilTemperature[i] ) {
+          overheat = 1;
+        }
+        if ( overheat == 1 ) {
+          sendMail();
+        }
       }
     }
-  } 
-  else {
-    int temperaturesReleased = 0;
-    for (int i = 0 ; i < foundSensors ; i++ ) {
-      if ( currentTemperature[i] < seuilTemperature[i] ) {
-        temperaturesReleased++;
+    else {
+      int temperaturesReleased = 0;
+      for (int i = 0 ; i < foundSensors ; i++ ) {
+        if ( currentTemperature[i] < seuilTemperature[i] ) {
+          temperaturesReleased++;
+        }
+        if ( temperaturesReleased == foundSensors ) {
+          // All sensors are now under limits
+          overheat = 0;
+          sendMail();
+        }
       }
-      if ( temperaturesReleased == foundSensors ) {
-        // All sensors are now under limits
-        overheat = 0;
-        sendMail();
-      }
-    }    
-  }
-  */
+    }
+    */
 }
 
 /**
  * ARDUINO Main loop.
  */
 void loop() {
-  // check for a reading no more than once a second.
-  if (millis() - lastReadingTime > MEASURE_TEMPO){
-    getDatas();
-    // timestamp the last time you got a reading:
-    lastReadingTime = millis();
-  }
-  
-  // Process web connexions (outputs XML results)
-  network_loop();
+    // check for a reading no more than once a second.
+    if (millis() - lastReadingTime > MEASURE_TEMPO) {
+        getDatas();
+        // timestamp the last time you got a reading:
+        lastReadingTime = millis();
+    }
+
+    // Process web connexions (outputs XML results)
+    network_loop();
 }
 

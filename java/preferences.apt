@@ -1,4 +1,4 @@
-{{Documentation}} (2012-01-03 09:21:38)
+{{Documentation}} (2012-01-03 10:28:55)
 
       * {{{1.preferences}preferences}}
 
@@ -248,10 +248,22 @@
 
     Notification by sending an SMS. Not done yet. Where are the free SMS services by the way ?
 
+* Elements
+
+*-----------------+-------------------+-------*-------------------+
+| <<Elements>>    | <<Type>>          |<<Req>>| <<Description>>   |
+*-----------------+-------------------+-------*-------------------+
+| number | String |  X  | SMS number to send the notification |
+*-----------------+-------------------+-------*-------------------+
+
+
 * Exemple
 
 +--------------------------------------------------------------------------------+
-<sms />
+<sms>
+   <!-- Description de 'number' -->
+   <number>. . .</number>
+</sms>
 +--------------------------------------------------------------------------------+
 
 * Implémentation

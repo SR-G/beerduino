@@ -2,6 +2,7 @@ package org.tensin.beerduino;
 
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Root;
+import org.tensin.beerduino.tools.Description;
 
 
 /**
@@ -10,22 +11,27 @@ import org.simpleframework.xml.Root;
  * @author u248663
  */
 @Root(name = "sensor")
+@Description("Individual result for one sensor.")
 public class TemperatureResult {
 
     /** The temperature. */
     @Attribute(name = "value")
+    @Description("The read temperature")
     private double temperature;
 
     /** The sensor id. */
     @Attribute(name = "id")
+    @Description("The arduino sensor ID.")
     private String sensorId;
 
     /** The type. */
     @Attribute(required = false)
+    @Description("The temperature type (F|C).")
     private String type = "C";
 
     /** The limit. */
     @Attribute(name = "seuil", required = false)
+    @Description("The arduino temperature limit for this sensor (defined on the arduino board).")
     private double limit = Double.NaN;
 
     /**

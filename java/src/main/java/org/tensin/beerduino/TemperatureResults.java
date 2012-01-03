@@ -6,12 +6,14 @@ import java.util.Collection;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
+import org.tensin.beerduino.tools.Description;
 
 
 /**
  * The Class TemperatureResults.
  */
 @Root(name = "sensors")
+@Description("Temperature results. One entry for each sensor.")
 public class TemperatureResults {
 
     /** The state. */
@@ -23,6 +25,7 @@ public class TemperatureResults {
 
     /** The time. */
     @Attribute
+    @Description("Time the whole XML results file has been generated.")
     private String time = "";
 
     /**

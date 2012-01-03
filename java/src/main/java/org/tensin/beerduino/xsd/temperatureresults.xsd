@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            elementFormDefault="qualified">
+
+   <xsd:element name="sensors" type="org.tensin.beerduino.TemperatureResults" />
+
+   <xsd:complexType name="org.tensin.beerduino.TemperatureResults">
+         <xsd:choice maxOccurs="unbounded">
+            <xsd:element name="sensor" type="org.tensin.beerduino.TemperatureResult" minOccurs="0" maxOccurs="unbounded" />
+         </xsd:choice>
+         <xsd:attribute name="time" type="xsd:string" use="required" />
+   </xsd:complexType>
+
+   <xsd:complexType name="org.tensin.beerduino.TemperatureResult">
+         <xsd:attribute name="value" type="xsd:string" use="required" />
+         <xsd:attribute name="id" type="xsd:string" use="required" />
+         <xsd:attribute name="type" type="xsd:string" />
+         <xsd:attribute name="seuil" type="xsd:string" />
+   </xsd:complexType>
+</xsd:schema>

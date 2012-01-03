@@ -13,19 +13,23 @@ import org.tensin.beerduino.CoreException;
 import org.tensin.beerduino.TemperatureResults;
 import org.tensin.beerduino.TemperatureState;
 import org.tensin.beerduino.helpers.CloseHelper;
+import org.tensin.beerduino.tools.Description;
 
 
 /**
  * The Class URLNotification.
  */
-@Root
+@Root(name = "url")
+@Description("Notification by activating a single URL.")
 public class URLNotification implements INotification {
 
     /** The Constant LOGGER. */
     private static final Logger LOGGER = LoggerFactory.getLogger(URLNotification.class);
 
-    /** The url. */
+    /** The url. @Todo standard parameters should be available {temp1} => substitued by the right value once the URL is called */
     @Attribute(required = false)
+    @Description("The single URL that will be activated.")
+    
     private String url;
 
     /**

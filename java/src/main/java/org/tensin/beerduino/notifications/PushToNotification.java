@@ -18,6 +18,7 @@ import org.tensin.beerduino.TemperatureResult;
 import org.tensin.beerduino.TemperatureResults;
 import org.tensin.beerduino.TemperatureState;
 import org.tensin.beerduino.helpers.CloseHelper;
+import org.tensin.beerduino.tools.Description;
 
 
 /**
@@ -25,7 +26,8 @@ import org.tensin.beerduino.helpers.CloseHelper;
  * Use : http://pushme.to (iOS only)
  * 
  */
-@Root
+@Root(name = "push")
+@Description("Notification by activating a PushTo notification.")
 public class PushToNotification extends URLNotification implements INotification {
 
     /** The Constant LOGGER. */
@@ -33,14 +35,17 @@ public class PushToNotification extends URLNotification implements INotification
 
     /** The pushto url. */
     @Attribute(name = "pushto-url", required = false)
+    @Description("The push-to URL to use. Something like 'http://pushme.to/'.")
     private String pushtoUrl = "http://pushme.to/";
 
     /** The pushto id. */
     @Attribute(name = "id")
+    @Description("Your pushTo ID (login)")
     private String pushtoId;
 
     /** The pushto signature. */
     @Attribute(name = "signature", required = false)
+    @Description("Signature that will be shown in the pushto notification sent.")
     private String pushtoSignature = "beerduino";
 
     /* (non-Javadoc)

@@ -7,7 +7,7 @@
  * TODO ajout LED de couleur ;
  * TODO écriture des données lues sur carte SD si disponible ;
  *
- * Nécessite Arduino 022
+ * Nécessite Arduino 023
  * WebDuino http://code.google.com/p/webduino/
  */
 #include <OneWire.h>

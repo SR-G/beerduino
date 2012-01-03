@@ -28,11 +28,13 @@ import org.tensin.beerduino.TemperatureResults;
 import org.tensin.beerduino.TemperatureState;
 import org.tensin.beerduino.TemplatedGraph;
 import org.tensin.beerduino.VelociMail;
+import org.tensin.beerduino.tools.Description;
 
 /**
  * The Class MailNotification.
  */
-@Root
+@Root(name = "mail")
+@Description("Notification by sending an email.")
 public class MailNotification implements INotification {
 
     /** The Constant LOGGER. */
@@ -40,22 +42,27 @@ public class MailNotification implements INotification {
 
     /** The recipients. */
     @ElementList(name = "destinataires", required = true)
+    @Description("People to be notified by mail")
     public Collection<Recipient> recipients = new ArrayList<Recipient>();
 
     /** The smtp hostname. */
     @Attribute(required = false)
+    @Description("SMTP server for sending the mail")
     public String smtpHostname = "smtp.gmail.com";
 
     /** The smtp login. */
     @Attribute(required = false)
+    @Description("SMTP username")
     public String smtpLogin = "beerduino@gmail.com";
 
     /** The smtp password. */
     @Attribute(required = false)
+    @Description("SMTP password")
     public String smtpPassword = "duino1234"; // should be put in configuration file
 
     /** The smtp port. */
     @Attribute(required = false)
+    @Description("SMTP port. Default to 587 for gmail (TLS)")
     public int smtpPort = 587;
 
     /**

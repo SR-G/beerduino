@@ -18,13 +18,15 @@ import org.tensin.beerduino.notifications.MailNotification;
 import org.tensin.beerduino.notifications.PushToNotification;
 import org.tensin.beerduino.notifications.SMSNotification;
 import org.tensin.beerduino.notifications.URLNotification;
+import org.tensin.beerduino.tools.Description;
 
 /**
  * The Class Preferences.
  * 
  * @author u248663
  */
-@Root
+@Root(name = "preferences")
+@Description("Beerduino global preferences.")
 public class Preferences {
 
     /** The Constant LOGGER. */
@@ -53,16 +55,39 @@ public class Preferences {
         }
     }
 
-    /** The arduino ip. */
+    /**
+     * 
+     */
+    @Element(required = false)
+    private String noNamespaceSchemaLocation;
+    
+    /**
+     * @return
+     */
+    public String getNoNamespaceSchemaLocation() {
+		return noNamespaceSchemaLocation;
+	}
+
+	/**
+	 * @param noNamespaceSchemaLocation
+	 */
+	public void setNoNamespaceSchemaLocation(String noNamespaceSchemaLocation) {
+		this.noNamespaceSchemaLocation = noNamespaceSchemaLocation;
+	}
+
+	/** The arduino ip. */
     @Element
+    @Description("IP address of the arduino board")
     private String arduinoIp = "127.0.0.1";
 
     /** The arduino port. */
     @Element
-    private int arduinoPort = 8080;
+    @Description("Port of the arduino board. Default to 80.")
+    private int arduinoPort = 80;
 
     /** The limits. */
     @ElementList(name = "seuils", required = false)
+    @Description("Temperatures warnings (after / below whom a notification will be sent)")
     private Collection<TemperatureLimit> limits = new ArrayList<TemperatureLimit>();
 
     /** The notifiers. */
@@ -70,10 +95,12 @@ public class Preferences {
             @ElementList(entry = "sms", inline = true, type = SMSNotification.class),
             @ElementList(entry = "push", inline = true, type = PushToNotification.class),
             @ElementList(entry = "url", inline = true, type = URLNotification.class) })
+    @Description("Notifications mechanism. Multiple notifications may be defined at the same time.")
     private Collection<INotification> notifiers = new ArrayList<INotification>();
 
     /** The work dir. */
     @Element(required = false)
+    @Description("Temp directory.")
     private String workDir = System.getProperty("user.dir") + File.separator + "work" + File.separator;
 
     /**

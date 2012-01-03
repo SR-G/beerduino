@@ -7,7 +7,7 @@ import org.simpleframework.xml.Root;
 /**
  * The Class TemperatureLimit.
  */
-@Root
+@Root(name = "seuil")
 public class TemperatureLimit {
 
     /** The sensor id. */

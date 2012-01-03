@@ -18,6 +18,7 @@ import org.tensin.beerduino.TemperatureResult;
 import org.tensin.beerduino.TemperatureResults;
 import org.tensin.beerduino.TemperatureState;
 import org.tensin.beerduino.helpers.CloseHelper;
+import org.tensin.beerduino.tools.Description;
 
 
 /**
@@ -25,7 +26,8 @@ import org.tensin.beerduino.helpers.CloseHelper;
  * Use : https://notifrier.appspot.com (Android only)
  * 
  */
-@Root
+@Root(name = "notifry")
+@Description("Notification by activating a Notifry notification. See http://notifrier.appspot.com/.")
 public class NotifryNotification extends URLNotification implements INotification {
 
     /** The Constant LOGGER. */
@@ -33,14 +35,17 @@ public class NotifryNotification extends URLNotification implements INotificatio
 
     /** The pushto url. */
     @Attribute(name = "notifry-url", required = false)
+    @Description("Notifry URL to use. Something like 'https://notifrier.appspot.com/notifry'.")
     private String notifryUrl = "https://notifrier.appspot.com/notifry";
 
     /** The pushto id. */
     @Attribute(name = "source")
+    @Description("The Notifry source identification (to be grabbed from your notifry configuration panel).")
     private String notifrySource;
 
     /** The pushto signature. */
     @Attribute(name = "signature", required = false)
+    @Description("Signature that will be shown in the notifry notification sent.")
     private String notifrySignature = "beerduino";
 
     /* (non-Javadoc)

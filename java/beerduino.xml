@@ -10,6 +10,7 @@
 -->
    <arduinoIp>192.168.1.101</arduinoIp>
    <arduinoPort>80</arduinoPort>
+   <arduinoCheckFrequency>2000</arduinoCheckFrequency>
    <seuils>
      <seuil capteur="1" temperature="21.9" />
      <seuil capteur="2" temperature="23" />

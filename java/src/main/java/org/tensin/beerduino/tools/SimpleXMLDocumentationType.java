@@ -1,6 +1,3 @@
-/*
- * 
- */
 package org.tensin.beerduino.tools;
 
 import java.util.ArrayList;
@@ -12,7 +9,7 @@ import org.apache.commons.lang.StringUtils;
  * The Class SimpleXMLDocumentationType.
  *
  * @author j385649
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.3.2.1 $
  * @since 26 oct. 2011 14:40:52
  */
 public class SimpleXMLDocumentationType {

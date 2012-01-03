@@ -1,4 +1,4 @@
-{{Documentation}} (2012-01-03 00:37:22)
+{{Documentation}} (2012-01-03 09:21:38)
 
       * {{{1.preferences}preferences}}
 
@@ -18,16 +18,25 @@
 
     Beerduino global preferences.
 
+* Attributs
+
+*-----------------+-------------------+-------*-------------------+
+| <<Attributs>>   | <<Type>>          |<<Req>>| <<Description>>   |
+*-----------------+-------------------+-------*-------------------+
+| noNamespaceSchemaLocation | String |     | (@TODO) Description de noNamespaceSchemaLocation |
+*-----------------+-------------------+-------*-------------------+
+
+
 * Elements
 
 *-----------------+-------------------+-------*-------------------+
 | <<Elements>>    | <<Type>>          |<<Req>>| <<Description>>   |
 *-----------------+-------------------+-------*-------------------+
-| noNamespaceSchemaLocation | String |     | (@TODO) Description de noNamespaceSchemaLocation |
-*-----------------+-------------------+-------*-------------------+
 | arduinoIp | String |  X  | IP address of the arduino board |
 *-----------------+-------------------+-------*-------------------+
 | arduinoPort | int |  X  | Port of the arduino board. Default to 80. |
+*-----------------+-------------------+-------*-------------------+
+| arduinoCheckFrequency | int |     | Frequency of the arduino values checkout. In milliseconds. Default to 1000. |
 *-----------------+-------------------+-------*-------------------+
 | seuils | Liste de {{{2.seuil}seuil}} |     | Temperatures warnings (after / below whom a notification will be sent) |
 *-----------------+-------------------+---+-------------------+
@@ -46,15 +55,15 @@
 * Exemple
 
 +--------------------------------------------------------------------------------+
-<preferences>
-   <!-- Description de 'noNamespaceSchemaLocation' -->
-   <noNamespaceSchemaLocation>. . .</noNamespaceSchemaLocation>
-
+<preferences noNamespaceSchemaLocation='...'>
    <!-- Description de 'arduinoIp' -->
    <arduinoIp>. . .</arduinoIp>
 
    <!-- Description de 'arduinoPort' -->
    <arduinoPort>. . .</arduinoPort>
+
+   <!-- Description de 'arduinoCheckFrequency' -->
+   <arduinoCheckFrequency>. . .</arduinoCheckFrequency>
 
    <!-- Description de 'seuils' -->
    <seuils>

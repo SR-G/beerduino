@@ -1,6 +1,3 @@
-/*
- * 
- */
 package org.tensin.beerduino.tools;
 
 import java.text.SimpleDateFormat;
@@ -12,18 +9,17 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import org.apache.commons.lang.StringUtils;
-import org.tensin.beerduino.CoreException;
 
 /**
  * The Class SimpleXMLDocumentationOutputAPT.
  */
-public class SimpleXMLDocumentationOutputAPT implements ISimpleXMLDocumentation {
+public class SimpleXMLDocumentationOutputAPT implements ISimpleXMLDocumentationOutput {
 
 	/* (non-Javadoc)
 	 * @see org.tensin.beerduino.tools.ISimpleXMLDocumentation#generate(org.tensin.beerduino.tools.SimpleXMLDocumentationEntity)
 	 */
 	@Override
-	public String generate(final SimpleXMLDocumentationEntity entity) throws CoreException {
+	public String generate(final Class<?> racine, final SimpleXMLDocumentationEntity entity) throws SimpleXMLDocumentationException {
 		StringBuilder sb = new StringBuilder("{{Documentation}} ");
 		sb.append("(" + getCurrentDateWithDateFormat("yyyy-MM-dd HH:mm:ss") + ")\n\n");
 		sb.append(summaryInAPT(1,entity,1));

@@ -20,7 +20,7 @@ public class SimpleXMLDocumentationSpring {
 				"beerduino.wiki");
 	}
 
-	private void generate(final Class<?> className, final ISimpleXMLDocumentation documentor, final String destination) {
+	private void generate(final Class<?> className, final ISimpleXMLDocumentationOutput converter, final String destination) {
 		Persister p = new Persister();
 	
 		ClassPathScanningCandidateComponentProvider scanner =

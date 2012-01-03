@@ -1,6 +1,3 @@
-/*
- * 
- */
 package org.tensin.beerduino.tools;
 
 import java.lang.annotation.Retention;

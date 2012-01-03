@@ -6,9 +6,9 @@
 
    <xsd:complexType name="org.tensin.beerduino.Preferences">
          <xsd:choice maxOccurs="unbounded">
-            <xsd:element name="noNamespaceSchemaLocation" type="xsd:string" />
             <xsd:element name="arduinoIp" type="xsd:string" />
             <xsd:element name="arduinoPort" type="xsd:integer" />
+            <xsd:element name="arduinoCheckFrequency" type="xsd:integer" />
             <xsd:element name="seuils" minOccurs="0" >
                <xsd:complexType>
                   <xsd:sequence>
@@ -22,6 +22,7 @@
             <xsd:element name="url" type="org.tensin.beerduino.notifications.URLNotification" minOccurs="0" maxOccurs="unbounded" />
             <xsd:element name="workDir" type="xsd:string" />
          </xsd:choice>
+         <xsd:attribute name="noNamespaceSchemaLocation" type="xsd:string" />
    </xsd:complexType>
 
    <xsd:complexType name="org.tensin.beerduino.TemperatureLimit">

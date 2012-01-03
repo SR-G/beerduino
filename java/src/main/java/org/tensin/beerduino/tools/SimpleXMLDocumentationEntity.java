@@ -2,7 +2,6 @@ package org.tensin.beerduino.tools;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
@@ -15,15 +14,20 @@ import org.apache.commons.lang.StringUtils;
 import org.simpleframework.xml.ElementListUnion;
 import org.simpleframework.xml.Path;
 import org.simpleframework.xml.Root;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The Class SimpleXMLDocumentationEntity.
  *
  * @author j385649
- * @version $Revision: 1.4.2.3 $
+ * @version $Revision: 1.4.2.5 $
  * @since 26 oct. 2011 14:40:52
  */
 public class SimpleXMLDocumentationEntity {
+	
+	/** Logger. */
+    private static final Logger LOGGER = LoggerFactory.getLogger(SimpleXMLDocumentationEntity.class);
 	
 	/** PATH_PREFIX. */
 	public final static String PATH_PREFIX = "PATH_";
@@ -168,26 +172,19 @@ public class SimpleXMLDocumentationEntity {
 	 *
 	 */
 	public void parse() {
-//		if (getClazz().getName().equals("com.inetpsa.pmm.config.ppfapi.ComportementPPFAPIConfig")) {
-//			System.out.println("coucou");
-//		} 
-//		else {
-//			System.out.println(this.getClazz().getName());
-//		}
-//		
+
 		/* Description de la classe */
 		SimpleXMLDocumentationType type = SimpleXMLDocumentation.getType(getClazz());
 		for (Annotation annotation : getClazz().getAnnotations()) {
-			// System.out.println(">> Annotation trouvée, class [" + annotation.getClass().getName() + "], type réel [" + annotation.annotationType().getName() + "]");
-			if (isInstance(annotation, Description.class)) {
-				type.setDescription((String) getFieldValue(annotation, "value"));
+			// LOGGER.info(">> Annotation trouvée, class [" + annotation.getClass().getName() + "], type réel [" + annotation.annotationType().getName() + "]");
+			if (AnnotationHelper.isInstance(annotation, Description.class)) {
+				type.setDescription((String) AnnotationHelper.getFieldValue(annotation, "value"));
 				// type.setDocumentation(descriptionAnnotation.documentation());
 			}
-			if (isInstance(annotation, Root.class)) {
-				type.setBaliseName((String) getFieldValue(annotation, "name"));
+			if (AnnotationHelper.isInstance(annotation, Root.class)) {
+				type.setBaliseName((String) AnnotationHelper.getFieldValue(annotation, "name"));
 			}
 		}
-
 		
 		List<Class<?>> lstClass = new ArrayList<Class<?>>();
 		Class<?> currentClass = getClazz();
@@ -199,66 +196,66 @@ public class SimpleXMLDocumentationEntity {
 //		for (Class<?> clazz : lstClass) {
 //			sbClass.append("\n  - "+clazz.getName());
 //		}
-//		System.out.println(sbClass.toString());
+//		LOGGER.info(sbClass.toString());
 
 		/* Entités de la classe */
 		for (Class<?> usedClass : lstClass) {
-			// System.out.println(">> Classe trouvée [" + usedClass.getName() + "]");
+			// LOGGER.info(">> Classe trouvée [" + usedClass.getName() + "]");
 			for (Field field : usedClass.getDeclaredFields()) {
-				// System.out.println("  >> Field trouvé [" + field.getName() + "]");
+				// LOGGER.info("  >> Field trouvé [" + field.getName() + "]");
 				String fieldDescription = null;
 				String pathValue = null;
 				List<SimpleXMLDocumentationEntity> entityList = new ArrayList<SimpleXMLDocumentationEntity>();
 				for (Annotation annotation : field.getAnnotations()) {
-					// System.out.println("    >> Annotation de champ trouvée, class [" + annotation.getClass().getName() + "], type réel [" + annotation.annotationType().getName() + "]");
-					if (isInstance(annotation, org.simpleframework.xml.Text.class)) {
+					// LOGGER.info("    >> Annotation de champ trouvée, class [" + annotation.getClass().getName() + "], type réel [" + annotation.annotationType().getName() + "]");
+					if (AnnotationHelper.isInstance(annotation, org.simpleframework.xml.Text.class)) {
 						SimpleXMLDocumentationEntity subEntity = new SimpleXMLDocumentationEntity(field);
 						subEntity.setText(true);
 						subEntity.setRequired(getBooleanValue(annotation, "required"));
 						fieldDescription = type.getDescription();
 						entityList.add(subEntity);
 					}
-					if (isInstance(annotation, org.simpleframework.xml.Attribute.class)) {
+					if (AnnotationHelper.isInstance(annotation, org.simpleframework.xml.Attribute.class)) {
 						SimpleXMLDocumentationEntity subEntity = new SimpleXMLDocumentationEntity(field);
 						subEntity.setAttribute(true);
 						subEntity.setRequired(getBooleanValue(annotation, "required"));
-						subEntity.setBaliseName(StringUtils.defaultIfEmpty((String)getFieldValue(annotation, "name"), subEntity.getBaliseName()));
+						subEntity.setBaliseName(StringUtils.defaultIfEmpty((String)AnnotationHelper.getFieldValue(annotation, "name"), subEntity.getBaliseName()));
 						entityList.add(subEntity);
 					}
-					if (isInstance(annotation, org.simpleframework.xml.Element.class)) {
+					if (AnnotationHelper.isInstance(annotation, org.simpleframework.xml.Element.class)) {
 						SimpleXMLDocumentationEntity subEntity = new SimpleXMLDocumentationEntity(field);
 						subEntity.setElement(true);
 						subEntity.setRequired(getBooleanValue(annotation, "required"));
-						subEntity.setBaliseName(StringUtils.defaultIfEmpty((String) getFieldValue(annotation, "name"), subEntity.getBaliseName()));
+						subEntity.setBaliseName(StringUtils.defaultIfEmpty((String) AnnotationHelper.getFieldValue(annotation, "name"), subEntity.getBaliseName()));
 						entityList.add(subEntity);
 					}
-					if (isInstance(annotation, org.simpleframework.xml.ElementList.class)) {
+					if (AnnotationHelper.isInstance(annotation, org.simpleframework.xml.ElementList.class)) {
 						SimpleXMLDocumentationEntity subEntity = new SimpleXMLDocumentationEntity(field);
 						subEntity.setElementList(true);
 						ParameterizedType parameterizedType = (ParameterizedType) field.getGenericType();
 						subEntity.setClazz((Class<?>) parameterizedType.getActualTypeArguments()[0]);
 						subEntity.setInline(getBooleanValue(annotation, "inline"));
 						subEntity.setRequired(getBooleanValue(annotation, "required"));
-						subEntity.setBaliseName(StringUtils.defaultIfEmpty((String) getFieldValue(annotation, "name"), subEntity.getBaliseName()));
+						subEntity.setBaliseName(StringUtils.defaultIfEmpty((String) AnnotationHelper.getFieldValue(annotation, "name"), subEntity.getBaliseName()));
 						entityList.add(subEntity);
 					}
-					if (isInstance(annotation, ElementListUnion.class)) {
-						for(Annotation o : (Annotation[])getFieldValue(annotation, "value")) {
-							Class<?> parameterizedClass = (Class<?>)getFieldValue(o, "type");
+					if (AnnotationHelper.isInstance(annotation, ElementListUnion.class)) {
+						for(Annotation o : (Annotation[])AnnotationHelper.getFieldValue(annotation, "value")) {
+							Class<?> parameterizedClass = (Class<?>)AnnotationHelper.getFieldValue(o, "type");
 							SimpleXMLDocumentationEntity subEntity = new SimpleXMLDocumentationEntity(parameterizedClass);
 							subEntity.setElementList(true);
 							subEntity.setClazz(parameterizedClass);
 							subEntity.setInline(getBooleanValue(o, "inline"));
 							subEntity.setRequired(getBooleanValue(o, "required"));
-							subEntity.setBaliseName(StringUtils.defaultIfEmpty((String)getFieldValue(o, "name"), subEntity.getBaliseName()));
+							subEntity.setBaliseName(StringUtils.defaultIfEmpty((String)AnnotationHelper.getFieldValue(o, "name"), subEntity.getBaliseName()));
 							entityList.add(subEntity);
 						}
 					}
-					if (isInstance(annotation, Description.class)) {
-						fieldDescription = (String) getFieldValue(annotation, "value");
+					if (AnnotationHelper.isInstance(annotation, Description.class)) {
+						fieldDescription = (String) AnnotationHelper.getFieldValue(annotation, "value");
 					}
-					if (isInstance(annotation, Path.class)) {
-						pathValue = (String) getFieldValue(annotation, "value");
+					if (AnnotationHelper.isInstance(annotation, Path.class)) {
+						pathValue = (String) AnnotationHelper.getFieldValue(annotation, "value");
 					}
 				}
 				
@@ -287,36 +284,36 @@ public class SimpleXMLDocumentationEntity {
 					String pathValue = null;
 					List<SimpleXMLDocumentationEntity> entityList = new ArrayList<SimpleXMLDocumentationEntity>();
 					for (Annotation annotation : method.getAnnotations()) {
-						if (isInstance(annotation, org.simpleframework.xml.Text.class)) {
-							System.err.println("Text pas implemente pour "+method.getName()+ " sur " + usedClass.getName());
+						if (AnnotationHelper.isInstance(annotation, org.simpleframework.xml.Text.class)) {
+							LOGGER.error("Text pas implemente pour "+method.getName()+ " sur " + usedClass.getName());
 						}
-						if (isInstance(annotation, org.simpleframework.xml.Attribute.class)) {
-							//System.err.println("Attribute OK pour "+method.getName()+ " sur " + usedClass.getName());
+						if (AnnotationHelper.isInstance(annotation, org.simpleframework.xml.Attribute.class)) {
+							//LOGGER.info("Attribute OK pour "+method.getName()+ " sur " + usedClass.getName());
 							SimpleXMLDocumentationEntity subEntity = new SimpleXMLDocumentationEntity(method);
 							subEntity.setAttribute(true);
 							subEntity.setRequired(getBooleanValue(annotation, "required"));
-							subEntity.setBaliseName(StringUtils.defaultIfEmpty((String) getFieldValue(annotation, "name"), subEntity.getBaliseName()));
+							subEntity.setBaliseName(StringUtils.defaultIfEmpty((String) AnnotationHelper.getFieldValue(annotation, "name"), subEntity.getBaliseName()));
 							entityList.add(subEntity);
 						}
-						if (isInstance(annotation, org.simpleframework.xml.Element.class)) {
-							//System.err.println("Element OK pour "+method.getName()+ " sur " + usedClass.getName());
+						if (AnnotationHelper.isInstance(annotation, org.simpleframework.xml.Element.class)) {
+							//LOGGER.info("Element OK pour "+method.getName()+ " sur " + usedClass.getName());
 							SimpleXMLDocumentationEntity subEntity = new SimpleXMLDocumentationEntity(method);
 							subEntity.setElement(true);
 							subEntity.setRequired(getBooleanValue(annotation, "required"));
-							subEntity.setBaliseName(StringUtils.defaultIfEmpty((String) getFieldValue(annotation, "name"), subEntity.getBaliseName()));
+							subEntity.setBaliseName(StringUtils.defaultIfEmpty((String) AnnotationHelper.getFieldValue(annotation, "name"), subEntity.getBaliseName()));
 							entityList.add(subEntity);
 						}
-						if (isInstance(annotation, org.simpleframework.xml.ElementList.class)) {
-							System.err.println("ElementList pas implemente pour "+method.getName()+ " sur " + usedClass.getName());
+						if (AnnotationHelper.isInstance(annotation, org.simpleframework.xml.ElementList.class)) {
+							LOGGER.error("ElementList pas implemente pour "+method.getName()+ " sur " + usedClass.getName());
 						}
-						if (isInstance(annotation, ElementListUnion.class)) {
-							System.err.println("ElementListUnion pas implemente pour "+method.getName()+ " sur " + usedClass.getName());
+						if (AnnotationHelper.isInstance(annotation, ElementListUnion.class)) {
+							LOGGER.error("ElementListUnion pas implemente pour "+method.getName()+ " sur " + usedClass.getName());
 						}
-						if (isInstance(annotation, Description.class)) {
-							methodDescription = (String) getFieldValue(annotation, "value");
+						if (AnnotationHelper.isInstance(annotation, Description.class)) {
+							methodDescription = (String) AnnotationHelper.getFieldValue(annotation, "value");
 						}
-						if (isInstance(annotation, Path.class)) {
-							pathValue = (String) getFieldValue(annotation, "value");
+						if (AnnotationHelper.isInstance(annotation, Path.class)) {
+							pathValue = (String) AnnotationHelper.getFieldValue(annotation, "value");
 						}
 					}
 					
@@ -350,44 +347,8 @@ public class SimpleXMLDocumentationEntity {
 	 * @return the boolean value
 	 */
 	private boolean getBooleanValue(Annotation annotation, String fieldName) {
-		Object o = getFieldValue(annotation, fieldName);
+		Object o = AnnotationHelper.getFieldValue(annotation, fieldName);
 		return ((Boolean) o).booleanValue();
-	}
-
-	/**
-	 * Détermine si une annotation implémente ou non un type.
-	 * Ne PAS utiliser instanceof car dans certains contextes la classe de l'annotatino retournée par introspection est (par ex.) $Proxy1 au lieu de Root
-	 *
-	 * @param annotation the annotation
-	 * @param clazz the clazz
-	 * @return true, if is instance
-	 */
-	private boolean isInstance(Annotation annotation, Class<?> clazz) {
-		return annotation.annotationType().getSimpleName().equalsIgnoreCase(clazz.getSimpleName());
-	}
-	
-	/**
-	 * Gets the field value.
-	 *
-	 * @param annotation the annotation
-	 * @param fieldName the field name
-	 * @return the field value
-	 */
-	private Object getFieldValue(Annotation annotation, String fieldName) {
-        try {
-			return annotation.annotationType().getDeclaredMethod(fieldName, new Class[0]).invoke(annotation);
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (SecurityException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			e.printStackTrace();
-		} catch (NoSuchMethodException e) {
-			e.printStackTrace();
-		}
-        return null;
 	}
 
 	/**
@@ -539,14 +500,14 @@ public class SimpleXMLDocumentationEntity {
 	 */
 	public String getTypeName() {
 		if (clazz==null) {
-			//System.err.println("clazz null pour name="+name);
+			//LOGGER.error("clazz null pour name="+name);
 			return this.name;
 		}
 		SimpleXMLDocumentationType type = getType();
 		if (type != null) {
 			return type.getName();
 		} else {
-			System.err.println("type null pour name="+name);
+			LOGGER.error("Type null pour name [" + name + "]");
 			return "TYPENULL";
 		}
 	}

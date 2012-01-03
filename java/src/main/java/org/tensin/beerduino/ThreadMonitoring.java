@@ -88,7 +88,7 @@ public class ThreadMonitoring extends AbstractThread {
         TemperatureResults results = null;
         boolean overheat = false;
         while (alive) {
-            sleepMilliSeconds(1000);
+            sleepMilliSeconds(Beerduino.getInstance().getPreferences().getArduinoCheckFrequency());
             LOGGER.info("now acquiring");
             try {
                 url = new URL(Beerduino.getInstance().getPreferences().getArduinoUrl());

@@ -114,7 +114,7 @@ public class Beerduino {
      * Start monitoring.
      */
     private void startMonitoring() {
-        LOGGER.info("Starting monitoring thread");
+        LOGGER.info("Starting monitoring thread, arduino verification will be made each [" + Beerduino.getInstance().getPreferences().getArduinoCheckFrequency() + "ms]");
         threadMonitoring = new ThreadMonitoring(temperatures, notifications);
         threadMonitoring.start();
     }

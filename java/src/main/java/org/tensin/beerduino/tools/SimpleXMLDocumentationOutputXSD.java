@@ -1,5 +1,6 @@
 package org.tensin.beerduino.tools;
 
+import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -7,31 +8,59 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.tensin.beerduino.CoreException;
+import org.apache.commons.lang3.StringUtils;
+import org.simpleframework.xml.Root;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The Class SimpleXMLDocumentationOutputXSD.
  */
-public class SimpleXMLDocumentationOutputXSD implements ISimpleXMLDocumentation {
-
+public class SimpleXMLDocumentationOutputXSD implements ISimpleXMLDocumentationOutput {
+	
+	/** Logger. */
+    private static final Logger LOGGER = LoggerFactory.getLogger(SimpleXMLDocumentationOutputXSD.class);
+    
 	/** The additionnal xsd definitions. */
 	private Collection<String> additionnalXsdDefinitions = new ArrayList<String>();
+	
+	/** The main element name. */
+	private String mainElementName;
+	
+	/** The main element class. */
+	private String mainElementClass;
+	
+	/**
+	 * Adds the additionnal xsd definitions.
+	 *
+	 * @param s the s
+	 */
+	public void addAdditionnalXsdDefinitions(final String s) {
+		additionnalXsdDefinitions.add(s);
+	}
 	
 	/* (non-Javadoc)
 	 * @see org.tensin.beerduino.tools.ISimpleXMLDocumentation#generate(org.tensin.beerduino.tools.SimpleXMLDocumentationEntity)
 	 */
+	/**
+	  * {@inheritDoc}
+	  * 
+	  * @see com.inetpsa.ltp.util.simplexmldoc.ISimpleXMLDocumentationOutput#generate(java.lang.Class, com.inetpsa.ltp.util.simplexmldoc.SimpleXMLDocumentationEntity)
+	  */
 	@Override
-	public String generate(final SimpleXMLDocumentationEntity entity) throws CoreException {
+	public String generate(final Class<?> racine, final SimpleXMLDocumentationEntity entity) throws SimpleXMLDocumentationException {
 		StringBuilder sb = new StringBuilder();
 		sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
 		sb.append("<xsd:schema xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"\n"); 
-		// sb.append("            targetNamespace=\"http://xml.inetpsa.com/Fabrication/efl\"\n"); 
-		// sb.append("            xmlns=\"http://xml.inetpsa.com/Fabrication/efl\"\n");
 		for (String definition : additionnalXsdDefinitions ) {
 			sb.append("            ").append(definition).append("\n");
 		}
 		sb.append("            elementFormDefault=\"qualified\">\n\n");
-		sb.append("   <xsd:element name=\"preferences\" type=\"org.tensin.beerduino.Preferences\" />\n\n");
+		mainElementClass = getMainElementClass(racine);
+		mainElementName = getMainElementName(racine);
+		if ( StringUtils.isNotEmpty(mainElementClass) && StringUtils.isNotEmpty(mainElementName)) {
+			sb.append("   <xsd:element name=\"").append(mainElementName).append("\" type=\"").append(mainElementClass).append("\" />\n\n");
+		}
 		sb.append(toXSD(entity, new TreeSet<String>()));
 		sb.append("</xsd:schema>\n");
 		return sb.toString();
@@ -47,6 +76,49 @@ public class SimpleXMLDocumentationOutputXSD implements ISimpleXMLDocumentation 
 	}
 
 	/**
+	 * Gets the main element class.
+	 *
+	 * @return the main element class
+	 */
+	public String getMainElementClass() {
+		return mainElementClass;
+	}
+
+	/**
+	 * Gets the main element class.
+	 *
+	 * @param racine the racine
+	 * @return the main element class
+	 */
+	private String getMainElementClass(final Class<?> racine) {
+		return racine.getName().replaceAll(".class", "");
+	}
+
+	/**
+	 * Gets the main element name.
+	 *
+	 * @return the main element name
+	 */
+	public String getMainElementName() {
+		return mainElementName;
+	}
+
+	/**
+	 * Gets the main element name.
+	 *
+	 * @param racine the racine
+	 * @return the main element name
+	 */
+	private String getMainElementName(Class<?> racine) {
+		for (Annotation annotation : racine.getAnnotations()) {
+			if (AnnotationHelper.isInstance(annotation, Root.class)) {
+				return (String)AnnotationHelper.getFieldValue(annotation, "name");
+			}
+		}
+		return null;
+	}
+
+	/**
 	 * Method.
 	 *
 	 * @param entity the entity
@@ -59,7 +131,7 @@ public class SimpleXMLDocumentationOutputXSD implements ISimpleXMLDocumentation 
 			return "";
 		}
 	}
-	
+
 	/**
 	 * Sets the additionnal xsd definitions.
 	 *
@@ -68,6 +140,24 @@ public class SimpleXMLDocumentationOutputXSD implements ISimpleXMLDocumentation 
 	public void setAdditionnalXsdDefinitions(
 			Collection<String> additionnalXsdDefinitions) {
 		this.additionnalXsdDefinitions = additionnalXsdDefinitions;
+	}
+
+	/**
+	 * Sets the main element class.
+	 *
+	 * @param mainElementClass the new main element class
+	 */
+	public void setMainElementClass(String mainElementClass) {
+		this.mainElementClass = mainElementClass;
+	}
+	
+	/**
+	 * Sets the main element name.
+	 *
+	 * @param mainElementName the new main element name
+	 */
+	public void setMainElementName(String mainElementName) {
+		this.mainElementName = mainElementName;
 	}
 
 	/**
@@ -99,7 +189,7 @@ public class SimpleXMLDocumentationOutputXSD implements ISimpleXMLDocumentation 
 			}
 		}
 		if (nbTexts > 1) {
-			System.err.println("Etrange: "+nbTexts+" 'text' sur "+currentEntity.getBaliseName());
+			LOGGER.error("Etrange: "+nbTexts+" 'text' sur "+currentEntity.getBaliseName());
 		}
 
 		/* Enum */
@@ -198,7 +288,7 @@ public class SimpleXMLDocumentationOutputXSD implements ISimpleXMLDocumentation 
 		} 
 		
 		if (nbTexts == 0 && nbElements == 0 && nbAttributs == 0 && nbEnums ==0) {
-			System.out.println("Balise vide: <"+currentEntity.getBaliseName()+">");
+			LOGGER.info("Balise vide: <"+currentEntity.getBaliseName()+">");
 		}
 		
 		

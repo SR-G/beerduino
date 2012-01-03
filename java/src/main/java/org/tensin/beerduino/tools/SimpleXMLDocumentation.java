@@ -5,9 +5,9 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 
-import org.tensin.beerduino.CoreException;
-import org.tensin.beerduino.Preferences;
-
+import org.apache.log4j.BasicConfigurator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The Class SimpleXMLDocumentation.
@@ -16,6 +16,9 @@ import org.tensin.beerduino.Preferences;
  * @since 26 oct. 2011 14:40:52
  */
 public class SimpleXMLDocumentation {
+	
+	/** Logger. */
+    private static final Logger LOGGER = LoggerFactory.getLogger(SimpleXMLDocumentation.class);
 	
 	/** Types. */
 	private static LinkedHashMap<String,SimpleXMLDocumentationType> types;
@@ -96,13 +99,14 @@ public class SimpleXMLDocumentation {
 	 *
 	 */
 	static void showAllTypes() {
-		System.out.println("Liste des types");
+		StringBuilder typesOutput = new StringBuilder();
 		Iterator<String> itTypes = types.keySet().iterator();
 		while(itTypes.hasNext()) {
 			String typeName = itTypes.next();
 			SimpleXMLDocumentationType type = types.get(typeName);
-			System.out.println("TYPE ["+type.isPrimitive()+"] : "+typeName);
+			typesOutput.append("TYPE [").append(type.isPrimitive()).append("] : ").append(typeName).append("\n");
 		}
+		LOGGER.info("Liste des types : \n" + typesOutput);
 	
 	}
 	
@@ -113,13 +117,13 @@ public class SimpleXMLDocumentation {
 	 * @param destination the destination
 	 * @param converter the converter
 	 * @throws IOException Signals that an I/O exception has occurred.
-	 * @throws CoreException the core exception
 	 */
-	public static void convert(final Class<?> racine, final String destination, final ISimpleXMLDocumentation converter) throws IOException, CoreException {
+	public static void convert(final Class<?> racine, final String destination, final ISimpleXMLDocumentationOutput converter) throws IOException, SimpleXMLDocumentationException {
+		LOGGER.info("Converting class [" + racine.getName() + "] to file [" + destination + "] with converter [" + converter.getClass().getSimpleName() + "]");
 		initSimpleXMLDocumentation();
 		SimpleXMLDocumentation sxmldoc = new SimpleXMLDocumentation(racine);
 		affecteIndices();
-		org.apache.commons.io.FileUtils.writeStringToFile(new File(destination), converter.generate(sxmldoc.getRoot()));
+		org.apache.commons.io.FileUtils.writeStringToFile(new File(destination), converter.generate(racine, sxmldoc.getRoot()));
 	}
 	
 	/**
@@ -146,16 +150,18 @@ public class SimpleXMLDocumentation {
 	 * @throws Exception the exception
 	 */
 	public static void main(String[] args) throws Exception {
+		BasicConfigurator.configure();
+
 		//SimpleXMLDocumentation sxmldoc = new SimpleXMLDocumentation(Usine.class);
 		//System.out.println(sxmldoc.toString());
-		//System.out.println(sxmldoc.toXML());
-		//System.out.println(sxmldoc.toXSD());
 		
-		SimpleXMLDocumentation.convert(Preferences.class, "preferences.apt", new SimpleXMLDocumentationOutputAPT());
-		SimpleXMLDocumentation.convert(Preferences.class, "preferences.xsd", new SimpleXMLDocumentationOutputXSD());
-		// SimpleXMLDocumentation.toXSD(Usine.class, "../CDN-JAVA/site/apt/SimpleXML.xsd");
+		// SimpleXMLDocumentation.convert(Preferences.class, "preferences.apt", new SimpleXMLDocumentationOutputAPT());
+		// SimpleXMLDocumentation.convert(Preferences.class, "preferences.xsd", new SimpleXMLDocumentationOutputXSD());
 		
-		//SimpleXMLDocumentation.toXSD(OccurrenceConfig.class, "../TEST/data/efl.xsd");
-		//SimpleXMLDocumentation.toAPT(OccurrenceConfig.class, "../CDN-JAVA/site/apt/SimpleXML.apt");
+		// SimpleXMLDocumentationOutputXSD converter = new SimpleXMLDocumentationOutputXSD();
+		// converter.addAdditionnalXsdDefinitions("targetNamespace=\"http://xml.inetpsa.com/Fabrication/efl\"");
+		// converter.addAdditionnalXsdDefinitions("xmlns=\"http://xml.inetpsa.com/Fabrication/efl\"");
+		// SimpleXMLDocumentation.convert(Usine.class, "../CDN-JAVA/site/apt/SimpleXML.xsd", converter);
+		// SimpleXMLDocumentation.convert(Usine.class, "tmp/usine.xsd", converter);
 	}
 }

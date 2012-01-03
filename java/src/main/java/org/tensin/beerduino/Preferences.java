@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.apache.commons.lang3.StringUtils;
+import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.ElementListUnion;
@@ -58,7 +59,7 @@ public class Preferences {
     /**
      * 
      */
-    @Element(required = false)
+    @Attribute(required = false)
     private String noNamespaceSchemaLocation;
     
     /**
@@ -85,7 +86,20 @@ public class Preferences {
     @Description("Port of the arduino board. Default to 80.")
     private int arduinoPort = 80;
 
-    /** The limits. */
+    /** The arduino port. */
+    @Element(required = false)
+    @Description("Frequency of the arduino values checkout. In milliseconds. Default to 1000.")
+    private int arduinoCheckFrequency = 1000;
+
+    public int getArduinoCheckFrequency() {
+		return arduinoCheckFrequency;
+	}
+
+	public void setArduinoCheckFrequency(int arduinoCheckFrequency) {
+		this.arduinoCheckFrequency = arduinoCheckFrequency;
+	}
+
+	/** The limits. */
     @ElementList(name = "seuils", required = false)
     @Description("Temperatures warnings (after / below whom a notification will be sent)")
     private Collection<TemperatureLimit> limits = new ArrayList<TemperatureLimit>();

@@ -21,14 +21,14 @@ import org.simpleframework.xml.Root;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tensin.beerduino.Beerduino;
-import org.tensin.beerduino.CoreException;
 import org.tensin.beerduino.RRDTemperature;
 import org.tensin.beerduino.Recipient;
 import org.tensin.beerduino.TemperatureResults;
 import org.tensin.beerduino.TemperatureState;
 import org.tensin.beerduino.TemplatedGraph;
 import org.tensin.beerduino.VelociMail;
-import org.tensin.beerduino.tools.Description;
+import org.tensin.common.CoreException;
+import org.tensin.common.tools.documentation.updater.Description;
 
 /**
  * The Class MailNotification.

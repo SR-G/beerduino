@@ -10,7 +10,7 @@ import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.tensin.beerduino.helpers.CloseHelper;
+import org.tensin.common.helpers.CloseHelper;
 
 
 /**

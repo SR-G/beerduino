@@ -6,7 +6,7 @@ import java.util.Collection;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
-import org.tensin.beerduino.tools.Description;
+import org.tensin.common.tools.documentation.updater.Description;
 
 
 /**

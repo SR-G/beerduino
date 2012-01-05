@@ -19,7 +19,8 @@ import org.tensin.beerduino.notifications.MailNotification;
 import org.tensin.beerduino.notifications.PushToNotification;
 import org.tensin.beerduino.notifications.SMSNotification;
 import org.tensin.beerduino.notifications.URLNotification;
-import org.tensin.beerduino.tools.Description;
+import org.tensin.common.CoreException;
+import org.tensin.common.tools.documentation.updater.Description;
 
 /**
  * The Class Preferences.

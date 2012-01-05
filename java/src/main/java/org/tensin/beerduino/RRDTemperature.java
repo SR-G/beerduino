@@ -19,6 +19,7 @@ import org.rrd4j.graph.RrdGraph;
 import org.rrd4j.graph.RrdGraphDef;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.tensin.common.CoreException;
 
 
 /**

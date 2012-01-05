@@ -2,9 +2,9 @@ package org.tensin.beerduino.notifications;
 
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
-import org.tensin.beerduino.CoreException;
 import org.tensin.beerduino.TemperatureResults;
-import org.tensin.beerduino.tools.Description;
+import org.tensin.common.CoreException;
+import org.tensin.common.tools.documentation.updater.Description;
 
 
 /**

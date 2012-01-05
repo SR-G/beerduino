@@ -10,13 +10,15 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
 import org.springframework.core.type.filter.AssignableTypeFilter;
-import org.tensin.beerduino.CoreException;
+import org.tensin.common.CoreException;
+import org.tensin.common.tools.documentation.updater.ISimpleXMLDocumentationOutput;
+import org.tensin.common.tools.documentation.updater.SimpleXMLDocumentationOutputGitHubWiki;
 
 public class SimpleXMLDocumentationSpring {
 
 	public static void main(final String[] args) throws CoreException {
 		SimpleXMLDocumentationSpring doc = new SimpleXMLDocumentationSpring();
-		doc.generate(Preferences.class, new SimpleXMLDocumentationOutputWiki(),
+		doc.generate(Preferences.class, new SimpleXMLDocumentationOutputGitHubWiki(),
 				"beerduino.wiki");
 	}
 
@@ -34,6 +36,5 @@ public class SimpleXMLDocumentationSpring {
 		for (BeanDefinition bd : scanner.findCandidateComponents("org/tensin/")) {
 		    System.out.println(bd.getBeanClassName());
 		}
-		
 	}
 }

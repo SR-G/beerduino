@@ -48,6 +48,32 @@
 
 	</build>
 
+	<profiles>
+		<profile>
+			<id>dependencyList</id>
+			<build>
+			<plugins>
+                        <plugin>
+                                <groupId>org.apache.maven.plugins</groupId>
+                                <artifactId>maven-dependency-plugin</artifactId>
+                                <configuration>
+                                        <outputFile>target/maven-dependencies.txt</outputFile>
+                                        <outputType>txt</outputType>
+                                </configuration>
+                                <!-- Inutilisable avec une phase : il faut que les fichiers soient créés 
+                                        sur disque *avant* compilation du premier module (ltp-start) ... impossible 
+                                        avec maven, donc exécution obligatoire manuelle de "dependency:list" en goal 
+                                        sur la commande mvn : mvn dependency:list install pour créer les jars et 
+                                        avoir le start à jour -->
+                                <!-- <executions> <execution> <phase>validate</phase> <configuration> 
+                                        <outputFile>target/maven_dependencies.txt</outputFile> <outputType>txt</outputType> 
+                                        </configuration> <goals> <goal>list</goal> </goals> </execution> </executions> -->
+                        </plugin>
+			</plugins>
+			</build>
+		</profile>
+	</profiles>
+
 	<dependencies>
 		<dependency>
 			<groupId>de.huxhorn.lilith</groupId>
@@ -175,20 +201,28 @@
 			<groupId>org.eclipse.jetty</groupId>
 			<artifactId>jetty-server</artifactId>
 			<version>${jetty.version}</version>
+			<optional>true</optional>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.jetty</groupId>
 			<artifactId>jetty-util</artifactId>
 			<version>${jetty.version}</version>
+			<optional>true</optional>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-core</artifactId>
 			<version>1.8.5</version>
+			<optional>true</optional>
 			<scope>test</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>org.jdom</groupId>
+			<artifactId>jdom</artifactId>
+			<version>1.1</version>
+		</dependency>
 	</dependencies>
 </project>

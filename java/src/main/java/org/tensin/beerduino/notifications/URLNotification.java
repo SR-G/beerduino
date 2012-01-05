@@ -9,11 +9,11 @@ import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Root;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.tensin.beerduino.CoreException;
 import org.tensin.beerduino.TemperatureResults;
 import org.tensin.beerduino.TemperatureState;
-import org.tensin.beerduino.helpers.CloseHelper;
-import org.tensin.beerduino.tools.Description;
+import org.tensin.common.CoreException;
+import org.tensin.common.helpers.CloseHelper;
+import org.tensin.common.tools.documentation.updater.Description;
 
 
 /**

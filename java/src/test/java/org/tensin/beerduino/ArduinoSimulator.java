@@ -11,6 +11,7 @@ import org.apache.log4j.BasicConfigurator;
 import org.eclipse.jetty.server.Request;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
+import org.tensin.common.CoreException;
 
 
 /**

@@ -25,7 +25,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
-import org.tensin.beerduino.helpers.DumpHelper;
+import org.tensin.common.CoreException;
+import org.tensin.common.helpers.DumpHelper;
 
 
 /**

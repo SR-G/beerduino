@@ -6,6 +6,7 @@ import org.rrd4j.core.Sample;
 import org.rrd4j.core.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.tensin.common.CoreException;
 
 /**
  * The Class ThreadRRDStorage.

@@ -6,6 +6,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tensin.beerduino.notifications.INotification;
+import org.tensin.common.CoreException;
 
 /**
  * The Class ThreadNotify.

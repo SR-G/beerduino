@@ -2,7 +2,7 @@ package org.tensin.beerduino;
 
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Root;
-import org.tensin.beerduino.tools.Description;
+import org.tensin.common.tools.documentation.updater.Description;
 
 
 /**

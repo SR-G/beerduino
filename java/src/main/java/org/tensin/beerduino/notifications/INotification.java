@@ -1,7 +1,7 @@
 package org.tensin.beerduino.notifications;
 
-import org.tensin.beerduino.CoreException;
 import org.tensin.beerduino.TemperatureResults;
+import org.tensin.common.CoreException;
 
 
 /**

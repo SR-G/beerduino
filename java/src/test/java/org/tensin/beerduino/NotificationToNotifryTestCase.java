@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
 import org.tensin.beerduino.notifications.NotifryNotification;
 import org.tensin.common.CoreException;
 
-
 /**
  * The Class XMLTemperatureReadingTestCase.
  */
@@ -24,8 +23,9 @@ public class NotificationToNotifryTestCase extends AbstractTestCase {
 
     /**
      * Test xml temperature reading.
-     *
-     * @throws CoreException the core exception
+     * 
+     * @throws CoreException
+     *             the core exception
      */
     @Test
     public void testNotifry() throws CoreException {
@@ -36,9 +36,9 @@ public class NotificationToNotifryTestCase extends AbstractTestCase {
             TemperatureResults results = serializer.read(TemperatureResults.class, source);
 
             NotifryNotification notify = new NotifryNotification();
-        	notify.setNotifrySignature("Beerduino");
-        	notify.setNotifrySource("297e1f0a3a0420136a7437b8e6b90e77");
-        	notify.execute(results);
+            notify.setNotifrySignature("Beerduino");
+            notify.setNotifrySource("297e1f0a3a0420136a7437b8e6b90e77");
+            notify.execute(results);
         } catch (Exception e) {
             LOGGER.error("Notification error", e);
         }

@@ -12,7 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tensin.common.helpers.CloseHelper;
 
-
 /**
  * The Class ThreadMonitoring.
  */
@@ -29,9 +28,11 @@ public class ThreadMonitoring extends AbstractThread {
 
     /**
      * Instantiates a new thread monitoring.
-     *
-     * @param temperatures the temperatures
-     * @param notifications the notifications
+     * 
+     * @param temperatures
+     *            the temperatures
+     * @param notifications
+     *            the notifications
      */
     public ThreadMonitoring(final LinkedBlockingQueue<TemperatureResults> temperatures, final LinkedBlockingQueue<TemperatureResults> notifications) {
         super();
@@ -41,8 +42,9 @@ public class ThreadMonitoring extends AbstractThread {
 
     /**
      * Are temperatures back to normal.
-     *
-     * @param results the results
+     * 
+     * @param results
+     *            the results
      * @return true, if successful
      */
     private boolean areTemperaturesBackToNormal(final TemperatureResults results) {
@@ -63,8 +65,9 @@ public class ThreadMonitoring extends AbstractThread {
 
     /**
      * Are temperatures overheat.
-     *
-     * @param results the results
+     * 
+     * @param results
+     *            the results
      * @return true, if successful
      */
     private boolean areTemperaturesOverheat(final TemperatureResults results) {
@@ -76,7 +79,9 @@ public class ThreadMonitoring extends AbstractThread {
         return false;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.lang.Thread#run()
      */
     @Override

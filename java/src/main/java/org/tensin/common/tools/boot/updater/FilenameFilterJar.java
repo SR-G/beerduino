@@ -23,9 +23,11 @@ public class FilenameFilterJar implements FilenameFilter {
 
     /**
      * Méthode d'acceptation.
-     *
-     * @param dir Le répertoire en cours.
-     * @param name Le nom du fichier en cours.
+     * 
+     * @param dir
+     *            Le répertoire en cours.
+     * @param name
+     *            Le nom du fichier en cours.
      * @return True si le fichier matche l'expression régulière courante, false sinon.
      * @see FilenameFilter#accept(java.io.File, java.lang.String)
      */

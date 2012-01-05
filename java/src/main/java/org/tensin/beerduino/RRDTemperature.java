@@ -21,7 +21,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tensin.common.CoreException;
 
-
 /**
  * The Class RRDTemperature.
  */
@@ -50,8 +49,9 @@ public class RRDTemperature {
 
     /**
      * Method.
-     *
-     * @param l the l
+     * 
+     * @param l
+     *            the l
      * @return the string
      */
     public static String convertTimestamp(final long l) {
@@ -66,9 +66,10 @@ public class RRDTemperature {
 
     /**
      * Method.
-     *
+     * 
      * @return the sample
-     * @throws CoreException the core exception
+     * @throws CoreException
+     *             the core exception
      */
     public Sample acquireSample() throws CoreException {
         try {
@@ -80,8 +81,9 @@ public class RRDTemperature {
 
     /**
      * Adds the datasource sensors name.
-     *
-     * @param name the name
+     * 
+     * @param name
+     *            the name
      */
     public void addDatasourceSensorsName(final String name) {
         sensorsName.add(name);
@@ -89,7 +91,7 @@ public class RRDTemperature {
 
     /**
      * Method.
-     *
+     * 
      */
     public void close() {
         try {
@@ -101,9 +103,11 @@ public class RRDTemperature {
 
     /**
      * Method.
-     *
-     * @param s the s
-     * @throws CoreException the core exception
+     * 
+     * @param s
+     *            the s
+     * @throws CoreException
+     *             the core exception
      */
     public void commitSample(final Sample s) throws CoreException {
         try {
@@ -115,9 +119,11 @@ public class RRDTemperature {
 
     /**
      * Method.
-     *
-     * @param start the start
-     * @param end the end
+     * 
+     * @param start
+     *            the start
+     * @param end
+     *            the end
      */
     public void dump(final long start, final long end) {
         try {
@@ -136,7 +142,7 @@ public class RRDTemperature {
 
     /**
      * Gets the colors.
-     *
+     * 
      * @return the colors
      */
     public Collection<Color> getColors() {
@@ -155,6 +161,7 @@ public class RRDTemperature {
 
     /**
      * Getter for the attribute rrdDb.
+     * 
      * @return Returns the attribute rrdDb.
      */
     public RrdDb getRrdDb() {
@@ -166,6 +173,7 @@ public class RRDTemperature {
 
     /**
      * Getter for the attribute rrdFileName.
+     * 
      * @return Returns the attribute rrdFileName.
      */
     public String getRrdFileName() {
@@ -173,22 +181,28 @@ public class RRDTemperature {
     }
 
     /**
-    * Getter for the attribute startTime.
-    * @return Returns the attribute startTime.
-    */
+     * Getter for the attribute startTime.
+     * 
+     * @return Returns the attribute startTime.
+     */
     public long getStartTime() {
         return startTime;
     }
 
     /**
      * Graph.
-     *
-     * @param filename the filename
-     * @param startTime the start time
-     * @param endTime the end time
-     * @param title the title
+     * 
+     * @param filename
+     *            the filename
+     * @param startTime
+     *            the start time
+     * @param endTime
+     *            the end time
+     * @param title
+     *            the title
      * @return the string
-     * @throws CoreException the core exception
+     * @throws CoreException
+     *             the core exception
      */
     public String graph(final String filename, final long startTime, final long endTime, final String title) throws CoreException {
         String generatedGraphFilename = filename + ".png";
@@ -228,7 +242,7 @@ public class RRDTemperature {
 
     /**
      * Inits the.
-     *
+     * 
      * @return the rrd db
      */
     public RrdDb init() {
@@ -237,17 +251,17 @@ public class RRDTemperature {
             double min = -Double.NaN;
             double max = Double.NaN;
             RrdDef rrdDef = new RrdDef(getRrdFileName(), getStartTime() - 1, step);
-            //rrdDef.setVersion(2);
+            // rrdDef.setVersion(2);
             for (String sensorName : sensorsName) {
                 rrdDef.addDatasource(sensorName, DsType.GAUGE, step * 7200, min, max);
             }
 
             // On garde tous les relevés pendant 1 heure (avec 1 prise toutes les secondes).
-            // = on stocke 60 secondes * 60 minutes = 1 heure de donnnées 
+            // = on stocke 60 secondes * 60 minutes = 1 heure de donnnées
             rrdDef.addArchive(ConsolFun.AVERAGE, 0.5, 1, (60 * 60 * 1));
 
             // On fait la moyenne par 5 minutes (avec 1 prise toutes les secondes) en on conserve sur la journée.
-            // Comme on aggrège 60 * 5 = 300 secondes = 5 minutes, on conserve un nombre d'enregistrements 
+            // Comme on aggrège 60 * 5 = 300 secondes = 5 minutes, on conserve un nombre d'enregistrements
             // de 12 (* 5 minutes d'écart = 1 heure) * 24 = 1 journée * 5 = 5 J
             rrdDef.addArchive(ConsolFun.AVERAGE, 0.5, (60 * 5), (12 * 24 * 5));
 
@@ -257,7 +271,7 @@ public class RRDTemperature {
             rrdDef.addArchive(ConsolFun.AVERAGE, 0.5, (60 * 60), (24 * 31));
 
             // On fait la moyenne tous les jours et on les gardes pendant 10 ans.
-            // Aggrégation sur 60 secondes * 60 minutes * 24 = 1 jour 
+            // Aggrégation sur 60 secondes * 60 minutes * 24 = 1 jour
             // Et on conserve 1 journée * 365J = 1 année * 10
             rrdDef.addArchive(ConsolFun.AVERAGE, 0.5, (60 * 60 * 24), (365 * 10));
 
@@ -271,7 +285,9 @@ public class RRDTemperature {
 
     /**
      * Setter for the attribute rrdDb.
-     * @param rrdDb The attribute rrdDb.
+     * 
+     * @param rrdDb
+     *            The attribute rrdDb.
      */
     public void setRrdDb(final RrdDb rrdDb) {
         this.rrdDb = rrdDb;
@@ -279,7 +295,9 @@ public class RRDTemperature {
 
     /**
      * Setter for the attribute rrdFileName.
-     * @param rrdFileName The attribute rrdFileName.
+     * 
+     * @param rrdFileName
+     *            The attribute rrdFileName.
      */
     public void setRrdFileName(final String rrdFileName) {
         this.rrdFileName = rrdFileName;
@@ -287,8 +305,9 @@ public class RRDTemperature {
 
     /**
      * Sets the start time.
-     *
-     * @param startTime the new start time
+     * 
+     * @param startTime
+     *            the new start time
      */
     public void setStartTime(final long startTime) {
         this.startTime = startTime;
@@ -296,10 +315,13 @@ public class RRDTemperature {
 
     /**
      * Method.
-     *
-     * @param s the s
-     * @param key the key
-     * @param value the value
+     * 
+     * @param s
+     *            the s
+     * @param key
+     *            the key
+     * @param value
+     *            the value
      */
     public void update(final Sample s, final String key, final double value) {
         s.setValue(key, value);
@@ -307,10 +329,13 @@ public class RRDTemperature {
 
     /**
      * Method.
-     *
-     * @param s the s
-     * @param key the key
-     * @param values the values
+     * 
+     * @param s
+     *            the s
+     * @param key
+     *            the key
+     * @param values
+     *            the values
      */
     public void update(final Sample s, final String key, final long[] values) {
         for (long value : values) {

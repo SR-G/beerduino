@@ -18,9 +18,11 @@ public class DependencyException extends CoreException {
 
     /**
      * Renvoi LTPException.
-     *
-     * @param e Throwable.
-     * @throws DependencyException the dependency exception
+     * 
+     * @param e
+     *            Throwable.
+     * @throws DependencyException
+     *             the dependency exception
      */
     public static final void throwLTPException(final Throwable e) throws DependencyException {
         throw new DependencyException(e.getMessage(), e);

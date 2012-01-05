@@ -24,8 +24,9 @@ public class AdapterWebInfLib implements IAdapterInput {
 
     /**
      * Méthode.
-     *
-     * @param path the path
+     * 
+     * @param path
+     *            the path
      * @return the adapter web inf lib
      */
     public static AdapterWebInfLib buildAdapter(final String path) {
@@ -39,6 +40,7 @@ public class AdapterWebInfLib implements IAdapterInput {
 
     /*
      * (non-Javadoc)
+     * 
      * @see com.inetpsa.ltp.tools.excluded.IAdapterInput#getName()
      */
     public String getName() {
@@ -56,10 +58,11 @@ public class AdapterWebInfLib implements IAdapterInput {
 
     /*
      * (non-Javadoc)
+     * 
      * @see com.inetpsa.ltp.tools.excluded.IAdapterInput#load()
      */
     @SuppressWarnings("unchecked")
-	public Collection<JarContainer> load() throws DependencyException {
+    public Collection<JarContainer> load() throws DependencyException {
         List<JarContainer> result = new ArrayList<JarContainer>();
         File fileWebLibs = new File(path).getAbsoluteFile();
         if (fileWebLibs.isDirectory()) {
@@ -81,7 +84,9 @@ public class AdapterWebInfLib implements IAdapterInput {
 
     /**
      * Setter de l'attribut path.
-     * @param path L'attribut path.
+     * 
+     * @param path
+     *            L'attribut path.
      */
     public void setPath(final String path) {
         this.path = path;

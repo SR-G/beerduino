@@ -3,7 +3,6 @@ package org.tensin.beerduino;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Root;
 
-
 /**
  * The Class TemperatureLimit.
  */
@@ -27,7 +26,7 @@ public class TemperatureLimit {
 
     /**
      * Gets the limit.
-     *
+     * 
      * @return the limit
      */
     public double getLimit() {
@@ -36,7 +35,7 @@ public class TemperatureLimit {
 
     /**
      * Gets the sensor id.
-     *
+     * 
      * @return the sensor id
      */
     public String getSensorId() {
@@ -45,8 +44,9 @@ public class TemperatureLimit {
 
     /**
      * Sets the limit.
-     *
-     * @param limit the new limit
+     * 
+     * @param limit
+     *            the new limit
      */
     public void setLimit(final double limit) {
         this.limit = limit;
@@ -54,8 +54,9 @@ public class TemperatureLimit {
 
     /**
      * Sets the limit.
-     *
-     * @param limit the new limit
+     * 
+     * @param limit
+     *            the new limit
      */
     public void setLimit(final String limit) {
         this.limit = Double.valueOf(limit);
@@ -63,8 +64,9 @@ public class TemperatureLimit {
 
     /**
      * Sets the sensor id.
-     *
-     * @param sensorId the new sensor id
+     * 
+     * @param sensorId
+     *            the new sensor id
      */
     public void setSensorId(final String sensorId) {
         this.sensorId = sensorId;

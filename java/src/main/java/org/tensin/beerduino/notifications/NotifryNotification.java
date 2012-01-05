@@ -20,7 +20,6 @@ import org.tensin.common.CoreException;
 import org.tensin.common.helpers.CloseHelper;
 import org.tensin.common.tools.documentation.updater.Description;
 
-
 /**
  * The Class NotifryNotification.
  * Use : https://notifrier.appspot.com (Android only)
@@ -48,12 +47,14 @@ public class NotifryNotification extends URLNotification implements INotificatio
     @Description("Signature that will be shown in the notifry notification sent.")
     private String notifrySignature = "beerduino";
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.tensin.beerduino.notifications.URLNotification#execute(org.tensin.beerduino.TemperatureResults)
      */
     @Override
     public void execute(final TemperatureResults results) throws CoreException {
-    	LOGGER.info("Sending PushTo notification to [" + notifrySource + "]");
+        LOGGER.info("Sending PushTo notification to [" + notifrySource + "]");
 
         StringBuilder sb = new StringBuilder();
         if (results.getState().compareTo(TemperatureState.OVERHEAT) == 0) {
@@ -113,17 +114,8 @@ public class NotifryNotification extends URLNotification implements INotificatio
     }
 
     /**
-     * Gets the pushto id.
-     *
-     * @return the pushto id
-     */
-    public String getNotifrySource() {
-        return notifrySource;
-    }
-
-    /**
      * Gets the pushto signature.
-     *
+     * 
      * @return the pushto signature
      */
     public String getNotifrySignature() {
@@ -131,8 +123,17 @@ public class NotifryNotification extends URLNotification implements INotificatio
     }
 
     /**
+     * Gets the pushto id.
+     * 
+     * @return the pushto id
+     */
+    public String getNotifrySource() {
+        return notifrySource;
+    }
+
+    /**
      * Gets the pushto url.
-     *
+     * 
      * @return the pushto url
      */
     public String getNotifryUrl() {
@@ -141,7 +142,7 @@ public class NotifryNotification extends URLNotification implements INotificatio
 
     /**
      * Gets the url.
-     *
+     * 
      * @return the url
      */
     private String getUrl() {
@@ -149,27 +150,30 @@ public class NotifryNotification extends URLNotification implements INotificatio
     }
 
     /**
-     * Sets the pushto id.
-     *
-     * @param pushtoId the new pushto id
-     */
-    public void setNotifrySource(final String notifryId) {
-        this.notifrySource = notifryId;
-    }
-
-    /**
      * Sets the pushto signature.
-     *
-     * @param pushtoSignature the new pushto signature
+     * 
+     * @param notifrySignature
+     *            the new notifry signature
      */
     public void setNotifrySignature(final String notifrySignature) {
         this.notifrySignature = notifrySignature;
     }
 
     /**
+     * Sets the pushto id.
+     * 
+     * @param notifryId
+     *            the new notifry source
+     */
+    public void setNotifrySource(final String notifryId) {
+        this.notifrySource = notifryId;
+    }
+
+    /**
      * Sets the pushto url.
-     *
-     * @param pushtoUrl the new pushto url
+     * 
+     * @param notifryUrl
+     *            the new notifry url
      */
     public void setNotifryUrl(final String notifryUrl) {
         this.notifryUrl = notifryUrl;

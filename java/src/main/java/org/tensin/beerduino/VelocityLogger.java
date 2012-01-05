@@ -5,7 +5,6 @@ import org.apache.velocity.runtime.log.LogChute;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
  * VelocityLogger. Mis en place pour s'affranchir des logs parasites de Velocity
  * (fichier velocity.log gênant pour l'indus).

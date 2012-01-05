@@ -13,16 +13,17 @@ public interface IAdapterInput {
 
     /**
      * Méthode.
-     *
+     * 
      * @return the name
      */
     public String getName();
 
     /**
      * Méthode.
-     *
+     * 
      * @return the collection
-     * @throws DependencyException the dependency exception
+     * @throws DependencyException
+     *             the dependency exception
      */
     public Collection<JarContainer> load() throws DependencyException;
 }

@@ -17,10 +17,10 @@ public class AdapterDump implements IAdapterOutput {
 
     /** The Constant LOGGER. */
     private static final Logger LOGGER = LoggerFactory.getLogger(AdapterDump.class);
-	
+
     /**
      * Méthode.
-     *
+     * 
      * @return the adapter dump
      */
     public static AdapterDump buildAdapter() {
@@ -30,10 +30,11 @@ public class AdapterDump implements IAdapterOutput {
 
     /*
      * (non-Javadoc)
+     * 
      * @see com.inetpsa.ltp.tools.excluded.IAdapterOutput#generate()
      */
     public void generate(final Collection<JarContainer> jars) throws DependencyException {
-    	StringBuilder sb = new StringBuilder("Liste de tous les jars chargés :\n");
+        StringBuilder sb = new StringBuilder("Liste de tous les jars chargés :\n");
         if ((jars != null) && (jars.size() > 0)) {
             Iterator<JarContainer> itr = jars.iterator();
             JarContainer jar;
@@ -45,7 +46,9 @@ public class AdapterDump implements IAdapterOutput {
         LOGGER.info(sb.toString());
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see com.inetpsa.ltp.tools.excluded.IAdapterInput#getName()
      */
     public String getName() {

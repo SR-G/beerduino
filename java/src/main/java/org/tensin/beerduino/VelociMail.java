@@ -28,94 +28,44 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.tensin.common.CoreException;
 import org.tensin.common.helpers.DumpHelper;
 
-
 /**
  * The Class VelociMail.
- *
+ * 
  * @author u248663
  * @version $Revision: 1.1 $
  * @since 6 mai 2011 15:38:02
  */
 public class VelociMail {
-    
+
     /** loader. */
     private static final ClassLoader loader = Thread.currentThread().getContextClassLoader();
 
     /** Logger. */
     private static final Logger LOGGER = LoggerFactory.getLogger(VelociMail.class);
 
+    /**
+     * Method.
+     * 
+     * @param resourceName
+     *            the resource name
+     * @return true, if is image
+     */
+    public static boolean isImage(final String resourceName) {
+        if (StringUtils.isNotEmpty(resourceName)) {
+            final String s = resourceName.toLowerCase();
+            return s.endsWith(".jpg") || s.endsWith(".gif") || s.endsWith(".png") || s.endsWith(".jpeg") || s.endsWith(".bmp");
+        }
+        return false;
+    }
+
     /** template. */
     private String template;
-    
+
     /** layout. */
     private String layout;
-    
+
     /** velocityContext. */
     private VelocityContext velocityContext;
-
-    /**
-     * Method.
-     *
-     * @return the velocity context
-     */
-    public VelocityContext getVelocityContext() {
-        return velocityContext;
-    }
-
-        /**
-         * Method.
-         *
-         * @param key the key
-         * @param object the object
-         */
-    public void addContext(String key, Object object) {
-        velocityContext.put(key, object);
-    }
-
-    /**
-     * Method.
-     *
-     * @param velocityContext the new velocity context
-     */
-    public void setVelocityContext(VelocityContext velocityContext) {
-        this.velocityContext = velocityContext;
-    }
-
-    /**
-     * Method.
-     *
-     * @return the template
-     */
-    public String getTemplate() {
-        return template;
-    }
-
-    /**
-     * Method.
-     *
-     * @param template the new template
-     */
-    public void setTemplate(String template) {
-        this.template = template;
-    }
-
-    /**
-     * Method.
-     *
-     * @return the layout
-     */
-    public String getLayout() {
-        return layout;
-    }
-
-    /**
-     * Method.
-     *
-     * @param layout the new layout
-     */
-    public void setLayout(String layout) {
-        this.layout = layout;
-    }
 
     /**
      * Constructor.
@@ -127,7 +77,63 @@ public class VelociMail {
 
     /**
      * Method.
-     *
+     * 
+     * @param key
+     *            the key
+     * @param object
+     *            the object
+     */
+    public void addContext(String key, Object object) {
+        velocityContext.put(key, object);
+    }
+
+    /**
+     * Method.
+     * 
+     * @param templatePath
+     *            the template path
+     * @return the input stream reader
+     * @throws CoreException
+     *             the core exception
+     */
+    private Reader getInputStreamReader(String templatePath) throws CoreException {
+        InputStream is = loader.getResourceAsStream(templatePath);
+        if (is == null) {
+            throw new CoreException("La ressource '" + templatePath + "' est introuvable");
+        }
+        return new InputStreamReader(is);
+    }
+
+    /**
+     * Method.
+     * 
+     * @return the layout
+     */
+    public String getLayout() {
+        return layout;
+    }
+
+    /**
+     * Method.
+     * 
+     * @return the template
+     */
+    public String getTemplate() {
+        return template;
+    }
+
+    /**
+     * Method.
+     * 
+     * @return the velocity context
+     */
+    public VelocityContext getVelocityContext() {
+        return velocityContext;
+    }
+
+    /**
+     * Method.
+     * 
      */
     private void initVelocity() {
         try {
@@ -138,12 +144,14 @@ public class VelociMail {
             LOGGER.error("Error while initializing Velocity", e);
         }
     }
-    
+
     /**
      * Method.
-     *
-     * @param email the email
-     * @param listUsedImages the list used images
+     * 
+     * @param email
+     *            the email
+     * @param listUsedImages
+     *            the list used images
      */
     private void loadImagesIntoContext(HtmlEmail email, Set<String> listUsedImages) {
         PathMatchingResourcePatternResolver pmrspr = new PathMatchingResourcePatternResolver();
@@ -153,12 +161,12 @@ public class VelociMail {
             String resourceName;
             String baseResourceName;
             String imgResourceName;
-            for(Resource resource : resources) {
+            for (Resource resource : resources) {
                 resourceName = resource.getFilename();
-                if ( isImage(resourceName)) {
+                if (isImage(resourceName)) {
                     baseResourceName = resourceName.substring(0, resourceName.lastIndexOf("."));
                     imgResourceName = "img" + StringUtils.capitalize(baseResourceName);
-                    if ( listUsedImages.contains(imgResourceName)) {
+                    if (listUsedImages.contains(imgResourceName)) {
                         LOGGER.debug("Merging image [" + imgResourceName + "]");
                         velocityContext.put(imgResourceName, email.embed(resource.getURL(), StringUtils.capitalize(baseResourceName)));
                         registeredImages.add(resourceName + " (cid:" + imgResourceName + ")");
@@ -174,10 +182,40 @@ public class VelociMail {
         }
         LOGGER.info("Registered images : \n" + DumpHelper.dump(registeredImages));
     }
-    
+
+    /**
+     * Method.
+     * 
+     * @return the sets the
+     * @throws CoreException
+     *             the core exception
+     */
+    private Set<String> loadUsedImagesFromTemplate() throws CoreException {
+        Set<String> listUsedImages = new TreeSet<String>();
+        BufferedReader bis = new BufferedReader(getInputStreamReader(template));
+        String line;
+        String buffer = "";
+        try {
+            while ((line = bis.readLine()) != null) {
+                buffer += line;
+            }
+            Pattern pattern = Pattern.compile("cid:\\$\\{(img[^}]*)\\}");
+            Matcher matcher = pattern.matcher(buffer);
+            while (matcher.find()) {
+                String s = matcher.group(1);
+                listUsedImages.add(s);
+            }
+        } catch (IOException e) {
+            throw new CoreException("Error while parsing template [" + template + "]", e);
+        } finally {
+            // Do not make any close here
+        }
+        return listUsedImages;
+    }
+
     /**
      * Render.
-     *
+     * 
      * @return the string
      */
     public String render() {
@@ -201,11 +239,12 @@ public class VelociMail {
 
         return null;
     }
-    
+
     /**
      * Method.
-     *
-     * @param email the email
+     * 
+     * @param email
+     *            the email
      * @return the string
      */
     public String render(HtmlEmail email) {
@@ -226,65 +265,37 @@ public class VelociMail {
             LOGGER.error("Error while rendering mail", e);
         } finally {
         }
-        
+
         return null;
     }
 
     /**
      * Method.
-     *
-     * @return the sets the
-     * @throws CoreException the core exception
+     * 
+     * @param layout
+     *            the new layout
      */
-    private Set<String> loadUsedImagesFromTemplate() throws CoreException {
-        Set<String> listUsedImages = new TreeSet<String>();
-        BufferedReader bis = new BufferedReader(getInputStreamReader(template));
-        String line;
-        String buffer = "";
-        try {
-            while ((line = bis.readLine()) != null ) {
-                buffer += line;
-            }
-            Pattern pattern = Pattern.compile("cid:\\$\\{(img[^}]*)\\}");
-            Matcher matcher = pattern.matcher(buffer);
-            while (matcher.find()) {
-                String s = matcher.group(1);
-                listUsedImages.add(s);
-            }
-        } catch (IOException e) {
-            throw new CoreException("Error while parsing template [" + template + "]", e);
-        } finally {
-            // Do not make any close here
-        }
-        return listUsedImages;
+    public void setLayout(String layout) {
+        this.layout = layout;
     }
 
     /**
      * Method.
-     *
-     * @param templatePath the template path
-     * @return the input stream reader
-     * @throws CoreException the core exception
+     * 
+     * @param template
+     *            the new template
      */
-    private Reader getInputStreamReader(String templatePath) throws CoreException {
-        InputStream is = loader.getResourceAsStream(templatePath);
-        if (is == null) {
-            throw new CoreException("La ressource '" + templatePath + "' est introuvable");
-        }
-        return new InputStreamReader(is);
+    public void setTemplate(String template) {
+        this.template = template;
     }
 
     /**
      * Method.
-     *
-     * @param resourceName the resource name
-     * @return true, if is image
+     * 
+     * @param velocityContext
+     *            the new velocity context
      */
-    public static boolean isImage(final String resourceName) {
-        if ( StringUtils.isNotEmpty(resourceName)) {
-            final String s = resourceName.toLowerCase();
-            return s.endsWith(".jpg") || s.endsWith(".gif") || s.endsWith(".png") || s.endsWith(".jpeg") || s.endsWith(".bmp");     
-        }
-        return false;
+    public void setVelocityContext(VelocityContext velocityContext) {
+        this.velocityContext = velocityContext;
     }
 }

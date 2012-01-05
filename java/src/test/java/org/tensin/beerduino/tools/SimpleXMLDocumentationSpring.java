@@ -16,25 +16,25 @@ import org.tensin.common.tools.documentation.updater.SimpleXMLDocumentationOutpu
 
 public class SimpleXMLDocumentationSpring {
 
-	public static void main(final String[] args) throws CoreException {
-		SimpleXMLDocumentationSpring doc = new SimpleXMLDocumentationSpring();
-		doc.generate(Preferences.class, new SimpleXMLDocumentationOutputGitHubWiki(),
-				"beerduino.wiki");
-	}
+    public static void main(final String[] args) throws CoreException {
+        SimpleXMLDocumentationSpring doc = new SimpleXMLDocumentationSpring();
+        doc.generate(Preferences.class, new SimpleXMLDocumentationOutputGitHubWiki(),
+                "beerduino.wiki");
+    }
 
-	private void generate(final Class<?> className, final ISimpleXMLDocumentationOutput converter, final String destination) {
-		Persister p = new Persister();
-	
-		ClassPathScanningCandidateComponentProvider scanner =
-				new ClassPathScanningCandidateComponentProvider(true);
+    private void generate(final Class<?> className, final ISimpleXMLDocumentationOutput converter, final String destination) {
+        Persister p = new Persister();
 
-		scanner.addIncludeFilter(new AnnotationTypeFilter(Root.class));
-		scanner.addIncludeFilter(new AnnotationTypeFilter(Element.class));
-		scanner.addIncludeFilter(new AnnotationTypeFilter(Attribute.class));
-		scanner.addIncludeFilter(new AssignableTypeFilter(className));
+        ClassPathScanningCandidateComponentProvider scanner =
+                new ClassPathScanningCandidateComponentProvider(true);
 
-		for (BeanDefinition bd : scanner.findCandidateComponents("org/tensin/")) {
-		    System.out.println(bd.getBeanClassName());
-		}
-	}
+        scanner.addIncludeFilter(new AnnotationTypeFilter(Root.class));
+        scanner.addIncludeFilter(new AnnotationTypeFilter(Element.class));
+        scanner.addIncludeFilter(new AnnotationTypeFilter(Attribute.class));
+        scanner.addIncludeFilter(new AssignableTypeFilter(className));
+
+        for (BeanDefinition bd : scanner.findCandidateComponents("org/tensin/")) {
+            System.out.println(bd.getBeanClassName());
+        }
+    }
 }

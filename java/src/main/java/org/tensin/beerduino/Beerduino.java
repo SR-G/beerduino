@@ -3,11 +3,11 @@ package org.tensin.beerduino;
 import java.io.File;
 import java.util.concurrent.LinkedBlockingQueue;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.log4j.BasicConfigurator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tensin.common.CoreException;
-
 
 /**
  * The Class Beerduino.
@@ -25,7 +25,7 @@ public class Beerduino {
 
     /**
      * Gets the single instance of Beerduino.
-     *
+     * 
      * @return single instance of Beerduino
      */
     public static Beerduino getInstance() {
@@ -34,12 +34,15 @@ public class Beerduino {
 
     /**
      * The main method.
-     *
-     * @param args the arguments
-     * @throws CoreException the core exception
+     * 
+     * @param args
+     *            the arguments
+     * @throws CoreException
+     *             the core exception
      */
     public static void main(final String[] args) throws CoreException {
         INSTANCE = new Beerduino();
+        INSTANCE.initArgs(args);
         INSTANCE.initLog();
         INSTANCE.loadConfiguration();
         INSTANCE.startRRDStorage();
@@ -62,18 +65,21 @@ public class Beerduino {
     /** The thread rrd storage. */
     private ThreadRRDStorage threadRRDStorage;
 
+    /** The configuration filename. */
+    private String configurationFilename = System.getProperty("user.dir") + File.separator + BeerduinoConstants.CONFIGURATION_FILENAME;
+
     /**
      * Gets the configuration filename.
-     *
+     * 
      * @return the configuration filename
      */
     private String getConfigurationFilename() {
-        return System.getProperty("user.dir") + File.separator + BeerduinoConstants.CONFIGURATION_FILENAME;
+        return configurationFilename;
     }
 
     /**
      * Gets the preferences.
-     *
+     * 
      * @return the preferences
      */
     public Preferences getPreferences() {
@@ -82,11 +88,23 @@ public class Beerduino {
 
     /**
      * Gets the rrd.
-     *
+     * 
      * @return the rrd
      */
     public RRDTemperature getRrd() {
         return threadRRDStorage.getRrd();
+    }
+
+    /**
+     * Inits the args.
+     * 
+     * @param args
+     *            the args
+     */
+    private void initArgs(final String[] args) {
+        if (ArrayUtils.isNotEmpty(args)) {
+            configurationFilename = args[0];
+        }
     }
 
     /**
@@ -103,12 +121,12 @@ public class Beerduino {
 
     /**
      * Load configuration.
-     *
-     * @throws CoreException the core exception
+     * 
+     * @throws CoreException
+     *             the core exception
      */
     private void loadConfiguration() throws CoreException {
         preferences = Preferences.loadConfiguration(getConfigurationFilename());
-        // preferences.saveConfiguration(getConfigurationFilename());
     }
 
     /**

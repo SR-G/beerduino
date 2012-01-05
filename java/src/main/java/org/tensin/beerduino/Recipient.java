@@ -6,7 +6,6 @@ package org.tensin.beerduino;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Root;
 
-
 /**
  * The Class Recipient.
  */
@@ -30,9 +29,11 @@ public class Recipient {
 
     /**
      * Instantiates a new recipient.
-     *
-     * @param email the email
-     * @param name the name
+     * 
+     * @param email
+     *            the email
+     * @param name
+     *            the name
      */
     public Recipient(final String email, final String name) {
         super();
@@ -42,7 +43,7 @@ public class Recipient {
 
     /**
      * Gets the email.
-     *
+     * 
      * @return the email
      */
     public String getEmail() {
@@ -51,7 +52,7 @@ public class Recipient {
 
     /**
      * Gets the name.
-     *
+     * 
      * @return the name
      */
     public String getName() {
@@ -60,8 +61,9 @@ public class Recipient {
 
     /**
      * Sets the email.
-     *
-     * @param email the new email
+     * 
+     * @param email
+     *            the new email
      */
     public void setEmail(final String email) {
         this.email = email;
@@ -69,8 +71,9 @@ public class Recipient {
 
     /**
      * Sets the name.
-     *
-     * @param name the new name
+     * 
+     * @param name
+     *            the new name
      */
     public void setName(final String name) {
         this.name = name;

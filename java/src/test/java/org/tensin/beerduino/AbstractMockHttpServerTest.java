@@ -5,7 +5,6 @@ package org.tensin.beerduino;
 
 import org.springframework.core.io.Resource;
 
-
 /**
  * Tests subclassing {@link AbstractMockHttpServerTest} can communicate with a
  * mock Http endpoint that behavious like a real server.
@@ -24,8 +23,9 @@ public abstract class AbstractMockHttpServerTest extends AbstractTestCase {
 
     /**
      * Set the expected response on the Handler.
-     *
-     * @param responseResource the resource of the file containing the xml response
+     * 
+     * @param responseResource
+     *            the resource of the file containing the xml response
      */
     protected void setResponseResource(final Resource responseResource) {
         server.setResponseResource(responseResource);

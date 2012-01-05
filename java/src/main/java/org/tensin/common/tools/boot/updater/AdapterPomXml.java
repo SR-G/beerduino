@@ -33,8 +33,9 @@ public class AdapterPomXml implements IAdapterInput, IAdapterOutput {
 
     /**
      * Méthode.
-     *
-     * @param destFileName the dest file name
+     * 
+     * @param destFileName
+     *            the dest file name
      * @return the adapter pom xml
      */
     public static AdapterPomXml buildAdapter(final String destFileName) {
@@ -45,9 +46,11 @@ public class AdapterPomXml implements IAdapterInput, IAdapterOutput {
 
     /**
      * Méthode.
-     *
-     * @param destFileName the dest file name
-     * @param rootFileName the root file name
+     * 
+     * @param destFileName
+     *            the dest file name
+     * @param rootFileName
+     *            the root file name
      * @return the adapter pom xml
      */
     public static AdapterPomXml buildAdapter(final String destFileName, final String rootFileName) {
@@ -67,8 +70,9 @@ public class AdapterPomXml implements IAdapterInput, IAdapterOutput {
      * Méthode. <dependency> <groupId>${pom.groupId}</groupId>
      * <artifactId>ddl-core</artifactId> <version>${pom.version}</version>
      * </dependency>
-     *
-     * @param dependencies the dependencies
+     * 
+     * @param dependencies
+     *            the dependencies
      * @return the string
      */
     private String dumpDependencies(final Collection<JarContainer> dependencies) {
@@ -167,10 +171,13 @@ public class AdapterPomXml implements IAdapterInput, IAdapterOutput {
 
     /**
      * Méthode loadPropertiesFromPom.
-     *
-     * @param properties the properties
-     * @param fileName the file name
-     * @throws DependencyException the dependency exception
+     * 
+     * @param properties
+     *            the properties
+     * @param fileName
+     *            the file name
+     * @throws DependencyException
+     *             the dependency exception
      */
     private void loadPropertiesFromPom(final Map<String, String> properties, final String fileName) throws DependencyException {
         final SAXBuilder sxb = new SAXBuilder();
@@ -193,10 +200,13 @@ public class AdapterPomXml implements IAdapterInput, IAdapterOutput {
 
     /**
      * Méthode loadText.
-     *
-     * @param element the element
-     * @param key the key
-     * @param properties the properties
+     * 
+     * @param element
+     *            the element
+     * @param key
+     *            the key
+     * @param properties
+     *            the properties
      * @return String
      */
     private String loadText(final Element element, final String key, final Map<String, String> properties) {
@@ -237,9 +247,11 @@ public class AdapterPomXml implements IAdapterInput, IAdapterOutput {
 
     /**
      * Mise à jour d'une liste compatible POM.xml des jars à prendre en compte.
-     *
-     * @param jars the jars
-     * @param pomAutonomeDefsFileName the pom autonome defs file name
+     * 
+     * @param jars
+     *            the jars
+     * @param pomAutonomeDefsFileName
+     *            the pom autonome defs file name
      */
     private void updatePomAutonomeDefs(final Collection<JarContainer> jars, final String pomAutonomeDefsFileName) {
         LOGGER.info("Updating : " + pomAutonomeDefsFileName);

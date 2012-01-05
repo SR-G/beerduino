@@ -13,7 +13,6 @@ import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 import org.tensin.common.CoreException;
 
-
 /**
  * The Class ArduinoSimulator.
  */
@@ -21,9 +20,11 @@ public class ArduinoSimulator extends MockHttpServer {
 
     /**
      * The main method.
-     *
-     * @param args the arguments
-     * @throws CoreException the core exception
+     * 
+     * @param args
+     *            the arguments
+     * @throws CoreException
+     *             the core exception
      */
     public static void main(final String[] args) throws CoreException {
 
@@ -39,14 +40,17 @@ public class ArduinoSimulator extends MockHttpServer {
 
     /**
      * Instantiates a new arduino simulator.
-     *
-     * @param port the port
+     * 
+     * @param port
+     *            the port
      */
     public ArduinoSimulator(final int port) {
         super(port);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.tensin.beerduino.MockHttpServer#handle(java.lang.String, org.eclipse.jetty.server.Request, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override

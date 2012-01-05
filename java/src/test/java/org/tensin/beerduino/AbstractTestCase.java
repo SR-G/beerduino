@@ -5,7 +5,6 @@ package org.tensin.beerduino;
 
 import org.apache.log4j.BasicConfigurator;
 
-
 /**
  * The Class AbstractTestCase.
  */

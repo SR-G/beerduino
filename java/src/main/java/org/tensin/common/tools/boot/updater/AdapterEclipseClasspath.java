@@ -37,8 +37,9 @@ public class AdapterEclipseClasspath implements IAdapterInput, IAdapterOutput {
 
     /**
      * Méthode.
-     *
-     * @param eclipseClasspath the eclipse classpath
+     * 
+     * @param eclipseClasspath
+     *            the eclipse classpath
      * @return the adapter eclipse classpath
      */
     public static AdapterEclipseClasspath buildAdapter(final String eclipseClasspath) {
@@ -52,24 +53,28 @@ public class AdapterEclipseClasspath implements IAdapterInput, IAdapterOutput {
 
     /*
      * (non-Javadoc)
+     * 
      * @see com.inetpsa.ltp.tools.excluded.IAdapterOutput#generate()
      */
     public void generate(final Collection<JarContainer> jars) throws DependencyException {
-    	for (JarContainer jar : jars) {
-    		
-    	}
-    	
+        for (JarContainer jar : jars) {
+
+        }
+
     }
 
     /**
      * Getter de l'attribut eclipseClassPath.
+     * 
      * @return Returns L'attribut eclipseClassPath.
      */
     public String getEclipseClassPath() {
         return eclipseClassPath;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see com.inetpsa.ltp.tools.excluded.IAdapterInput#getName()
      */
     public String getName() {
@@ -78,6 +83,7 @@ public class AdapterEclipseClasspath implements IAdapterInput, IAdapterOutput {
 
     /*
      * (non-Javadoc)
+     * 
      * @see com.inetpsa.ltp.tools.excluded.IAdapterInput#load()
      */
     public Collection<JarContainer> load() throws DependencyException {
@@ -86,9 +92,10 @@ public class AdapterEclipseClasspath implements IAdapterInput, IAdapterOutput {
 
     /**
      * Charge les éléments issus du classpath Eclipse.
-     *
+     * 
      * @return List
-     * @throws DependencyException the dependency exception
+     * @throws DependencyException
+     *             the dependency exception
      */
     private Collection<JarContainer> loadClasspathContent() throws DependencyException {
         return loadClasspathContent(getEclipseClassPath());
@@ -96,10 +103,12 @@ public class AdapterEclipseClasspath implements IAdapterInput, IAdapterOutput {
 
     /**
      * Charge les éléments issus d'un fichier XML classpath.
-     *
-     * @param path Le path vers le fichier XML (format Eclipse) à analyser
+     * 
+     * @param path
+     *            Le path vers le fichier XML (format Eclipse) à analyser
      * @return La liste des éléments trouvés
-     * @throws DependencyException the dependency exception
+     * @throws DependencyException
+     *             the dependency exception
      */
     private Collection<JarContainer> loadClasspathContent(final String path) throws DependencyException {
         List<JarContainer> result = new ArrayList<JarContainer>();
@@ -150,7 +159,8 @@ public class AdapterEclipseClasspath implements IAdapterInput, IAdapterOutput {
 /**
  * Handler SAX pour interprêter un fichier XML type classpath Eclipse (.classpath)
  * 
- * Exemple : <?xml version="1.0" encoding="UTF-8"?> <classpath> <classpathentry kind="src" path="source/java"/> <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/> <classpathentry combineaccessrules="false" kind="src" path="/PYRENV-JEditLauncher"/> <classpathentry kind="lib" path="/PYRENV-Root/libext/jedit-4.2.jar"/> <classpathentry kind="output" path="bin"/> </classpath>
+ * Exemple : <?xml version="1.0" encoding="UTF-8"?> <classpath> <classpathentry kind="src" path="source/java"/> <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/> <classpathentry combineaccessrules="false"
+ * kind="src" path="/PYRENV-JEditLauncher"/> <classpathentry kind="lib" path="/PYRENV-Root/libext/jedit-4.2.jar"/> <classpathentry kind="output" path="bin"/> </classpath>
  * 
  * @author Serge SIMON - u248663
  * @version $Revision: 1.1 $
@@ -250,7 +260,7 @@ class EclipseClasspathHandler extends DefaultHandler {
                 String path = attributes.getValue(XML_CLASSPATHENTRY_ATTRIBUTE_PATH);
                 if (!StringUtils.isEmpty(path) && !path.endsWith("-sources.jar")) {
                     // results.add(path.replaceAll(".*/", ""));
-                	// FIXME
+                    // FIXME
                 }
             }
         }

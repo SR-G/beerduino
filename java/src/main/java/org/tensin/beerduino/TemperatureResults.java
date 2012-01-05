@@ -8,7 +8,6 @@ import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
 import org.tensin.common.tools.documentation.updater.Description;
 
-
 /**
  * The Class TemperatureResults.
  */
@@ -30,7 +29,7 @@ public class TemperatureResults {
 
     /**
      * Gets the results.
-     *
+     * 
      * @return the results
      */
     public Collection<TemperatureResult> getResults() {
@@ -39,7 +38,7 @@ public class TemperatureResults {
 
     /**
      * Gets the state.
-     *
+     * 
      * @return the state
      */
     public TemperatureState getState() {
@@ -48,7 +47,7 @@ public class TemperatureResults {
 
     /**
      * Gets the time.
-     *
+     * 
      * @return the time
      */
     public String getTime() {
@@ -57,8 +56,9 @@ public class TemperatureResults {
 
     /**
      * Sets the results.
-     *
-     * @param results the new results
+     * 
+     * @param results
+     *            the new results
      */
     public void setResults(final Collection<TemperatureResult> results) {
         this.results = results;
@@ -66,8 +66,9 @@ public class TemperatureResults {
 
     /**
      * Sets the state.
-     *
-     * @param state the new state
+     * 
+     * @param state
+     *            the new state
      */
     public void setState(final TemperatureState state) {
         this.state = state;
@@ -75,14 +76,17 @@ public class TemperatureResults {
 
     /**
      * Sets the time.
-     *
-     * @param time the new time
+     * 
+     * @param time
+     *            the new time
      */
     public void setTime(final String time) {
         this.time = time;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.lang.Object#toString()
      */
     @Override

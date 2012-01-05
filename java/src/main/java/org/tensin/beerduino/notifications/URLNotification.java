@@ -15,7 +15,6 @@ import org.tensin.common.CoreException;
 import org.tensin.common.helpers.CloseHelper;
 import org.tensin.common.tools.documentation.updater.Description;
 
-
 /**
  * The Class URLNotification.
  */
@@ -29,13 +28,13 @@ public class URLNotification implements INotification {
     /** The url. @Todo standard parameters should be available {temp1} => substitued by the right value once the URL is called */
     @Attribute(required = false)
     @Description("The single URL that will be activated.")
-    
     private String url;
 
     /**
      * Activate url.
-     *
-     * @param address the address
+     * 
+     * @param address
+     *            the address
      */
     protected void activateUrl(final String address) {
         try {
@@ -49,7 +48,9 @@ public class URLNotification implements INotification {
         }
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.tensin.beerduino.notifications.INotification#execute(org.tensin.beerduino.TemperatureResults)
      */
     @Override

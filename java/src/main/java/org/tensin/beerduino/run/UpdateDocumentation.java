@@ -12,18 +12,20 @@ import org.tensin.common.tools.documentation.updater.SimpleXMLDocumentationOutpu
  */
 public class UpdateDocumentation {
 
-	/**
-	 * Method.
-	 *
-	 * @param args the arguments
-	 * @throws Exception the exception
-	 */
-	public static void main(String[] args) throws Exception {
-		BasicConfigurator.configure();
-		SimpleXMLDocumentation.convert(TemperatureResults.class, "src/main/java/org/tensin/beerduino/xsd/temperatureresults.xsd", new SimpleXMLDocumentationOutputXSD());
-		SimpleXMLDocumentation.convert(Preferences.class, "src/main/java/org/tensin/beerduino/xsd/preferences.xsd", new SimpleXMLDocumentationOutputXSD());
+    /**
+     * Method.
+     * 
+     * @param args
+     *            the arguments
+     * @throws Exception
+     *             the exception
+     */
+    public static void main(String[] args) throws Exception {
+        BasicConfigurator.configure();
+        SimpleXMLDocumentation.convert(TemperatureResults.class, "src/main/java/org/tensin/beerduino/xsd/temperatureresults.xsd", new SimpleXMLDocumentationOutputXSD());
+        SimpleXMLDocumentation.convert(Preferences.class, "src/main/java/org/tensin/beerduino/xsd/preferences.xsd", new SimpleXMLDocumentationOutputXSD());
 
-		SimpleXMLDocumentation.convert(Preferences.class, "preferences.apt", new SimpleXMLDocumentationOutputAPT());
-		SimpleXMLDocumentation.convert(TemperatureResults.class, "temperatureresults.apt", new SimpleXMLDocumentationOutputAPT());
-	}
+        SimpleXMLDocumentation.convert(Preferences.class, "preferences.apt", new SimpleXMLDocumentationOutputAPT());
+        SimpleXMLDocumentation.convert(TemperatureResults.class, "temperatureresults.apt", new SimpleXMLDocumentationOutputAPT());
+    }
 }

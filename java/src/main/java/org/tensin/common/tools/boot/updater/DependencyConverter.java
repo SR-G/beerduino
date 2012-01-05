@@ -24,10 +24,17 @@ public class DependencyConverter {
     /** The Constant LOGGER. */
     private static final Logger LOGGER = LoggerFactory.getLogger(DependencyConverter.class);
 
+    /** inputAdapters. */
+    private final Collection<Class<?>> inputAdapters = new ArrayList<Class<?>>();
+
+    /** outputAdapters. */
+    private final Collection<Class<?>> outputAdapters = new ArrayList<Class<?>>();
+
     /**
      * Dump differences.
-     *
-     * @param jars the jars
+     * 
+     * @param jars
+     *            the jars
      * @return the string
      */
     public String dumpDifferences(final Collection<JarContainer> jars) {
@@ -52,9 +59,9 @@ public class DependencyConverter {
                         pom = true;
                     }
                     if (jar.hasOrigin(AdapterMavenDependencyList.class)) {
-                    	dependencyList = true;
+                        dependencyList = true;
                     }
-                    if (jar.hasOrigin(AdapterLTPStartConstants.class)) {
+                    if (jar.hasOrigin(AdapterBootConstants.class)) {
                         start = true;
                     }
                     if (jar.hasOrigin(AdapterLTPXml.class)) {
@@ -107,15 +114,33 @@ public class DependencyConverter {
         return sb.toString();
     }
 
-    /** inputAdapters. */
-    private final Collection<Class<?>> inputAdapters = new ArrayList<Class<?>>();
-
-    /** outputAdapters. */
-    private final Collection<Class<?>> outputAdapters = new ArrayList<Class<?>>();
+    /**
+     * Method.
+     * 
+     * @param jarContainer
+     *            the jar container
+     * @param results
+     *            the results
+     * @return the jar container
+     */
+    private JarContainer getJarContainer(JarContainer jarContainer, List<JarContainer> results) {
+        JarContainer result = null;
+        for (JarContainer currentJarContainer : results) {
+            if (currentJarContainer.getJarBaseName().compareTo(jarContainer.getJarBaseName()) == 0) { // TODO à revoir quand on passera en start.xml (pour se baser sur groupId / artifactId et pas nom du jar)
+                return currentJarContainer;
+            }
+            /*
+             * if ( currentJarContainer.compareTo(jarContainer) == 0 ) {
+             * return currentJarContainer;
+             * }
+             */
+        }
+        return result;
+    }
 
     /**
      * Méthode.
-     *
+     * 
      * @return the string
      */
     public String help() {
@@ -136,19 +161,21 @@ public class DependencyConverter {
 
     /**
      * Méthode.
-     *
-     * @param inputs the inputs
+     * 
+     * @param inputs
+     *            the inputs
      * @return the collection
-     * @throws DependencyException the dependency exception
+     * @throws DependencyException
+     *             the dependency exception
      */
     private Collection<JarContainer> loadFromInputs(final Collection<IAdapterInput> inputs) throws DependencyException {
-    	final Iterator<IAdapterInput> itr = inputs.iterator();
+        final Iterator<IAdapterInput> itr = inputs.iterator();
         final List<JarContainer> results = new ArrayList<JarContainer>();
         while (itr.hasNext()) {
             final IAdapterInput adapter = itr.next();
-        	LOGGER.info("Chargement des jars depuis l'adapter [" + adapter.getName() + "]");
-            for ( JarContainer jarContainer : adapter.load()) {
-            	mergeResult(jarContainer, results);
+            LOGGER.info("Chargement des jars depuis l'adapter [" + adapter.getName() + "]");
+            for (JarContainer jarContainer : adapter.load()) {
+                mergeResult(jarContainer, results);
             }
         }
         Collections.sort(results);
@@ -156,46 +183,6 @@ public class DependencyConverter {
     }
 
     /**
-     * Si on retrouve le jar, n'ajoute pas l'entrée.
-     *
-     * @param jarContainer the jar container
-     * @param results the results
-     */
-    private void mergeResult(JarContainer jarContainer, List<JarContainer> results) {
-    	JarContainer otherJarContainer = getJarContainer(jarContainer, results); // TODO à revoir quand on passera en start.xml
-    	if ( otherJarContainer == null ) {
-    		results.add(jarContainer);
-    	} else {
-    		LOGGER.info("    Jar déjà présent, non ajouté mais infos complétées [" + otherJarContainer + "]");
-    		otherJarContainer.addOrigins(jarContainer.getOrigins());
-    		otherJarContainer.setStartConstantsKey(jarContainer.getStartConstantsKey());
-    		otherJarContainer.setStartConstantsRegExp(jarContainer.getStartConstantsRegExp());
-    	}
-	}
-
-	/**
-	 * Method.
-	 *
-	 * @param jarContainer the jar container
-	 * @param results the results
-	 * @return the jar container
-	 */
-	private JarContainer getJarContainer(JarContainer jarContainer, List<JarContainer> results) {
-		JarContainer result = null;
-		for (JarContainer currentJarContainer : results) {
-			if ( currentJarContainer.getJarBaseName().compareTo(jarContainer.getJarBaseName()) == 0) { // TODO à revoir quand on passera en start.xml (pour se baser sur groupId / artifactId et pas nom du jar)
-				return currentJarContainer;
-			}
-			/*
-			if ( currentJarContainer.compareTo(jarContainer) == 0 ) {
-				return currentJarContainer;
-			}
-			*/
-		}
-		return result;
-	}
-
-	/**
      * Ajoute dans la liste 1 tous les éléments de la liste 2 qui n'y étaient
      * pas déjà.
      * 
@@ -217,12 +204,35 @@ public class DependencyConverter {
     }
 
     /**
+     * Si on retrouve le jar, n'ajoute pas l'entrée.
+     * 
+     * @param jarContainer
+     *            the jar container
+     * @param results
+     *            the results
+     */
+    private void mergeResult(JarContainer jarContainer, List<JarContainer> results) {
+        JarContainer otherJarContainer = getJarContainer(jarContainer, results); // TODO à revoir quand on passera en start.xml
+        if (otherJarContainer == null) {
+            results.add(jarContainer);
+        } else {
+            LOGGER.info("    Jar déjà présent, non ajouté mais infos complétées [" + otherJarContainer + "]");
+            otherJarContainer.addOrigins(jarContainer.getOrigins());
+            otherJarContainer.setStartConstantsKey(jarContainer.getStartConstantsKey());
+            otherJarContainer.setStartConstantsRegExp(jarContainer.getStartConstantsRegExp());
+        }
+    }
+
+    /**
      * Méthode.
-     *
-     * @param inputs the inputs
-     * @param outputs the outputs
+     * 
+     * @param inputs
+     *            the inputs
+     * @param outputs
+     *            the outputs
      * @return the collection
-     * @throws DependencyException the dependency exception
+     * @throws DependencyException
+     *             the dependency exception
      */
     public Collection<JarContainer> process(final Collection<IAdapterInput> inputs, final Collection<IAdapterOutput> outputs)
             throws DependencyException {
@@ -233,10 +243,13 @@ public class DependencyConverter {
 
     /**
      * Méthode.
-     *
-     * @param inputs the inputs
-     * @param output the output
-     * @throws DependencyException the dependency exception
+     * 
+     * @param inputs
+     *            the inputs
+     * @param output
+     *            the output
+     * @throws DependencyException
+     *             the dependency exception
      */
     public void process(final Collection<IAdapterInput> inputs, final IAdapterOutput output) throws DependencyException {
         final Collection<IAdapterOutput> l = new ArrayList<IAdapterOutput>();
@@ -246,10 +259,13 @@ public class DependencyConverter {
 
     /**
      * Méthode.
-     *
-     * @param input the input
-     * @param outputs the outputs
-     * @throws DependencyException the dependency exception
+     * 
+     * @param input
+     *            the input
+     * @param outputs
+     *            the outputs
+     * @throws DependencyException
+     *             the dependency exception
      */
     public void process(final IAdapterInput input, final Collection<IAdapterOutput> outputs) throws DependencyException {
         final Collection<IAdapterInput> l = new ArrayList<IAdapterInput>();
@@ -259,10 +275,13 @@ public class DependencyConverter {
 
     /**
      * Méthode.
-     *
-     * @param input the input
-     * @param output the output
-     * @throws DependencyException the dependency exception
+     * 
+     * @param input
+     *            the input
+     * @param output
+     *            the output
+     * @throws DependencyException
+     *             the dependency exception
      */
     public void process(final IAdapterInput input, final IAdapterOutput output) throws DependencyException {
         final Collection<IAdapterInput> inputs = new ArrayList<IAdapterInput>();
@@ -274,8 +293,9 @@ public class DependencyConverter {
 
     /**
      * Méthode.
-     *
-     * @throws DependencyException the dependency exception
+     * 
+     * @throws DependencyException
+     *             the dependency exception
      */
     public void registerAdapters() throws DependencyException {
         registerInputAdapters();
@@ -284,12 +304,13 @@ public class DependencyConverter {
 
     /**
      * Méthode.
-     *
-     * @throws DependencyException the dependency exception
+     * 
+     * @throws DependencyException
+     *             the dependency exception
      */
     protected void registerInputAdapters() throws DependencyException {
         inputAdapters.add(AdapterEclipseClasspath.class);
-        inputAdapters.add(AdapterLTPStartConstants.class);
+        inputAdapters.add(AdapterBootConstants.class);
         inputAdapters.add(AdapterLTPXml.class);
         inputAdapters.add(AdapterPomXml.class);
         inputAdapters.add(AdapterWebInfLib.class);
@@ -297,12 +318,13 @@ public class DependencyConverter {
 
     /**
      * Méthode.
-     *
-     * @throws DependencyException the dependency exception
+     * 
+     * @throws DependencyException
+     *             the dependency exception
      */
     protected void registerOutputAdapters() throws DependencyException {
         outputAdapters.add(AdapterEclipseClasspath.class);
-        outputAdapters.add(AdapterLTPStartConstants.class);
+        outputAdapters.add(AdapterBootConstants.class);
         outputAdapters.add(AdapterLTPXml.class);
         // outputAdapters.add(AdapterLTPClasspath.class);
         outputAdapters.add(AdapterPomXml.class);
@@ -312,10 +334,13 @@ public class DependencyConverter {
 
     /**
      * Méthode.
-     *
-     * @param jars the jars
-     * @param outputs the outputs
-     * @throws DependencyException the dependency exception
+     * 
+     * @param jars
+     *            the jars
+     * @param outputs
+     *            the outputs
+     * @throws DependencyException
+     *             the dependency exception
      */
     private void saveToOutputs(final Collection<JarContainer> jars, final Collection<IAdapterOutput> outputs) throws DependencyException {
         final Iterator<IAdapterOutput> itr = outputs.iterator();

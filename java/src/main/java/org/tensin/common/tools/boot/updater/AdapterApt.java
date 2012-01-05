@@ -13,8 +13,9 @@ public class AdapterApt implements IAdapterOutput {
 
     /**
      * Méthode.
-     *
-     * @param destination the destination
+     * 
+     * @param destination
+     *            the destination
      * @return the adapter apt
      */
     public static AdapterApt buildAdapter(final String destination) {
@@ -28,6 +29,7 @@ public class AdapterApt implements IAdapterOutput {
 
     /*
      * (non-Javadoc)
+     * 
      * @see com.inetpsa.ltp.tools.excluded.IAdapterOutput#generate()
      */
     public void generate(final Collection<JarContainer> jars) throws DependencyException {
@@ -36,13 +38,16 @@ public class AdapterApt implements IAdapterOutput {
 
     /**
      * Getter de l'attribut destination.
+     * 
      * @return Returns L'attribut destination.
      */
     public String getDestination() {
         return destination;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see com.inetpsa.ltp.tools.excluded.IAdapterInput#getName()
      */
     public String getName() {

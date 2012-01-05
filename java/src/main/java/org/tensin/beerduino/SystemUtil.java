@@ -1,6 +1,5 @@
 package org.tensin.beerduino;
 
-
 /**
  * The Class SystemUtil.
  */

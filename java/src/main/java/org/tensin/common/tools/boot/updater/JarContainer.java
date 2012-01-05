@@ -32,9 +32,11 @@ public class JarContainer implements Comparable<JarContainer> {
 
     /**
      * Méthode findJar.
-     *
-     * @param jars the jars
-     * @param jarToMatch the jar to match
+     * 
+     * @param jars
+     *            the jars
+     * @param jarToMatch
+     *            the jar to match
      * @return JarContainer
      */
     private static JarContainer findJar(final Collection<JarContainer> jars, final JarContainer jarToMatch) {
@@ -49,8 +51,9 @@ public class JarContainer implements Comparable<JarContainer> {
 
     /**
      * Méthode fusion.
-     *
-     * @param jars the jars
+     * 
+     * @param jars
+     *            the jars
      * @return Collection<JarContainer>
      */
     public static Collection<JarContainer> fusion(final Collection<JarContainer> jars) {
@@ -75,7 +78,7 @@ public class JarContainer implements Comparable<JarContainer> {
 
     /**
      * Méthode.
-     *
+     * 
      * @return the maven group id database
      */
     public static Map<String, String> getMavenGroupIdDatabase() {
@@ -216,6 +219,26 @@ public class JarContainer implements Comparable<JarContainer> {
     }
 
     /**
+     * Détermine si une chaîne est alphabétique ou non [Az].
+     * 
+     * @param str
+     *            La chaîne
+     * @return boolean
+     */
+    public static boolean isAlpha(final String str) {
+        if (str == null) {
+            return false;
+        }
+        final int sz = str.length();
+        for (int i = 0; i < sz; i++) {
+            if (!Character.isLetter(str.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
      * Setter de l'attribut mode.
      * 
      * @param mode
@@ -276,8 +299,9 @@ public class JarContainer implements Comparable<JarContainer> {
 
     /**
      * Constructeur.
-     *
-     * @param origin the origin
+     * 
+     * @param origin
+     *            the origin
      */
     public JarContainer(final Class<?> origin) {
         super();
@@ -286,10 +310,13 @@ public class JarContainer implements Comparable<JarContainer> {
 
     /**
      * Constructeur.
-     *
-     * @param groupId the group id
-     * @param artifactId the artifact id
-     * @param version the version
+     * 
+     * @param groupId
+     *            the group id
+     * @param artifactId
+     *            the artifact id
+     * @param version
+     *            the version
      */
     public JarContainer(final String groupId, final String artifactId, final String version) {
         super();
@@ -317,29 +344,48 @@ public class JarContainer implements Comparable<JarContainer> {
     public void addOrigin(final Class<?> origin) {
         origins.add(buildOriginClassName(origin));
     }
-    
-	/**
-	 * Adds the origins.
-	 *
-	 * @param otherOrigins the other origins
-	 */
-	public void addOrigins(Collection<String> otherOrigins) {
-		for (String otherOrigin : otherOrigins) {
-			if ( ! origins.contains(otherOrigin)) {
-				origins.add(otherOrigin);
-			}
-		}
-	}
+
+    /**
+     * Adds the origins.
+     * 
+     * @param otherOrigins
+     *            the other origins
+     */
+    public void addOrigins(Collection<String> otherOrigins) {
+        for (String otherOrigin : otherOrigins) {
+            if (!origins.contains(otherOrigin)) {
+                origins.add(otherOrigin);
+            }
+        }
+    }
 
     /**
      * Méthode buildOriginClassName.
-     *
-     * @param origin the origin
+     * 
+     * @param origin
+     *            the origin
      * @return String
      */
     private String buildOriginClassName(final Class<?> origin) {
         final String className = origin.getName();
         return className.substring(className.lastIndexOf(".") + 1, className.length());
+    }
+
+    /**
+     * Méthode.
+     * 
+     * @return the string
+     */
+    /*
+     * private String extractGroupId(final String jarName) { final String
+     * artifactId = extractArtifactId(jarName); final String groupId =
+     * getMavenGroupIdDatabase().get(artifactId); if
+     * (PyramideLauncherUtil.isEmpty(groupId)) { addUnboundGroupId(artifactId);
+     * return ""; } else { return groupId; } }
+     */
+
+    public String buildStartConstantsRegExp() {
+        return getJarBaseName() + ".*\\.jar";
     }
 
     /*
@@ -353,23 +399,10 @@ public class JarContainer implements Comparable<JarContainer> {
 
     /**
      * Méthode.
-     *
-     * @param jarName the jar name
-     * @return the string
-     */
-    /*
-     * private String extractGroupId(final String jarName) { final String
-     * artifactId = extractArtifactId(jarName); final String groupId =
-     * getMavenGroupIdDatabase().get(artifactId); if
-     * (PyramideLauncherUtil.isEmpty(groupId)) { addUnboundGroupId(artifactId);
-     * return ""; } else { return groupId; } }
-     */
-
-    /**
-     * Méthode.
      * 
      * @param jarName
-     * @return
+     *            the jar name
+     * @return the string
      */
     private String extractArtifactId(final String jarName) {
         final String artifactId = getJarBaseName();
@@ -378,8 +411,9 @@ public class JarContainer implements Comparable<JarContainer> {
 
     /**
      * Méthode.
-     *
-     * @param jarName the jar name
+     * 
+     * @param jarName
+     *            the jar name
      * @return the string
      */
     private String extractVersion(final String jarName) {
@@ -393,8 +427,9 @@ public class JarContainer implements Comparable<JarContainer> {
 
     /**
      * Méthode fusion.
-     *
-     * @param similijar the similijar
+     * 
+     * @param similijar
+     *            the similijar
      * @return JarContainer
      */
     private JarContainer fusion(final JarContainer similijar) {
@@ -508,7 +543,7 @@ public class JarContainer implements Comparable<JarContainer> {
     /**
      * Retourne le "base name" d'un fichier jar sans la version. Exemple :
      * commons-net-1.4.1.jar ==> commons-net
-     *
+     * 
      * @return Le nom du jar sans l'extension et sans la version
      */
     public String getJarBaseName() {
@@ -545,27 +580,6 @@ public class JarContainer implements Comparable<JarContainer> {
         } else {
             return baseJarName;
         }
-    }
-
-
-    /**
-     * Détermine si une chaîne est alphabétique ou non [Az].
-     * 
-     * @param str
-     *            La chaîne
-     * @return boolean
-     */
-    public static boolean isAlpha(final String str) {
-        if (str == null) {
-            return false;
-        }
-        final int sz = str.length();
-        for (int i = 0; i < sz; i++) {
-            if (!Character.isLetter(str.charAt(i))) {
-                return false;
-            }
-        }
-        return true;
     }
 
     /**
@@ -664,8 +678,9 @@ public class JarContainer implements Comparable<JarContainer> {
 
     /**
      * Méthode hasOrigin.
-     *
-     * @param clazz the clazz
+     * 
+     * @param clazz
+     *            the clazz
      * @return boolean
      */
     public boolean hasOrigin(final Class<?> clazz) {
@@ -729,8 +744,9 @@ public class JarContainer implements Comparable<JarContainer> {
 
     /**
      * Méthode setDescription.
-     *
-     * @param description the new description
+     * 
+     * @param description
+     *            the new description
      */
     public void setDescription(final String description) {
         this.description = description;
@@ -748,8 +764,9 @@ public class JarContainer implements Comparable<JarContainer> {
 
     /**
      * Méthode setDestination.
-     *
-     * @param destination the new destinations
+     * 
+     * @param destination
+     *            the new destinations
      */
     public void setDestinations(final String destination) {
         if (!StringUtils.isEmpty(destination)) {
@@ -806,8 +823,9 @@ public class JarContainer implements Comparable<JarContainer> {
 
     /**
      * Méthode setDestination.
-     *
-     * @param modules the new modules
+     * 
+     * @param modules
+     *            the new modules
      */
     public void setModules(final String modules) {
         if (!StringUtils.isEmpty(modules)) {

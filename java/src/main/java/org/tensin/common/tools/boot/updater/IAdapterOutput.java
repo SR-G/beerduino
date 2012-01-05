@@ -13,15 +13,17 @@ public interface IAdapterOutput {
 
     /**
      * Méthode.
-     *
-     * @param jars the jars
-     * @throws DependencyException the dependency exception
+     * 
+     * @param jars
+     *            the jars
+     * @throws DependencyException
+     *             the dependency exception
      */
     public void generate(final Collection<JarContainer> jars) throws DependencyException;
 
     /**
      * Méthode.
-     *
+     * 
      * @return the name
      */
     public String getName();

@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 
-
 /**
  * The Class CloseHelper.
  */
@@ -12,8 +11,9 @@ public class CloseHelper {
 
     /**
      * Close.
-     *
-     * @param is the is
+     * 
+     * @param is
+     *            the is
      */
     public static void close(final InputStream is) {
         if (is != null) {
@@ -27,8 +27,9 @@ public class CloseHelper {
 
     /**
      * Close.
-     *
-     * @param br the br
+     * 
+     * @param br
+     *            the br
      */
     public static void close(final Reader br) {
         if (br != null) {

@@ -44,40 +44,27 @@ public class Preferences {
      *             the core exception
      */
     public static Preferences loadConfiguration(final String configurationFilename) throws CoreException {
-        LOGGER.info("Loading configuration from file [" + configurationFilename + "]");
-        Serializer serializer = new Persister();
         File source = new File(configurationFilename);
-
-        try {
-            Preferences p = serializer.read(Preferences.class, source);
-            new File(p.getWorkDir()).mkdirs();
-            return p;
-        } catch (Exception e) {
-            throw new CoreException(e);
+        if (!source.isFile()) {
+            throw new CoreException("Configuration file [" + configurationFilename + "] not found");
+        } else {
+            try {
+                LOGGER.info("Loading configuration from file [" + configurationFilename + "]");
+                Serializer serializer = new Persister();
+                Preferences p = serializer.read(Preferences.class, source);
+                new File(p.getWorkDir()).mkdirs();
+                return p;
+            } catch (Exception e) {
+                throw new CoreException(e);
+            }
         }
     }
 
-    /**
-     * 
-     */
+    /** The no namespace schema location. */
     @Attribute(required = false)
     private String noNamespaceSchemaLocation;
-    
-    /**
-     * @return
-     */
-    public String getNoNamespaceSchemaLocation() {
-		return noNamespaceSchemaLocation;
-	}
 
-	/**
-	 * @param noNamespaceSchemaLocation
-	 */
-	public void setNoNamespaceSchemaLocation(String noNamespaceSchemaLocation) {
-		this.noNamespaceSchemaLocation = noNamespaceSchemaLocation;
-	}
-
-	/** The arduino ip. */
+    /** The arduino ip. */
     @Element
     @Description("IP address of the arduino board")
     private String arduinoIp = "127.0.0.1";
@@ -92,15 +79,7 @@ public class Preferences {
     @Description("Frequency of the arduino values checkout. In milliseconds. Default to 1000.")
     private int arduinoCheckFrequency = 1000;
 
-    public int getArduinoCheckFrequency() {
-		return arduinoCheckFrequency;
-	}
-
-	public void setArduinoCheckFrequency(int arduinoCheckFrequency) {
-		this.arduinoCheckFrequency = arduinoCheckFrequency;
-	}
-
-	/** The limits. */
+    /** The limits. */
     @ElementList(name = "seuils", required = false)
     @Description("Temperatures warnings (after / below whom a notification will be sent)")
     private Collection<TemperatureLimit> limits = new ArrayList<TemperatureLimit>();
@@ -126,6 +105,15 @@ public class Preferences {
      */
     public void add(final INotification notifier) {
         notifiers.add(notifier);
+    }
+
+    /**
+     * Gets the arduino check frequency.
+     * 
+     * @return the arduino check frequency
+     */
+    public int getArduinoCheckFrequency() {
+        return arduinoCheckFrequency;
     }
 
     /**
@@ -183,6 +171,15 @@ public class Preferences {
     }
 
     /**
+     * Gets the no namespace schema location.
+     * 
+     * @return the no namespace schema location
+     */
+    public String getNoNamespaceSchemaLocation() {
+        return noNamespaceSchemaLocation;
+    }
+
+    /**
      * Gets the notifiers.
      * 
      * @return the notifiers
@@ -218,6 +215,16 @@ public class Preferences {
     }
 
     /**
+     * Sets the arduino check frequency.
+     * 
+     * @param arduinoCheckFrequency
+     *            the new arduino check frequency
+     */
+    public void setArduinoCheckFrequency(final int arduinoCheckFrequency) {
+        this.arduinoCheckFrequency = arduinoCheckFrequency;
+    }
+
+    /**
      * Sets the arduino ip.
      * 
      * @param arduinoIp
@@ -245,6 +252,16 @@ public class Preferences {
      */
     public void setLimits(final Collection<TemperatureLimit> limits) {
         this.limits = limits;
+    }
+
+    /**
+     * Sets the no namespace schema location.
+     * 
+     * @param noNamespaceSchemaLocation
+     *            the new no namespace schema location
+     */
+    public void setNoNamespaceSchemaLocation(final String noNamespaceSchemaLocation) {
+        this.noNamespaceSchemaLocation = noNamespaceSchemaLocation;
     }
 
     /**

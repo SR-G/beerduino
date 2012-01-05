@@ -30,8 +30,9 @@ public class AdapterLTPXml implements IAdapterInput, IAdapterOutput {
 
     /**
      * Méthode.
-     *
-     * @param destFileName the dest file name
+     * 
+     * @param destFileName
+     *            the dest file name
      * @return the adapter ltp xml
      */
     public static AdapterLTPXml buildAdapter(final String destFileName) {
@@ -155,8 +156,9 @@ public class AdapterLTPXml implements IAdapterInput, IAdapterOutput {
 
     /**
      * Update destination with start constants.
-     *
-     * @param jar the jar
+     * 
+     * @param jar
+     *            the jar
      * @return the string
      */
     private String updateDestinationWithStartConstants(final JarContainer jar) {
@@ -164,69 +166,69 @@ public class AdapterLTPXml implements IAdapterInput, IAdapterOutput {
         if (StringUtils.isNotEmpty(key)) {
             key = jar.getJarName();
             /*
-            if (ArrayUtils.contains(StartConstants.ltpLib, key)) {
-                jar.addDestination("ltp");
-            } else {
-                if (ArrayUtils.contains(StartConstants.routeurLib, key)) {
-                    jar.addDestination("routeur");
-                }
-                if (ArrayUtils.contains(StartConstants.coeurLib, key)) {
-                    jar.addDestination("coeur");
-                }
-                if (ArrayUtils.contains(StartConstants.executeurLib, key)) {
-                    jar.addDestination("executeur");
-                }
-                if (ArrayUtils.contains(StartConstants.toolsLib, key)) {
-                    jar.addDestination("tools");
-                }
-
-                if (ArrayUtils.contains(StartConstants.mqutilsLib, key)) {
-                    jar.addDestination("mqutils");
-                }
-
-                if (ArrayUtils.contains(StartConstants.securityutilsLib, key)) {
-                    jar.addDestination("securityutils");
-                }
-
-                if (ArrayUtils.contains(StartConstants.toolsLib, key)) {
-                    jar.addDestination("tools");
-                }
-                if (ArrayUtils.contains(StartConstants.vedLib, key)) {
-                    jar.addDestination("ved");
-                }
-            }
-            if (ArrayUtils.contains(StartConstants.clientCoeurLib, key)) {
-                jar.addDestination("clientCoeur");
-            }
-            if (ArrayUtils.contains(StartConstants.updateLib, key)) {
-                jar.addDestination("update");
-            }
-            if (ArrayUtils.contains(StartConstants.serviceLib, key)) {
-                jar.addDestination("service");
-            }
-            if (ArrayUtils.contains(StartConstants.tbfLib, key)) {
-                jar.addDestination("tbf");
-            }
-            if (ArrayUtils.contains(StartConstants.surveillantLib, key)) {
-                jar.addDestination("surveillant");
-            }
-            if (ArrayUtils.contains(StartConstants.traceLib, key)) {
-                jar.addDestination("trace");
-            }
-
-            if (ArrayUtils.contains(StartConstants.servicemixLib, key)) {
-                jar.addDestination("servicemix");
-            }
-            if (ArrayUtils.contains(StartConstants.jbiLib, key)) {
-                jar.addDestination("jbiLib");
-            }
-            if (ArrayUtils.contains(StartConstants.axisLib, key)) {
-                jar.addDestination("axis");
-            }
-            if (ArrayUtils.contains(StartConstants.printServerLib, key)) {
-                jar.addDestination("printServer");
-            }
-            */
+             * if (ArrayUtils.contains(StartConstants.ltpLib, key)) {
+             * jar.addDestination("ltp");
+             * } else {
+             * if (ArrayUtils.contains(StartConstants.routeurLib, key)) {
+             * jar.addDestination("routeur");
+             * }
+             * if (ArrayUtils.contains(StartConstants.coeurLib, key)) {
+             * jar.addDestination("coeur");
+             * }
+             * if (ArrayUtils.contains(StartConstants.executeurLib, key)) {
+             * jar.addDestination("executeur");
+             * }
+             * if (ArrayUtils.contains(StartConstants.toolsLib, key)) {
+             * jar.addDestination("tools");
+             * }
+             * 
+             * if (ArrayUtils.contains(StartConstants.mqutilsLib, key)) {
+             * jar.addDestination("mqutils");
+             * }
+             * 
+             * if (ArrayUtils.contains(StartConstants.securityutilsLib, key)) {
+             * jar.addDestination("securityutils");
+             * }
+             * 
+             * if (ArrayUtils.contains(StartConstants.toolsLib, key)) {
+             * jar.addDestination("tools");
+             * }
+             * if (ArrayUtils.contains(StartConstants.vedLib, key)) {
+             * jar.addDestination("ved");
+             * }
+             * }
+             * if (ArrayUtils.contains(StartConstants.clientCoeurLib, key)) {
+             * jar.addDestination("clientCoeur");
+             * }
+             * if (ArrayUtils.contains(StartConstants.updateLib, key)) {
+             * jar.addDestination("update");
+             * }
+             * if (ArrayUtils.contains(StartConstants.serviceLib, key)) {
+             * jar.addDestination("service");
+             * }
+             * if (ArrayUtils.contains(StartConstants.tbfLib, key)) {
+             * jar.addDestination("tbf");
+             * }
+             * if (ArrayUtils.contains(StartConstants.surveillantLib, key)) {
+             * jar.addDestination("surveillant");
+             * }
+             * if (ArrayUtils.contains(StartConstants.traceLib, key)) {
+             * jar.addDestination("trace");
+             * }
+             * 
+             * if (ArrayUtils.contains(StartConstants.servicemixLib, key)) {
+             * jar.addDestination("servicemix");
+             * }
+             * if (ArrayUtils.contains(StartConstants.jbiLib, key)) {
+             * jar.addDestination("jbiLib");
+             * }
+             * if (ArrayUtils.contains(StartConstants.axisLib, key)) {
+             * jar.addDestination("axis");
+             * }
+             * if (ArrayUtils.contains(StartConstants.printServerLib, key)) {
+             * jar.addDestination("printServer");
+             * }
+             */
         }
 
         return jar.getDestinations();

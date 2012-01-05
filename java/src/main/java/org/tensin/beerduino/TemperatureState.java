@@ -1,16 +1,15 @@
 package org.tensin.beerduino;
 
-
 /**
  * The Enum TemperatureState.
  */
 public enum TemperatureState {
-    
-	/** Unknown. */
+
+    /** Unknown. */
     UNKNOWN,
-	/** The OVERHEAT. */
-    OVERHEAT, 
+    /** The OVERHEAT. */
+    OVERHEAT,
     /** The NORMAL. */
     NORMAL
-    
+
 }

@@ -14,7 +14,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tensin.common.CoreException;
 
-
 /**
  * The Class XMLTemperatureReadingTestCase.
  */
@@ -25,8 +24,9 @@ public class XMLTemperatureReadingTestCase extends AbstractTestCase {
 
     /**
      * Test xml temperature reading.
-     *
-     * @throws CoreException the core exception
+     * 
+     * @throws CoreException
+     *             the core exception
      */
     @Test
     public void testXMLTemperatureReading() throws CoreException {

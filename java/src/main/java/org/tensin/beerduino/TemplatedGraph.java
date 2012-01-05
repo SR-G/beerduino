@@ -1,9 +1,8 @@
 package org.tensin.beerduino;
 
-
 /**
  * The Class TemplatedGraph.
- *
+ * 
  * @author u248663
  * @version $Revision: 1.1 $
  * @since 20 juil. 2011 23:13:25
@@ -12,16 +11,16 @@ public class TemplatedGraph {
 
     /** The url. */
     private String url;
-    
+
     /** The cid. */
     private String cid;
-    
+
     /** The width. */
     private String width;
-    
+
     /** The height. */
     private String height;
-    
+
     /** The label. */
     private String label;
 
@@ -34,6 +33,7 @@ public class TemplatedGraph {
 
     /**
      * Getter for the attribute cid.
+     * 
      * @return Returns the attribute cid.
      */
     public String getCid() {
@@ -42,6 +42,7 @@ public class TemplatedGraph {
 
     /**
      * Getter for the attribute height.
+     * 
      * @return Returns the attribute height.
      */
     public String getHeight() {
@@ -50,6 +51,7 @@ public class TemplatedGraph {
 
     /**
      * Getter for the attribute label.
+     * 
      * @return Returns the attribute label.
      */
     public String getLabel() {
@@ -58,6 +60,7 @@ public class TemplatedGraph {
 
     /**
      * Getter for the attribute url.
+     * 
      * @return Returns the attribute url.
      */
     public String getUrl() {
@@ -66,6 +69,7 @@ public class TemplatedGraph {
 
     /**
      * Getter for the attribute width.
+     * 
      * @return Returns the attribute width.
      */
     public String getWidth() {
@@ -74,7 +78,9 @@ public class TemplatedGraph {
 
     /**
      * Setter for the attribute cid.
-     * @param cid The attribute cid.
+     * 
+     * @param cid
+     *            The attribute cid.
      */
     public void setCid(final String cid) {
         this.cid = cid;
@@ -82,7 +88,9 @@ public class TemplatedGraph {
 
     /**
      * Setter for the attribute height.
-     * @param height The attribute height.
+     * 
+     * @param height
+     *            The attribute height.
      */
     public void setHeight(final String height) {
         this.height = height;
@@ -90,7 +98,9 @@ public class TemplatedGraph {
 
     /**
      * Setter for the attribute label.
-     * @param label The attribute label.
+     * 
+     * @param label
+     *            The attribute label.
      */
     public void setLabel(final String label) {
         this.label = label;
@@ -98,7 +108,9 @@ public class TemplatedGraph {
 
     /**
      * Setter for the attribute url.
-     * @param url The attribute url.
+     * 
+     * @param url
+     *            The attribute url.
      */
     public void setUrl(final String url) {
         this.url = url;
@@ -106,7 +118,9 @@ public class TemplatedGraph {
 
     /**
      * Setter for the attribute width.
-     * @param width The attribute width.
+     * 
+     * @param width
+     *            The attribute width.
      */
     public void setWidth(final String width) {
         this.width = width;

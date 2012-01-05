@@ -4,10 +4,9 @@ import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Root;
 import org.tensin.common.tools.documentation.updater.Description;
 
-
 /**
  * <sensor id="1" value="27" type="C" seuil="30" />.
- *
+ * 
  * @author u248663
  */
 @Root(name = "sensor")
@@ -43,9 +42,11 @@ public class TemperatureResult {
 
     /**
      * Instantiates a new temperature result.
-     *
-     * @param sensorId the sensor id
-     * @param temperature the temperature
+     * 
+     * @param sensorId
+     *            the sensor id
+     * @param temperature
+     *            the temperature
      */
     public TemperatureResult(final String sensorId, final double temperature) {
         super();
@@ -55,7 +56,7 @@ public class TemperatureResult {
 
     /**
      * Gets the limit.
-     *
+     * 
      * @return the limit
      */
     public double getLimit() {
@@ -64,7 +65,7 @@ public class TemperatureResult {
 
     /**
      * Gets the sensor id.
-     *
+     * 
      * @return the sensor id
      */
     public String getSensorId() {
@@ -73,7 +74,7 @@ public class TemperatureResult {
 
     /**
      * Gets the state.
-     *
+     * 
      * @return the state
      */
     public TemperatureState getState() {
@@ -86,7 +87,7 @@ public class TemperatureResult {
 
     /**
      * Gets the temperature.
-     *
+     * 
      * @return the temperature
      */
     public double getTemperature() {
@@ -95,7 +96,7 @@ public class TemperatureResult {
 
     /**
      * Gets the type.
-     *
+     * 
      * @return the type
      */
     public String getType() {
@@ -104,8 +105,9 @@ public class TemperatureResult {
 
     /**
      * Sets the limit.
-     *
-     * @param limit the new limit
+     * 
+     * @param limit
+     *            the new limit
      */
     public void setLimit(final double limit) {
         this.limit = limit;
@@ -113,8 +115,9 @@ public class TemperatureResult {
 
     /**
      * Sets the sensor id.
-     *
-     * @param sensorId the new sensor id
+     * 
+     * @param sensorId
+     *            the new sensor id
      */
     public void setSensorId(final String sensorId) {
         this.sensorId = sensorId;
@@ -122,8 +125,9 @@ public class TemperatureResult {
 
     /**
      * Sets the temperature.
-     *
-     * @param temperature the new temperature
+     * 
+     * @param temperature
+     *            the new temperature
      */
     public void setTemperature(final double temperature) {
         this.temperature = temperature;
@@ -131,14 +135,17 @@ public class TemperatureResult {
 
     /**
      * Sets the type.
-     *
-     * @param type the new type
+     * 
+     * @param type
+     *            the new type
      */
     public void setType(final String type) {
         this.type = type;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.lang.Object#toString()
      */
     @Override

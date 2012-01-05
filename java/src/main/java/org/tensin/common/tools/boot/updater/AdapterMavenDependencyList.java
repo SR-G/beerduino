@@ -22,236 +22,241 @@ public class AdapterMavenDependencyList implements IAdapterInput {
     /** The Constant LOGGER. */
     private static final Logger LOGGER = LoggerFactory.getLogger(AdapterMavenDependencyList.class);
 
+    /**
+     * Méthode.
+     * 
+     * @param dependencyFileName
+     *            the dependency file name
+     * @return the adapter maven dependency list
+     */
+    public static AdapterMavenDependencyList buildAdapter(
+            final String dependencyFileName) {
+        final AdapterMavenDependencyList adapter = new AdapterMavenDependencyList();
+        adapter.setDependencyFileName(dependencyFileName);
+        return adapter;
+    }
+
     /** The current jar. */
     private JarContainer currentJar = null;
 
-	/** filePath. */
-	private String filePath = "maven_dependencies.txt";
+    /** filePath. */
+    private String filePath = "maven_dependencies.txt";
 
-	/** FilePathXml. */
-	private String filePathXml = "maven_dependencies.xml";
+    /** FilePathXml. */
+    private String filePathXml = "maven_dependencies.xml";
 
-	/** delimiter. */
-	private String delimiter = ":";
+    /** delimiter. */
+    private String delimiter = ":";
 
-	/**
-	 * Getter for the attribute getFilePath.
-	 * 
-	 * @return Returns the attribute filePath.
-	 */
-	public String getFilePath() {
-		return filePath;
-	}
+    /** destFileName. */
+    private String dependencyFileName;
 
-	/**
-	 * Setter for the attribute getFilePath.
-	 *
-	 * @param filePath the new file path
-	 * @return Returns the attribute filePath.
-	 */
-	public void setFilePath(String filePath) {
-		this.filePath = filePath;
-	}
+    /**
+     * Getter for the attribute filePathXml.
+     * 
+     * @return Returns the attribute De.
+     */
+    public String getDelimiter() {
+        return delimiter;
+    }
 
-	/**
-	 * Getter for the attribute filePathXml.
-	 * 
-	 * @return Returns the attribute filePathXml.
-	 */
-	public String getFilePathXml() {
-		return filePathXml;
-	}
+    /**
+     * Gets the dependency file name.
+     * 
+     * @return the dependency file name
+     */
+    public String getDependencyFileName() {
+        return dependencyFileName;
+    }
 
-	/**
-	 * Setter for the attribute filePathXml.
-	 *
-	 * @param filePathXml the new file path xml
-	 */
-	public void setfilePathXml(String filePathXml) {
-		this.filePathXml = filePathXml;
-	}
+    /**
+     * Getter for the attribute getFilePath.
+     * 
+     * @return Returns the attribute filePath.
+     */
+    public String getFilePath() {
+        return filePath;
+    }
 
-	/**
-	 * Getter for the attribute filePathXml.
-	 * 
-	 * @return Returns the attribute De.
-	 */
-	public String getDelimiter() {
-		return delimiter;
-	}
+    /**
+     * Getter for the attribute filePathXml.
+     * 
+     * @return Returns the attribute filePathXml.
+     */
+    public String getFilePathXml() {
+        return filePathXml;
+    }
 
-	/**
-	 * Setter for the attribute delimiter.
-	 * 
-	 * @param delimiter
-	 *            The attribute delimiter.
-	 */
-	public void setDelimiter(String delimiter) {
-		this.delimiter = delimiter;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.inetpsa.ltp.tools.excluded.IAdapterInput#getName()
+     */
+    public String getName() {
+        return "Load maven dependencies list (from 'mvn dependency:list' output for file [" + getDependencyFileName() + "])";
+    }
 
-	/**
-	 * Méthode.
-	 *
-	 * @param dependencyFileName the dependency file name
-	 * @return the adapter maven dependency list
-	 */
-	public static AdapterMavenDependencyList buildAdapter(
-			final String dependencyFileName) {
-		final AdapterMavenDependencyList adapter = new AdapterMavenDependencyList();
-		adapter.setDependencyFileName(dependencyFileName);
-		return adapter;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.inetpsa.ltp.tools.excluded.IAdapterInput#load()
+     */
+    public Collection<JarContainer> load() throws DependencyException {
+        StringBuilder sb = new StringBuilder("Results :\n");
+        Collection<JarContainer> jars = new ArrayList<JarContainer>();
+        try {
+            Scanner scanner = new Scanner(new File(dependencyFileName));
+            String line;
+            String[] temp;
+            while (scanner.hasNextLine()) {
+                line = scanner.nextLine().trim();
+                if (StringUtils.isNotEmpty(line) && !line.contains("project: MavenProject:")) {
+                    line = line.trim();
+                    line = line.replaceAll("artifact =", "");
+                    if (StringUtils.isNotEmpty(line)) {
+                        temp = line.split(delimiter);
+                        if (temp.length >= 4) {
+                            sb.append("    Adding [").append(line).append("]").append("\n");
+                            currentJar = new JarContainer(AdapterMavenDependencyList.class);
+                            currentJar.setGroupId(temp[0].trim());
+                            currentJar.setArtifactId(temp[1].trim());
+                            currentJar.setVersion(temp[3].trim());
+                            jars.add(currentJar);
+                        } else {
+                            sb.append("    Weird line not added [").append(line).append("]").append("\n");
+                        }
+                    }
+                }
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            throw new DependencyException(e);
+        } finally {
+            LOGGER.info(sb.toString());
+        }
 
-	/** destFileName. */
-	private String dependencyFileName;
+        return jars;
+    }
 
-	/**
-	 * Gets the dependency file name.
-	 *
-	 * @return the dependency file name
-	 */
-	public String getDependencyFileName() {
-		return dependencyFileName;
-	}
+    /**
+     * Setter for the attribute delimiter.
+     * 
+     * @param delimiter
+     *            The attribute delimiter.
+     */
+    public void setDelimiter(String delimiter) {
+        this.delimiter = delimiter;
+    }
 
-	/**
-	 * Sets the dependency file name.
-	 *
-	 * @param dependencyFileName the new dependency file name
-	 */
-	public void setDependencyFileName(String dependencyFileName) {
-		this.dependencyFileName = dependencyFileName;
-	}
+    /**
+     * Sets the dependency file name.
+     * 
+     * @param dependencyFileName
+     *            the new dependency file name
+     */
+    public void setDependencyFileName(String dependencyFileName) {
+        this.dependencyFileName = dependencyFileName;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.inetpsa.ltp.tools.excluded.IAdapterInput#getName()
-	 */
-	public String getName() {
-		return "Load maven dependencies list (from 'mvn dependency:list' output for file [" + getDependencyFileName() + "])";
-	}
+    /**
+     * Setter for the attribute getFilePath.
+     * 
+     * @param filePath
+     *            the new file path
+     * @return Returns the attribute filePath.
+     */
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.inetpsa.ltp.tools.excluded.IAdapterInput#load()
-	 */
-	public Collection<JarContainer> load() throws DependencyException {
-		StringBuilder sb = new StringBuilder("Results :\n");
-		Collection<JarContainer> jars = new ArrayList<JarContainer>();
-		try {
-			Scanner scanner = new Scanner(new File(dependencyFileName));
-			String line;
-			String[] temp;
-			while (scanner.hasNextLine()) {
-				line = scanner.nextLine().trim();
-				if ( StringUtils.isNotEmpty(line) &&  !line.contains("project: MavenProject:")) {
-					line = line.trim();
-					line = line.replaceAll("artifact =", "");
-					if (StringUtils.isNotEmpty(line)) {
-						temp = line.split(delimiter);
-						if (temp.length >= 4) {
-							sb.append("    Adding [").append(line).append("]").append("\n");
-							currentJar = new JarContainer(AdapterMavenDependencyList.class);
-							currentJar.setGroupId(temp[0].trim());
-							currentJar.setArtifactId(temp[1].trim());
-							currentJar.setVersion(temp[3].trim());
-							jars.add(currentJar);
-						} else {
-							sb.append("    Weird line not added [").append(line).append("]").append("\n");
-						}
-					}
-				}
-			}
-			scanner.close();
-		} catch (FileNotFoundException e) {
-			throw new DependencyException(e);
-		} finally {
-			LOGGER.info(sb.toString());
-		}
+    /**
+     * Setter for the attribute filePathXml.
+     * 
+     * @param filePathXml
+     *            the new file path xml
+     */
+    public void setfilePathXml(String filePathXml) {
+        this.filePathXml = filePathXml;
+    }
 
-		return jars;
-	}
+    /**
+     * Update destination with start constants.
+     * 
+     * @param jar
+     *            the jar
+     * @return the string
+     */
+    @SuppressWarnings("unused")
+    private String updateDestinationWithStartConstants(final JarContainer jar) {
+        String key = jar.getKey();
+        if (StringUtils.isNotEmpty(key)) {
+            key = jar.getJarName();
+            /*
+             * if (ArrayUtils.contains(StartConstants.ltpLib, key)) {
+             * jar.addDestination("ltp");
+             * } else {
+             * if (ArrayUtils.contains(StartConstants.routeurLib, key)) {
+             * jar.addDestination("routeur");
+             * }
+             * if (ArrayUtils.contains(StartConstants.coeurLib, key)) {
+             * jar.addDestination("coeur");
+             * }
+             * if (ArrayUtils.contains(StartConstants.executeurLib, key)) {
+             * jar.addDestination("executeur");
+             * }
+             * if (ArrayUtils.contains(StartConstants.toolsLib, key)) {
+             * jar.addDestination("tools");
+             * }
+             * 
+             * if (ArrayUtils.contains(StartConstants.mqutilsLib, key)) {
+             * jar.addDestination("mqutils");
+             * }
+             * 
+             * if (ArrayUtils.contains(StartConstants.securityutilsLib, key)) {
+             * jar.addDestination("securityutils");
+             * }
+             * 
+             * if (ArrayUtils.contains(StartConstants.toolsLib, key)) {
+             * jar.addDestination("tools");
+             * }
+             * if (ArrayUtils.contains(StartConstants.vedLib, key)) {
+             * jar.addDestination("ved");
+             * }
+             * }
+             * if (ArrayUtils.contains(StartConstants.clientCoeurLib, key)) {
+             * jar.addDestination("clientCoeur");
+             * }
+             * if (ArrayUtils.contains(StartConstants.updateLib, key)) {
+             * jar.addDestination("update");
+             * }
+             * if (ArrayUtils.contains(StartConstants.serviceLib, key)) {
+             * jar.addDestination("service");
+             * }
+             * if (ArrayUtils.contains(StartConstants.tbfLib, key)) {
+             * jar.addDestination("tbf");
+             * }
+             * if (ArrayUtils.contains(StartConstants.surveillantLib, key)) {
+             * jar.addDestination("surveillant");
+             * }
+             * if (ArrayUtils.contains(StartConstants.traceLib, key)) {
+             * jar.addDestination("trace");
+             * }
+             * 
+             * if (ArrayUtils.contains(StartConstants.servicemixLib, key)) {
+             * jar.addDestination("servicemix");
+             * }
+             * if (ArrayUtils.contains(StartConstants.jbiLib, key)) {
+             * jar.addDestination("jbiLib");
+             * }
+             * if (ArrayUtils.contains(StartConstants.axisLib, key)) {
+             * jar.addDestination("axis");
+             * }
+             * if (ArrayUtils.contains(StartConstants.printServerLib, key)) {
+             * jar.addDestination("printServer");
+             * }
+             */
+        }
 
-	/**
-	 * Update destination with start constants.
-	 *
-	 * @param jar the jar
-	 * @return the string
-	 */
-	@SuppressWarnings("unused")
-	private String updateDestinationWithStartConstants(final JarContainer jar) {
-		String key = jar.getKey();
-		if (StringUtils.isNotEmpty(key)) {
-			key = jar.getJarName();
-			/*
-			if (ArrayUtils.contains(StartConstants.ltpLib, key)) {
-				jar.addDestination("ltp");
-			} else {
-				if (ArrayUtils.contains(StartConstants.routeurLib, key)) {
-					jar.addDestination("routeur");
-				}
-				if (ArrayUtils.contains(StartConstants.coeurLib, key)) {
-					jar.addDestination("coeur");
-				}
-				if (ArrayUtils.contains(StartConstants.executeurLib, key)) {
-					jar.addDestination("executeur");
-				}
-				if (ArrayUtils.contains(StartConstants.toolsLib, key)) {
-					jar.addDestination("tools");
-				}
-
-				if (ArrayUtils.contains(StartConstants.mqutilsLib, key)) {
-					jar.addDestination("mqutils");
-				}
-
-				if (ArrayUtils.contains(StartConstants.securityutilsLib, key)) {
-					jar.addDestination("securityutils");
-				}
-
-				if (ArrayUtils.contains(StartConstants.toolsLib, key)) {
-					jar.addDestination("tools");
-				}
-				if (ArrayUtils.contains(StartConstants.vedLib, key)) {
-					jar.addDestination("ved");
-				}
-			}
-			if (ArrayUtils.contains(StartConstants.clientCoeurLib, key)) {
-				jar.addDestination("clientCoeur");
-			}
-			if (ArrayUtils.contains(StartConstants.updateLib, key)) {
-				jar.addDestination("update");
-			}
-			if (ArrayUtils.contains(StartConstants.serviceLib, key)) {
-				jar.addDestination("service");
-			}
-			if (ArrayUtils.contains(StartConstants.tbfLib, key)) {
-				jar.addDestination("tbf");
-			}
-			if (ArrayUtils.contains(StartConstants.surveillantLib, key)) {
-				jar.addDestination("surveillant");
-			}
-			if (ArrayUtils.contains(StartConstants.traceLib, key)) {
-				jar.addDestination("trace");
-			}
-
-			if (ArrayUtils.contains(StartConstants.servicemixLib, key)) {
-				jar.addDestination("servicemix");
-			}
-			if (ArrayUtils.contains(StartConstants.jbiLib, key)) {
-				jar.addDestination("jbiLib");
-			}
-			if (ArrayUtils.contains(StartConstants.axisLib, key)) {
-				jar.addDestination("axis");
-			}
-			if (ArrayUtils.contains(StartConstants.printServerLib, key)) {
-				jar.addDestination("printServer");
-			}
-			*/
-		}
-
-		return jar.getDestinations();
-	}
+        return jar.getDestinations();
+    }
 }

@@ -17,7 +17,6 @@ import org.eclipse.jetty.server.bio.SocketConnector;
 import org.eclipse.jetty.server.handler.AbstractHandler;
 import org.springframework.core.io.Resource;
 
-
 /**
  * Very simple {@link Server} to mock http traffic.
  */
@@ -39,15 +38,18 @@ public class MockHttpServer extends AbstractHandler {
 
     /**
      * Construct MockHtppServer.
-     *
-     * @param port the port for starting up the HTTP server
+     * 
+     * @param port
+     *            the port for starting up the HTTP server
      */
     public MockHttpServer(final int port) {
         super();
         initServer(port);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.eclipse.jetty.server.Handler#handle(java.lang.String, org.eclipse.jetty.server.Request, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
@@ -64,8 +66,9 @@ public class MockHttpServer extends AbstractHandler {
      */
     /**
      * Inits the server.
-     *
-     * @param port the port
+     * 
+     * @param port
+     *            the port
      */
     private void initServer(final int port) {
         server = new Server();
@@ -90,8 +93,9 @@ public class MockHttpServer extends AbstractHandler {
 
     /**
      * Sets the response resource.
-     *
-     * @param responseResource the responseResource to set
+     * 
+     * @param responseResource
+     *            the responseResource to set
      */
     public void setResponseResource(final Resource responseResource) {
         this.responseResource = responseResource;

@@ -8,7 +8,6 @@ import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.HttpVersion;
 import org.apache.commons.httpclient.methods.PostMethod;
-import org.eclipse.jetty.http.HttpStatus;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Root;
 import org.slf4j.Logger;
@@ -89,7 +88,7 @@ public class NotifryNotification extends URLNotification implements INotificatio
 
         try {
             int returnCode = client.executeMethod(method);
-            if (returnCode == HttpStatus.NOT_IMPLEMENTED_501) {
+            if (returnCode == NOT_IMPLEMENTED_501) {
                 LOGGER.error("The Post method is not implemented by this URI");
                 // still consume the response body
                 method.getResponseBodyAsString();
@@ -166,7 +165,7 @@ public class NotifryNotification extends URLNotification implements INotificatio
      *            the new notifry source
      */
     public void setNotifrySource(final String notifryId) {
-        this.notifrySource = notifryId;
+        notifrySource = notifryId;
     }
 
     /**

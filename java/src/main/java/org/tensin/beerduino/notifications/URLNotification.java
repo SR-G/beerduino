@@ -25,6 +25,8 @@ public class URLNotification implements INotification {
     /** The Constant LOGGER. */
     private static final Logger LOGGER = LoggerFactory.getLogger(URLNotification.class);
 
+    public static final int NOT_IMPLEMENTED_501 = 501;
+
     /** The url. @Todo standard parameters should be available {temp1} => substitued by the right value once the URL is called */
     @Attribute(required = false)
     @Description("The single URL that will be activated.")

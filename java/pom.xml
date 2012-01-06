@@ -36,6 +36,26 @@
 		</testResources>
 
 		<plugins>
+                        <plugin>
+                                <groupId>org.apache.maven.plugins</groupId>
+                                <artifactId>maven-jar-plugin</artifactId>
+                                <configuration>
+                                        <archive>
+                                                <manifestEntries>
+                                                        <Extension-Name>${project.name}</Extension-Name>
+                                                        <Specification-Title>${project.description}</Specification-Title>
+                                                        <Specification-Vendor>Tensin</Specification-Vendor>
+                                                        <Implementation-Vendor>Tensin</Implementation-Vendor>
+                                                        <Implementation-Title>${project.name}</Implementation-Title>
+                                                        <Implementation-Version>${project.version}</Implementation-Version>
+                                                </manifestEntries>
+                                        </archive>
+                                        <excludes>
+                                                <exclude>**/*.java</exclude>
+                                        </excludes>
+                                </configuration>
+                        </plugin>
+
 			<plugin>
 			    <groupId>org.apache.maven.plugins</groupId>
 			    <artifactId>maven-compiler-plugin</artifactId>
@@ -44,6 +64,14 @@
 			        <target>1.6</target>
 			    </configuration>
 			</plugin>		
+
+			<plugin>
+                                <groupId>org.apache.maven.plugins</groupId>
+                                <artifactId>maven-dependency-plugin</artifactId>
+				<configuration>
+					<includeScope>compile</includeScope>
+				</configuration>
+			</plugin>
 		</plugins>
 
 	</build>

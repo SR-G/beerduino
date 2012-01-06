@@ -12,13 +12,13 @@ import org.springframework.core.type.filter.AnnotationTypeFilter;
 import org.springframework.core.type.filter.AssignableTypeFilter;
 import org.tensin.common.CoreException;
 import org.tensin.common.tools.documentation.updater.ISimpleXMLDocumentationOutput;
-import org.tensin.common.tools.documentation.updater.SimpleXMLDocumentationOutputGitHubWiki;
+import org.tensin.common.tools.documentation.updater.SimpleXMLDocumentationOutputMarkdown;
 
 public class SimpleXMLDocumentationSpring {
 
     public static void main(final String[] args) throws CoreException {
         SimpleXMLDocumentationSpring doc = new SimpleXMLDocumentationSpring();
-        doc.generate(Preferences.class, new SimpleXMLDocumentationOutputGitHubWiki(),
+        doc.generate(Preferences.class, new SimpleXMLDocumentationOutputMarkdown(),
                 "beerduino.wiki");
     }
 

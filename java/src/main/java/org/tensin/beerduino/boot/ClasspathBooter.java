@@ -1,7 +1,10 @@
 package org.tensin.beerduino.boot;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FilenameFilter;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -18,6 +21,8 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 
 import org.tensin.common.CoreException;
 import org.tensin.common.tools.boot.updater.FilenameFilterJar;
@@ -351,35 +356,6 @@ public class ClasspathBooter {
     }
 
     /**
-     * Transforme un chemin pour qu'il soit propre, que le chemin soit à la mode
-     * windows ou linux.
-     * 
-     * @param lib
-     *            Chemin à traiter
-     * @return String
-     */
-    protected String dealLibPath(final String lib) {
-        String result = lib;
-        if (System.getProperty("os.name").startsWith("Windows")) {
-            // Windows behavior
-            result = lib.replaceAll("\\\\", "/");
-            String baseDir;
-            if (result.startsWith("file:")) {
-                baseDir = result.substring("file:".length());
-            } else {
-                baseDir = result;
-            }
-            result = "file:///" + baseDir;
-        }
-
-        if (!result.startsWith("file://")) {
-            // Linux behavior
-            result = "file://" + lib;
-        }
-        return result;
-    }
-
-    /**
      * Méthode dumpant le classpath (espaces entre chaque item).
      * 
      * @return String
@@ -396,7 +372,7 @@ public class ClasspathBooter {
      * @return String
      */
     public String displayClasspath(final String lineSeparator) {
-        final StringBuilder cpLog = new StringBuilder();
+        final StringBuilder cpLog = new StringBuilder(lineSeparator);
         if ((initialJars != null) && (initialJars.size() > 0)) {
             cpLog.append("initial classpath=").append(lineSeparator);
             final Iterator<URL> itr = initialJars.iterator();
@@ -581,6 +557,39 @@ public class ClasspathBooter {
         }
 
         return result;
+    }
+
+    public String getManifest(final String jarName, final String lineSeparator) {
+        StringBuilder sb = new StringBuilder();
+
+        String lib = getLibraryPathName(jarBaseName);
+        if (!isEmpty(lib)) {
+            lib = lib.replaceAll("file:", "");
+            final File[] files = new File(lib).listFiles(new FilenameFilterJar());
+            if (files != null && files.length > 0) {
+                for (File jar : files) {
+                    if (jar.getName().equalsIgnoreCase(jarName) && jar.exists()) {
+                        try {
+                            JarFile jarFile = new JarFile(jar);
+                            final JarEntry entry = jarFile.getJarEntry("META-INF/MANIFEST.MF");
+                            final InputStream is = jarFile.getInputStream(entry);
+                            final BufferedReader br = new BufferedReader(new InputStreamReader(is));
+                            String line;
+                            while ((line = br.readLine()) != null) {
+                                sb.append(lineSeparator).append(line);
+                            }
+                            if (jarFile != null) {
+                                jarFile.close();
+                                jarFile = null;
+                            }
+                        } catch (final Exception e) {
+                            // SystemHelper.sysoutln("Unable to read MANIFEST.MF from [" + jar + "]");
+                        }
+                    }
+                }
+            }
+        }
+        return sb.toString();
     }
 
     /**

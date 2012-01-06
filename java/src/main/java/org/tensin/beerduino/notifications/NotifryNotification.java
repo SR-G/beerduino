@@ -165,7 +165,7 @@ public class NotifryNotification extends URLNotification implements INotificatio
      *            the new notifry source
      */
     public void setNotifrySource(final String notifryId) {
-        notifrySource = notifryId;
+        this.notifrySource = notifryId;
     }
 
     /**

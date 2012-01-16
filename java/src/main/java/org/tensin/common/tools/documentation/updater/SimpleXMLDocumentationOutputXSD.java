@@ -45,6 +45,11 @@ public class SimpleXMLDocumentationOutputXSD implements ISimpleXMLDocumentationO
      * 
      * @see org.tensin.common.tools.documentation.updater.ISimpleXMLDocumentationOutput#generate(java.lang.Class, org.tensin.common.tools.documentation.updater.SimpleXMLDocumentationEntity)
      */
+    /**
+      * {@inheritDoc}
+      * 
+      * @see org.tensin.common.tools.documentation.updater.ISimpleXMLDocumentationOutput#generate(java.lang.Class, org.tensin.common.tools.documentation.updater.SimpleXMLDocumentationEntity)
+      */
     @Override
     public String generate(final Class<?> racine, final SimpleXMLDocumentationEntity entity) throws SimpleXMLDocumentationException {
         StringBuilder sb = new StringBuilder();
@@ -134,8 +139,10 @@ public class SimpleXMLDocumentationOutputXSD implements ISimpleXMLDocumentationO
     }
 
     /**
+     * Checks if is mode merge.
+     *
+     * @return true, if is mode merge
      * {@inheritDoc}
-     * 
      * @see org.tensin.common.tools.documentation.updater.ISimpleXMLDocumentationOutput#isModeMerge()
      */
     @Override
@@ -144,8 +151,14 @@ public class SimpleXMLDocumentationOutputXSD implements ISimpleXMLDocumentationO
     }
 
     /**
+     * Merge content.
+     *
+     * @param racine the racine
+     * @param entity the entity
+     * @param sourceFileContent the source file content
+     * @return the string
+     * @throws SimpleXMLDocumentationException the simple xml documentation exception
      * {@inheritDoc}
-     * 
      * @see org.tensin.common.tools.documentation.updater.ISimpleXMLDocumentationOutput#mergeContent(java.lang.Class, org.tensin.common.tools.documentation.updater.SimpleXMLDocumentationEntity, java.lang.String, java.lang.String)
      */
     @Override

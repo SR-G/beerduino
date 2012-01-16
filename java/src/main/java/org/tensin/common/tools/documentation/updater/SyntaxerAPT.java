@@ -43,18 +43,34 @@ public class SyntaxerAPT implements ISyntaxer {
         return StringUtils.rightPad(res, rightPadSize);
     }
 
+    /** The current column counts. */
     private int currentColumnCounts;
 
+    /**
+      * {@inheritDoc}
+      * 
+      * @see org.tensin.common.tools.documentation.updater.ISyntaxer#buildCommentEnd(java.lang.String)
+      */
     @Override
     public String buildCommentEnd(final String comment) {
         return "~~BEGIN_" + (StringUtils.isNotEmpty(comment) ? comment : "");
     }
 
+    /**
+      * {@inheritDoc}
+      * 
+      * @see org.tensin.common.tools.documentation.updater.ISyntaxer#buildCommentStart(java.lang.String)
+      */
     @Override
     public String buildCommentStart(final String comment) {
         return "~~END_" + (StringUtils.isNotEmpty(comment) ? comment : "");
     }
 
+    /**
+      * {@inheritDoc}
+      * 
+      * @see org.tensin.common.tools.documentation.updater.ISyntaxer#buildFileHeader(java.lang.String, java.lang.String)
+      */
     @Override
     public String buildFileHeader(final String title, final String author) {
         StringBuilder sb = new StringBuilder();
@@ -68,36 +84,71 @@ public class SyntaxerAPT implements ISyntaxer {
         return sb.toString();
     }
 
+    /**
+      * {@inheritDoc}
+      * 
+      * @see org.tensin.common.tools.documentation.updater.ISyntaxer#buildLink(java.lang.String)
+      */
     @Override
     public String buildLink(final String value) {
         return "{" + value + "}";
     }
 
+    /**
+      * {@inheritDoc}
+      * 
+      * @see org.tensin.common.tools.documentation.updater.ISyntaxer#buildLink(java.lang.String, java.lang.String)
+      */
     @Override
     public String buildLink(final String text, final String anchor) {
         return "{{{" + anchor + "}" + text + "}}";
     }
 
+    /**
+      * {@inheritDoc}
+      * 
+      * @see org.tensin.common.tools.documentation.updater.ISyntaxer#buildQuoteEnd()
+      */
     @Override
     public String buildQuoteEnd() {
         return "+--------------------------------------------------------------------------------+" + LINE_SEPARATOR;
     }
 
+    /**
+      * {@inheritDoc}
+      * 
+      * @see org.tensin.common.tools.documentation.updater.ISyntaxer#buildQuoteStart()
+      */
     @Override
     public String buildQuoteStart() {
         return "+--------------------------------------------------------------------------------+" + LINE_SEPARATOR;
     }
 
+    /**
+      * {@inheritDoc}
+      * 
+      * @see org.tensin.common.tools.documentation.updater.ISyntaxer#buildTableFooter()
+      */
     @Override
     public String buildTableFooter() {
         return "";
     }
 
+    /**
+      * {@inheritDoc}
+      * 
+      * @see org.tensin.common.tools.documentation.updater.ISyntaxer#buildTableHeader(int)
+      */
     @Override
     public String buildTableHeader(final int columnCount) {
         return buildTableRowApt(2);
     }
 
+    /**
+      * {@inheritDoc}
+      * 
+      * @see org.tensin.common.tools.documentation.updater.ISyntaxer#buildTableHeader(java.lang.String[])
+      */
     @Override
     public String buildTableHeader(final String[] values) {
         // sbEnum.append("*-----------------+\n");
@@ -121,6 +172,11 @@ public class SyntaxerAPT implements ISyntaxer {
         return result;
     }
 
+    /**
+      * {@inheritDoc}
+      * 
+      * @see org.tensin.common.tools.documentation.updater.ISyntaxer#buildTableRow(java.lang.String[])
+      */
     @Override
     public String buildTableRow(final String[] values) {
         // sbEnum.append("| " + enumeration + "|\n");
@@ -136,9 +192,9 @@ public class SyntaxerAPT implements ISyntaxer {
 
     /**
      * Method.
-     * 
-     * @param values
-     * @return
+     *
+     * @param columnCount the column count
+     * @return the string
      */
     @Override
     public String buildTableRowApt(final int columnCount) {
@@ -150,16 +206,31 @@ public class SyntaxerAPT implements ISyntaxer {
         return row;
     }
 
+    /**
+      * {@inheritDoc}
+      * 
+      * @see org.tensin.common.tools.documentation.updater.ISyntaxer#buildUnorderedItem(java.lang.String)
+      */
     @Override
     public String buildUnorderedItem(final String value) {
         return "* " + value + LINE_SEPARATOR + LINE_SEPARATOR;
     }
 
+    /**
+      * {@inheritDoc}
+      * 
+      * @see org.tensin.common.tools.documentation.updater.ISyntaxer#fontBold(java.lang.String)
+      */
     @Override
     public String fontBold(final String value) {
         return "<<" + value + ">>";
     }
 
+    /**
+      * {@inheritDoc}
+      * 
+      * @see org.tensin.common.tools.documentation.updater.ISyntaxer#fontItalic(java.lang.String)
+      */
     @Override
     public String fontItalic(final String value) {
         return "__" + value + "__";

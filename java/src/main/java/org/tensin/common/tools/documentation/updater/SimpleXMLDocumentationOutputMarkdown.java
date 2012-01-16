@@ -12,6 +12,11 @@ public class SimpleXMLDocumentationOutputMarkdown extends SimpleXMLDocumentation
      * 
      * @see org.tensin.common.tools.documentation.updater.ISimpleXMLDocumentationOutput#generate(java.lang.Class, org.tensin.common.tools.documentation.updater.SimpleXMLDocumentationEntity)
      */
+    /**
+      * {@inheritDoc}
+      * 
+      * @see org.tensin.common.tools.documentation.updater.SimpleXMLDocumentationOutputAPT#generate(java.lang.Class, org.tensin.common.tools.documentation.updater.SimpleXMLDocumentationEntity)
+      */
     @Override
     public String generate(final Class<?> racine, final SimpleXMLDocumentationEntity entity) throws SimpleXMLDocumentationException {
         setSyntaxer(new SyntaxerMarkdown());

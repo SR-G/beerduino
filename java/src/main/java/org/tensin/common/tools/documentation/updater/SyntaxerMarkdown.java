@@ -13,16 +13,31 @@ public class SyntaxerMarkdown implements ISyntaxer {
     /** Line delimiter. */
     private static final String LINE_SEPARATOR = "\n";
 
+    /**
+      * {@inheritDoc}
+      * 
+      * @see org.tensin.common.tools.documentation.updater.ISyntaxer#buildCommentEnd(java.lang.String)
+      */
     @Override
     public String buildCommentEnd(final String comment) {
         return "<!-- END_" + (StringUtils.isNotEmpty(comment) ? comment : "") + " -->";
     }
 
+    /**
+      * {@inheritDoc}
+      * 
+      * @see org.tensin.common.tools.documentation.updater.ISyntaxer#buildCommentStart(java.lang.String)
+      */
     @Override
     public String buildCommentStart(final String comment) {
         return "<!-- BEGIN_" + (StringUtils.isNotEmpty(comment) ? comment : "") + " -->";
     }
 
+    /**
+      * {@inheritDoc}
+      * 
+      * @see org.tensin.common.tools.documentation.updater.ISyntaxer#buildFileHeader(java.lang.String, java.lang.String)
+      */
     @Override
     public String buildFileHeader(final String title, final String author) {
         StringBuilder sb = new StringBuilder();
@@ -57,21 +72,41 @@ public class SyntaxerMarkdown implements ISyntaxer {
         return "[" + text + "](#" + anchor + ")";
     }
 
+    /**
+      * {@inheritDoc}
+      * 
+      * @see org.tensin.common.tools.documentation.updater.ISyntaxer#buildQuoteEnd()
+      */
     @Override
     public String buildQuoteEnd() {
         return "</pre>" + LINE_SEPARATOR;
     }
 
+    /**
+      * {@inheritDoc}
+      * 
+      * @see org.tensin.common.tools.documentation.updater.ISyntaxer#buildQuoteStart()
+      */
     @Override
     public String buildQuoteStart() {
         return "<pre>" + LINE_SEPARATOR;
     }
 
+    /**
+      * {@inheritDoc}
+      * 
+      * @see org.tensin.common.tools.documentation.updater.ISyntaxer#buildTableFooter()
+      */
     @Override
     public String buildTableFooter() {
         return "</table>" + LINE_SEPARATOR;
     }
 
+    /**
+      * {@inheritDoc}
+      * 
+      * @see org.tensin.common.tools.documentation.updater.ISyntaxer#buildTableHeader(int)
+      */
     @Override
     public String buildTableHeader(final int columnCount) {
         StringBuilder sb = new StringBuilder();
@@ -79,6 +114,11 @@ public class SyntaxerMarkdown implements ISyntaxer {
         return sb.toString();
     }
 
+    /**
+      * {@inheritDoc}
+      * 
+      * @see org.tensin.common.tools.documentation.updater.ISyntaxer#buildTableHeader(java.lang.String[])
+      */
     @Override
     public String buildTableHeader(final String[] values) {
         StringBuilder sb = new StringBuilder();
@@ -93,6 +133,11 @@ public class SyntaxerMarkdown implements ISyntaxer {
         return sb.toString();
     }
 
+    /**
+      * {@inheritDoc}
+      * 
+      * @see org.tensin.common.tools.documentation.updater.ISyntaxer#buildTableRow(java.lang.String[])
+      */
     @Override
     public String buildTableRow(final String[] values) {
         StringBuilder sb = new StringBuilder();
@@ -104,21 +149,41 @@ public class SyntaxerMarkdown implements ISyntaxer {
         return sb.toString();
     }
 
+    /**
+      * {@inheritDoc}
+      * 
+      * @see org.tensin.common.tools.documentation.updater.ISyntaxer#buildTableRowApt(int)
+      */
     @Override
     public String buildTableRowApt(final int columnCount) {
         return null;
     }
 
+    /**
+      * {@inheritDoc}
+      * 
+      * @see org.tensin.common.tools.documentation.updater.ISyntaxer#buildUnorderedItem(java.lang.String)
+      */
     @Override
     public String buildUnorderedItem(final String value) {
         return "# " + value + LINE_SEPARATOR + LINE_SEPARATOR;
     }
 
+    /**
+      * {@inheritDoc}
+      * 
+      * @see org.tensin.common.tools.documentation.updater.ISyntaxer#fontBold(java.lang.String)
+      */
     @Override
     public String fontBold(final String value) {
         return "**" + value + "**";
     }
 
+    /**
+      * {@inheritDoc}
+      * 
+      * @see org.tensin.common.tools.documentation.updater.ISyntaxer#fontItalic(java.lang.String)
+      */
     @Override
     public String fontItalic(final String value) {
         return "__" + value + "__";

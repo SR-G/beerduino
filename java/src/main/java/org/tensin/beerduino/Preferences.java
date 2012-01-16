@@ -62,6 +62,7 @@ public class Preferences {
 
     /** The no namespace schema location. */
     @Attribute(required = false)
+    @Description("XSD internal definition")
     private String noNamespaceSchemaLocation;
 
     /** The arduino ip. */

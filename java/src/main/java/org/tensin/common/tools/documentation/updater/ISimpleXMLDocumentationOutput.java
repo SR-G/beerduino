@@ -18,4 +18,17 @@ public interface ISimpleXMLDocumentationOutput {
      */
     String generate(final Class<?> racine, final SimpleXMLDocumentationEntity entity) throws SimpleXMLDocumentationException;
 
+    boolean isModeMerge();
+
+    /**
+     * Method.
+     * 
+     * @param racine
+     * @param entity
+     * @param sourceFileContent
+     * @param token
+     * @return
+     * @throws SimpleXMLDocumentationException
+     */
+    String mergeContent(final Class<?> racine, final SimpleXMLDocumentationEntity entity, final String sourceFileContent) throws SimpleXMLDocumentationException;
 }

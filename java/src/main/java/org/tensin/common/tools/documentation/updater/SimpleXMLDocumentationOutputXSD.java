@@ -109,7 +109,7 @@ public class SimpleXMLDocumentationOutputXSD implements ISimpleXMLDocumentationO
      *            the racine
      * @return the main element name
      */
-    private String getMainElementName(Class<?> racine) {
+    private String getMainElementName(final Class<?> racine) {
         for (Annotation annotation : racine.getAnnotations()) {
             if (AnnotationHelper.isInstance(annotation, Root.class)) {
                 return (String) AnnotationHelper.getFieldValue(annotation, "name");
@@ -125,12 +125,32 @@ public class SimpleXMLDocumentationOutputXSD implements ISimpleXMLDocumentationO
      *            the entity
      * @return the xSD required
      */
-    private String getXSDRequired(SimpleXMLDocumentationEntity entity) {
+    private String getXSDRequired(final SimpleXMLDocumentationEntity entity) {
         if (entity.isRequired()) {
             return "use=\"required\" ";
         } else {
             return "";
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     * 
+     * @see org.tensin.common.tools.documentation.updater.ISimpleXMLDocumentationOutput#isModeMerge()
+     */
+    @Override
+    public boolean isModeMerge() {
+        return false;
+    }
+
+    /**
+     * {@inheritDoc}
+     * 
+     * @see org.tensin.common.tools.documentation.updater.ISimpleXMLDocumentationOutput#mergeContent(java.lang.Class, org.tensin.common.tools.documentation.updater.SimpleXMLDocumentationEntity, java.lang.String, java.lang.String)
+     */
+    @Override
+    public String mergeContent(final Class<?> racine, final SimpleXMLDocumentationEntity entity, final String sourceFileContent) throws SimpleXMLDocumentationException {
+        return null;
     }
 
     /**
@@ -140,7 +160,7 @@ public class SimpleXMLDocumentationOutputXSD implements ISimpleXMLDocumentationO
      *            the new additionnal xsd definitions
      */
     public void setAdditionnalXsdDefinitions(
-            Collection<String> additionnalXsdDefinitions) {
+            final Collection<String> additionnalXsdDefinitions) {
         this.additionnalXsdDefinitions = additionnalXsdDefinitions;
     }
 
@@ -150,7 +170,7 @@ public class SimpleXMLDocumentationOutputXSD implements ISimpleXMLDocumentationO
      * @param mainElementClass
      *            the new main element class
      */
-    public void setMainElementClass(String mainElementClass) {
+    public void setMainElementClass(final String mainElementClass) {
         this.mainElementClass = mainElementClass;
     }
 
@@ -160,7 +180,7 @@ public class SimpleXMLDocumentationOutputXSD implements ISimpleXMLDocumentationO
      * @param mainElementName
      *            the new main element name
      */
-    public void setMainElementName(String mainElementName) {
+    public void setMainElementName(final String mainElementName) {
         this.mainElementName = mainElementName;
     }
 

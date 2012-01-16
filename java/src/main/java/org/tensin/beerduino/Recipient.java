@@ -5,19 +5,23 @@ package org.tensin.beerduino;
 
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Root;
+import org.tensin.common.tools.documentation.updater.Description;
 
 /**
  * The Class Recipient.
  */
 @Root(name = "destinataire")
+@Description("Mail recipient whom the mail will be sent")
 public class Recipient {
 
     /** The email. */
     @Attribute
+    @Description("Mail that will be used for the to: field")
     private String email;
 
     /** The name. */
-    @Attribute
+    @Attribute(required = false)
+    @Description("Name of the recipient")
     private String name;
 
     /**

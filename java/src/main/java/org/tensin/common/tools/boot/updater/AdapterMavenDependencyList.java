@@ -9,6 +9,7 @@ import java.util.Scanner;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.tensin.common.CoreException;
 
 /**
  * AdapterLTPXml.
@@ -28,11 +29,17 @@ public class AdapterMavenDependencyList implements IAdapterInput {
      * @param dependencyFileName
      *            the dependency file name
      * @return the adapter maven dependency list
+     * @throws CoreException
      */
     public static AdapterMavenDependencyList buildAdapter(
-            final String dependencyFileName) {
+            final String dependencyFileName) throws CoreException {
         final AdapterMavenDependencyList adapter = new AdapterMavenDependencyList();
         adapter.setDependencyFileName(dependencyFileName);
+
+        if (!new File(dependencyFileName).isFile()) {
+            throw new CoreException("File [" + dependencyFileName + "] not found (should have been created previously with 'mvn dependency:list')");
+        }
+
         return adapter;
     }
 
@@ -92,6 +99,7 @@ public class AdapterMavenDependencyList implements IAdapterInput {
      * 
      * @see com.inetpsa.ltp.tools.excluded.IAdapterInput#getName()
      */
+    @Override
     public String getName() {
         return "Load maven dependencies list (from 'mvn dependency:list' output for file [" + getDependencyFileName() + "])";
     }
@@ -101,6 +109,7 @@ public class AdapterMavenDependencyList implements IAdapterInput {
      * 
      * @see com.inetpsa.ltp.tools.excluded.IAdapterInput#load()
      */
+    @Override
     public Collection<JarContainer> load() throws DependencyException {
         StringBuilder sb = new StringBuilder("Results :\n");
         Collection<JarContainer> jars = new ArrayList<JarContainer>();
@@ -144,7 +153,7 @@ public class AdapterMavenDependencyList implements IAdapterInput {
      * @param delimiter
      *            The attribute delimiter.
      */
-    public void setDelimiter(String delimiter) {
+    public void setDelimiter(final String delimiter) {
         this.delimiter = delimiter;
     }
 
@@ -154,7 +163,7 @@ public class AdapterMavenDependencyList implements IAdapterInput {
      * @param dependencyFileName
      *            the new dependency file name
      */
-    public void setDependencyFileName(String dependencyFileName) {
+    public void setDependencyFileName(final String dependencyFileName) {
         this.dependencyFileName = dependencyFileName;
     }
 
@@ -165,7 +174,7 @@ public class AdapterMavenDependencyList implements IAdapterInput {
      *            the new file path
      * @return Returns the attribute filePath.
      */
-    public void setFilePath(String filePath) {
+    public void setFilePath(final String filePath) {
         this.filePath = filePath;
     }
 
@@ -175,7 +184,7 @@ public class AdapterMavenDependencyList implements IAdapterInput {
      * @param filePathXml
      *            the new file path xml
      */
-    public void setfilePathXml(String filePathXml) {
+    public void setfilePathXml(final String filePathXml) {
         this.filePathXml = filePathXml;
     }
 

@@ -44,19 +44,19 @@ public class SimpleXMLDocumentationOutputAPT implements
 
 		/* Titre */
 		StringBuffer sb = new StringBuffer();
-		sb.append(syntaxer.buildLink(currentEntity.getType().getAnchor()))
+		sb.append(syntaxer.buildHeader(2, currentEntity.getType().getAnchor()))
 				.append("\n\n");
 		sb.append("    " + currentEntity.getType().getDescription() + "\n\n");
 
 		/* Exemple */
-		StringBuffer sbExemple = new StringBuffer(syntaxer.buildHeader(2,
+		StringBuffer sbExemple = new StringBuffer(syntaxer.buildHeader(3,
 				"Exemple"));
 		sbExemple.append(syntaxer.buildQuoteStart());
 		sbExemple.append("&lt;" + currentEntity.getType().getBaliseName());
 
 		/* Enum */
 		if (currentEntity.getType().isEnum()) {
-			StringBuffer sbEnum = new StringBuffer(syntaxer.buildHeader(2,
+			StringBuffer sbEnum = new StringBuffer(syntaxer.buildHeader(3,
 					"Enumeration"));
 			sbEnum.append(syntaxer.buildTableHeader(new String[] { syntaxer
 					.fontBold("Valeur") }));
@@ -81,7 +81,7 @@ public class SimpleXMLDocumentationOutputAPT implements
 		int currentAttributeLineSize = initialAttributeLineSize;
 		String currentAttributeLine = "";
 		int nbAttributs = 0;
-		StringBuffer sbAttributs = new StringBuffer(syntaxer.buildHeader(2,
+		StringBuffer sbAttributs = new StringBuffer(syntaxer.buildHeader(3,
 				"Attributs"));
 		sbAttributs.append(syntaxer.buildTableHeader(new String[] {
 				syntaxer.fontBold("Attributs"), syntaxer.fontBold("Type"),
@@ -128,7 +128,7 @@ public class SimpleXMLDocumentationOutputAPT implements
 
 		/* Element */
 		int nbElements = 0;
-		StringBuffer sbElements = new StringBuffer(syntaxer.buildHeader(2,
+		StringBuffer sbElements = new StringBuffer(syntaxer.buildHeader(3,
 				"Elements"));
 		sbElements.append(syntaxer.buildTableHeader(new String[] {
 				syntaxer.fontBold("Elements"), syntaxer.fontBold("Type"),
@@ -213,7 +213,7 @@ public class SimpleXMLDocumentationOutputAPT implements
 
 		/* Text */
 		int nbTexts = 0;
-		StringBuffer sbTexts = new StringBuffer(syntaxer.buildHeader(2,
+		StringBuffer sbTexts = new StringBuffer(syntaxer.buildHeader(3,
 				"Contenu"));
 		sbTexts.append(syntaxer.buildTableHeader(new String[] {
 				syntaxer.fontBold("Type"), syntaxer.fontBold("Req"),
@@ -265,7 +265,7 @@ public class SimpleXMLDocumentationOutputAPT implements
 					fullName.lastIndexOf("."));
 			String className = fullName
 					.substring(fullName.lastIndexOf(".") + 1);
-			sb.append(syntaxer.buildHeader(2, "Implémentation"));
+			sb.append(syntaxer.buildHeader(3, "Implémentation"));
 			sb.append(syntaxer.buildTableHeader(2));
 			sb.append(syntaxer.buildTableRow(new String[] {
 					syntaxer.fontBold("Package"), packageName }));
@@ -284,7 +284,7 @@ public class SimpleXMLDocumentationOutputAPT implements
 		String documentation = currentEntity.getType().getDocumentation();
 		if (StringUtils.isNotBlank(documentation)) {
 			StringBuffer sbDocumentation = new StringBuffer(
-					syntaxer.buildHeader(2, "Documentation"));
+					syntaxer.buildHeader(3, "Documentation"));
 			sbDocumentation
 					.append("    Une documentation complète est disponible {{{"
 							+ documentation + "}ici}}\n");

@@ -146,7 +146,7 @@ public class SyntaxerMarkdown implements ISyntaxer {
 		if (values != null && values.length > 0) {
 			sb.append("  <tr>").append(LINE_SEPARATOR);
 			for (final String value : values) {
-				sb.append("    <th>").append(value).append("</th>")
+				sb.append("    <th><b>").append(value).append("</b></th>")
 						.append(LINE_SEPARATOR);
 			}
 			sb.append("  </tr>").append(LINE_SEPARATOR);

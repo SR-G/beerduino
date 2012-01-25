@@ -58,8 +58,7 @@ public class SimpleXMLDocumentationOutputAPT implements
 		if (currentEntity.getType().isEnum()) {
 			StringBuffer sbEnum = new StringBuffer(syntaxer.buildHeader(3,
 					"Enumeration"));
-			sbEnum.append(syntaxer.buildTableHeader(new String[] { syntaxer
-					.fontBold("Valeur") }));
+			sbEnum.append(syntaxer.buildTableHeader(new String[] { "Valeur" }));
 			// sbEnum.append("*-----------------+\n");
 			// sbEnum.append("| <<Valeur>>      |\n");
 			// sbEnum.append("*-----------------+\n");
@@ -84,8 +83,7 @@ public class SimpleXMLDocumentationOutputAPT implements
 		StringBuffer sbAttributs = new StringBuffer(syntaxer.buildHeader(3,
 				"Attributs"));
 		sbAttributs.append(syntaxer.buildTableHeader(new String[] {
-				syntaxer.fontBold("Attributs"), syntaxer.fontBold("Type"),
-				syntaxer.fontBold("Req"), syntaxer.fontBold("Description")
+				"Attributs", "Type", "Req", "Description"
 
 		}));
 		// sbAttributs.append("*-----------------+-------------------+-------*-------------------+\n");
@@ -130,9 +128,8 @@ public class SimpleXMLDocumentationOutputAPT implements
 		int nbElements = 0;
 		StringBuffer sbElements = new StringBuffer(syntaxer.buildHeader(3,
 				"Elements"));
-		sbElements.append(syntaxer.buildTableHeader(new String[] {
-				syntaxer.fontBold("Elements"), syntaxer.fontBold("Type"),
-				syntaxer.fontBold("Req"), syntaxer.fontBold("Description")
+		sbElements.append(syntaxer.buildTableHeader(new String[] { "Elements",
+				"Type", "Req", "Description"
 
 		}));
 		// sbElements.append("*-----------------+-------------------+-------*-------------------+\n");
@@ -215,9 +212,8 @@ public class SimpleXMLDocumentationOutputAPT implements
 		int nbTexts = 0;
 		StringBuffer sbTexts = new StringBuffer(syntaxer.buildHeader(3,
 				"Contenu"));
-		sbTexts.append(syntaxer.buildTableHeader(new String[] {
-				syntaxer.fontBold("Type"), syntaxer.fontBold("Req"),
-				syntaxer.fontBold("Description")
+		sbTexts.append(syntaxer.buildTableHeader(new String[] { "Type", "Req",
+				"Description"
 
 		}));
 		// sbTexts.append("*-------------------+-------*-------------------+\n");
@@ -267,10 +263,10 @@ public class SimpleXMLDocumentationOutputAPT implements
 					.substring(fullName.lastIndexOf(".") + 1);
 			sb.append(syntaxer.buildHeader(3, "Implémentation"));
 			sb.append(syntaxer.buildTableHeader(2));
-			sb.append(syntaxer.buildTableRow(new String[] {
-					syntaxer.fontBold("Package"), packageName }));
-			sb.append(syntaxer.buildTableRow(new String[] {
-					syntaxer.fontBold("Classe"), className }));
+			sb.append(syntaxer.buildTableRow(new String[] { "Package",
+					packageName }));
+			sb.append(syntaxer
+					.buildTableRow(new String[] { "Classe", className }));
 
 			// sb.append("*----------+---------------------------------------------------------------+\n");
 			// sb.append("| Package  | " + packageName + " |\n");

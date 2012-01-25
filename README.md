@@ -57,10 +57,10 @@ Use a few libraries (included in this github) :
 
 <table>
   <tr>
-    <th>**Attributs**</th>
-    <th>**Type**</th>
-    <th>**Req**</th>
-    <th>**Description**</th>
+    <th><b>Attributs</b></th>
+    <th><b>Type</b></th>
+    <th><b>Req</b></th>
+    <th><b>Description</b></th>
   </tr>
   <tr>
     <td>time</td>
@@ -75,10 +75,10 @@ Use a few libraries (included in this github) :
 
 <table>
   <tr>
-    <th>**Elements**</th>
-    <th>**Type**</th>
-    <th>**Req**</th>
-    <th>**Description**</th>
+    <th><b>Elements</b></th>
+    <th><b>Type</b></th>
+    <th><b>Req</b></th>
+    <th><b>Description</b></th>
   </tr>
   <tr>
     <td>Liste de [sensor](#2.sensor)</td>
@@ -110,11 +110,11 @@ Use a few libraries (included in this github) :
 
 <table>
   <tr>
-    <td>**Package**</td>
+    <td>Package</td>
     <td>org.tensin.beerduino</td>
   </tr>
   <tr>
-    <td>**Classe**</td>
+    <td>Classe</td>
     <td>TemperatureResults</td>
   </tr>
 </table>
@@ -131,10 +131,10 @@ Use a few libraries (included in this github) :
 
 <table>
   <tr>
-    <th>**Attributs**</th>
-    <th>**Type**</th>
-    <th>**Req**</th>
-    <th>**Description**</th>
+    <th><b>Attributs</b></th>
+    <th><b>Type</b></th>
+    <th><b>Req</b></th>
+    <th><b>Description</b></th>
   </tr>
   <tr>
     <td>value</td>
@@ -173,11 +173,11 @@ Use a few libraries (included in this github) :
 
 <table>
   <tr>
-    <td>**Package**</td>
+    <td>Package</td>
     <td>org.tensin.beerduino</td>
   </tr>
   <tr>
-    <td>**Classe**</td>
+    <td>Classe</td>
     <td>TemperatureResult</td>
   </tr>
 </table>
@@ -197,10 +197,10 @@ How to configure Preferences of the Java project ?
 
 <table>
   <tr>
-    <th>**Attributs**</th>
-    <th>**Type**</th>
-    <th>**Req**</th>
-    <th>**Description**</th>
+    <th><b>Attributs</b></th>
+    <th><b>Type</b></th>
+    <th><b>Req</b></th>
+    <th><b>Description</b></th>
   </tr>
   <tr>
     <td>noNamespaceSchemaLocation</td>
@@ -215,10 +215,10 @@ How to configure Preferences of the Java project ?
 
 <table>
   <tr>
-    <th>**Elements**</th>
-    <th>**Type**</th>
-    <th>**Req**</th>
-    <th>**Description**</th>
+    <th><b>Elements</b></th>
+    <th><b>Type</b></th>
+    <th><b>Req</b></th>
+    <th><b>Description</b></th>
   </tr>
   <tr>
     <td>arduinoIp</td>
@@ -348,11 +348,11 @@ How to configure Preferences of the Java project ?
 
 <table>
   <tr>
-    <td>**Package**</td>
+    <td>Package</td>
     <td>org.tensin.beerduino</td>
   </tr>
   <tr>
-    <td>**Classe**</td>
+    <td>Classe</td>
     <td>Preferences</td>
   </tr>
 </table>
@@ -369,10 +369,10 @@ How to configure Preferences of the Java project ?
 
 <table>
   <tr>
-    <th>**Attributs**</th>
-    <th>**Type**</th>
-    <th>**Req**</th>
-    <th>**Description**</th>
+    <th><b>Attributs</b></th>
+    <th><b>Type</b></th>
+    <th><b>Req</b></th>
+    <th><b>Description</b></th>
   </tr>
   <tr>
     <td>capteur</td>
@@ -399,11 +399,11 @@ How to configure Preferences of the Java project ?
 
 <table>
   <tr>
-    <td>**Package**</td>
+    <td>Package</td>
     <td>org.tensin.beerduino</td>
   </tr>
   <tr>
-    <td>**Classe**</td>
+    <td>Classe</td>
     <td>TemperatureLimit</td>
   </tr>
 </table>
@@ -420,10 +420,10 @@ How to configure Preferences of the Java project ?
 
 <table>
   <tr>
-    <th>**Attributs**</th>
-    <th>**Type**</th>
-    <th>**Req**</th>
-    <th>**Description**</th>
+    <th><b>Attributs</b></th>
+    <th><b>Type</b></th>
+    <th><b>Req</b></th>
+    <th><b>Description</b></th>
   </tr>
   <tr>
     <td>smtpHostname</td>
@@ -456,10 +456,10 @@ How to configure Preferences of the Java project ?
 
 <table>
   <tr>
-    <th>**Elements**</th>
-    <th>**Type**</th>
-    <th>**Req**</th>
-    <th>**Description**</th>
+    <th><b>Elements</b></th>
+    <th><b>Type</b></th>
+    <th><b>Req</b></th>
+    <th><b>Description</b></th>
   </tr>
   <tr>
     <td>destinataires</td>
@@ -485,11 +485,11 @@ How to configure Preferences of the Java project ?
 
 <table>
   <tr>
-    <td>**Package**</td>
+    <td>Package</td>
     <td>org.tensin.beerduino.notifications</td>
   </tr>
   <tr>
-    <td>**Classe**</td>
+    <td>Classe</td>
     <td>MailNotification</td>
   </tr>
 </table>
@@ -506,10 +506,10 @@ How to configure Preferences of the Java project ?
 
 <table>
   <tr>
-    <th>**Attributs**</th>
-    <th>**Type**</th>
-    <th>**Req**</th>
-    <th>**Description**</th>
+    <th><b>Attributs</b></th>
+    <th><b>Type</b></th>
+    <th><b>Req</b></th>
+    <th><b>Description</b></th>
   </tr>
   <tr>
     <td>email</td>
@@ -536,11 +536,11 @@ How to configure Preferences of the Java project ?
 
 <table>
   <tr>
-    <td>**Package**</td>
+    <td>Package</td>
     <td>org.tensin.beerduino</td>
   </tr>
   <tr>
-    <td>**Classe**</td>
+    <td>Classe</td>
     <td>Recipient</td>
   </tr>
 </table>
@@ -557,10 +557,10 @@ How to configure Preferences of the Java project ?
 
 <table>
   <tr>
-    <th>**Elements**</th>
-    <th>**Type**</th>
-    <th>**Req**</th>
-    <th>**Description**</th>
+    <th><b>Elements</b></th>
+    <th><b>Type</b></th>
+    <th><b>Req</b></th>
+    <th><b>Description</b></th>
   </tr>
   <tr>
     <td>number</td>
@@ -584,11 +584,11 @@ How to configure Preferences of the Java project ?
 
 <table>
   <tr>
-    <td>**Package**</td>
+    <td>Package</td>
     <td>org.tensin.beerduino.notifications</td>
   </tr>
   <tr>
-    <td>**Classe**</td>
+    <td>Classe</td>
     <td>SMSNotification</td>
   </tr>
 </table>
@@ -605,10 +605,10 @@ How to configure Preferences of the Java project ?
 
 <table>
   <tr>
-    <th>**Attributs**</th>
-    <th>**Type**</th>
-    <th>**Req**</th>
-    <th>**Description**</th>
+    <th><b>Attributs</b></th>
+    <th><b>Type</b></th>
+    <th><b>Req</b></th>
+    <th><b>Description</b></th>
   </tr>
   <tr>
     <td>url</td>
@@ -647,11 +647,11 @@ How to configure Preferences of the Java project ?
 
 <table>
   <tr>
-    <td>**Package**</td>
+    <td>Package</td>
     <td>org.tensin.beerduino.notifications</td>
   </tr>
   <tr>
-    <td>**Classe**</td>
+    <td>Classe</td>
     <td>PushToNotification</td>
   </tr>
 </table>
@@ -668,10 +668,10 @@ How to configure Preferences of the Java project ?
 
 <table>
   <tr>
-    <th>**Attributs**</th>
-    <th>**Type**</th>
-    <th>**Req**</th>
-    <th>**Description**</th>
+    <th><b>Attributs</b></th>
+    <th><b>Type</b></th>
+    <th><b>Req</b></th>
+    <th><b>Description</b></th>
   </tr>
   <tr>
     <td>url</td>
@@ -692,11 +692,11 @@ How to configure Preferences of the Java project ?
 
 <table>
   <tr>
-    <td>**Package**</td>
+    <td>Package</td>
     <td>org.tensin.beerduino.notifications</td>
   </tr>
   <tr>
-    <td>**Classe**</td>
+    <td>Classe</td>
     <td>URLNotification</td>
   </tr>
 </table>

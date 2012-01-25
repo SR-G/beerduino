@@ -1,33 +1,33 @@
-BEERDUINO is a small arduino project.
-- The program is designed to run on Arduino Board + Ethernet Shield.
-- Designed to read various Dallas DS18B20 sensors (on a 1wire bus).
-- Reads multiple sensors temperatures.
-- Embed a small web-server able to load simple HTML page and XML page with the temperature values.
-- Can send a mail if temperature limits are reached.
+# **BEERDUINO** is a small arduino project.
+* The program is designed to run on Arduino Board + Ethernet Shield.
+* Designed to read various Dallas DS18B20 sensors (on a 1wire bus).
+* Reads multiple sensors temperatures.
+* Embed a small web-server able to load simple HTML page and XML page with the temperature values.
+* Can send a mail if temperature limits are reached.
 
 Tested with Arduino 023 ( http://arduino.cc/ ) on a Duemilanove board.
 Binary size < 16384 octets at this time.
 
 For the JAVA program :
-- the sketchbook whole project is an Eclipse workspace (switch workspace to it), and the "java/" path is a Eclipse project ;
-- needs Maven (external to Eclipse or embedded Maven 3 with Eclipse 3.7+) ;
-- if Maven embedded, just right click project > Maven > Update dependencies ;
-- configure "beerduino.cfg" as needed (arduino ip address, notifications, ...) ;
-- run "src/main/java/Beerduino.java" (main entry point) ;
+* the sketchbook whole project is an Eclipse workspace (switch workspace to it), and the "java/" path is a Eclipse project ;
+* needs Maven (external to Eclipse or embedded Maven 3 with Eclipse 3.7+) ;
+* if Maven embedded, just right click project > Maven > Update dependencies ;
+* configure "beerduino.cfg" as needed (arduino ip address, notifications, ...) ;
+* run "src/main/java/Beerduino.java" (main entry point) ;
 
 Use a few libraries (included in this github) :
-- OneWire (v2) ( http://www.pjrc.com/teensy/td_libs_OneWire.html ) ;
-- Webduino ( https://github.com/sirleech/Webduino ) ;
-- Streaming ( http://arduiniana.org/2009/04/new-streaming-library/ ) ;
-- DallasTemperature ( http://www.milesburton.com/?title=Dallas_Temperature_Control_Library ) ;
+* OneWire (v2) ( http://www.pjrc.com/teensy/td_libs_OneWire.html ) ;
+* Webduino ( https://github.com/sirleech/Webduino ) ;
+* Streaming ( http://arduiniana.org/2009/04/new-streaming-library/ ) ;
+* DallasTemperature ( http://www.milesburton.com/?title=Dallas_Temperature_Control_Library ) ;
 
 Links :
-- A good tutorial (for electric schema and various other information on 1wire) : http://www.mon-club-elec.fr/pmwiki_mon_club_elec/pmwiki.php?n=MAIN.ArduinoExpertCapteursComplexesDS18B20Detection
-- Dallas DS18B20 specs : http://datasheets.maxim-ic.com/en/ds/DS18B20.pdf
-- Arduino utorial about 1wire : http://www.arduino.cc/playground/Learning/OneWire
-- Dallas sensors can be bought on ebay or here : http://www.domadoo.fr
-- Another GITHub project with the same name and a related purpose : https://github.com/malcolmmp/Beerduino/blob/master/Beerduino.pde
-- Yet another related project : http://www.uchobby.com/index.php/2007/10/08/arduino-beer-thermostat/
+* A good tutorial (for electric schema and various other information on 1wire) : http://www.mon-club-elec.fr/pmwiki_mon_club_elec/pmwiki.php?n=MAIN.ArduinoExpertCapteursComplexesDS18B20Detection
+* Dallas DS18B20 specs : http://datasheets.maxim-ic.com/en/ds/DS18B20.pdf
+* Arduino utorial about 1wire : http://www.arduino.cc/playground/Learning/OneWire
+* Dallas sensors can be bought on ebay or here : http://www.domadoo.fr
+* Another GITHub project with the same name and a related purpose : https://github.com/malcolmmp/Beerduino/blob/master/Beerduino.pde
+* Yet another related project : http://www.uchobby.com/index.php/2007/10/08/arduino-beer-thermostat/
 
 What does the XML results published by the Arduino board look like ?
 
@@ -36,7 +36,7 @@ What does the XML results published by the Arduino board look like ?
 
     Temperature results. One entry for each sensor.
 
-# Attributs
+## Attributs
 
 <table>
   <tr>
@@ -54,7 +54,7 @@ What does the XML results published by the Arduino board look like ?
 </table>
 
 
-# Elements
+## Elements
 
 <table>
   <tr>
@@ -72,24 +72,24 @@ What does the XML results published by the Arduino board look like ?
 </table>
 
 
-# Exemple
+## Exemple
 
 <pre>
-<sensors time='...'>
-   <!-- Liste de 'sensor' -->
-   <sensor>
+&lt;sensors time='...'&gt;
+   &lt;!-- Liste de 'sensor' --&gt;
+   &lt;sensor&gt;
    . . .
-   </sensor>
+   &lt;/sensor&gt;
    .
    .
    .
-   <sensor>
+   &lt;sensor&gt;
    . . .
-   </sensor>
-</sensors>
+   &lt;/sensor&gt;
+&lt;/sensors&gt;
 </pre>
 
-# Implémentation
+## Implémentation
 
 <table>
   <tr>
@@ -108,7 +108,7 @@ What does the XML results published by the Arduino board look like ?
 
     Individual result for one sensor.
 
-# Attributs
+## Attributs
 
 <table>
   <tr>
@@ -144,13 +144,13 @@ What does the XML results published by the Arduino board look like ?
 </table>
 
 
-# Exemple
+## Exemple
 
 <pre>
-<sensor value='...' id='...' type='...' seuil='...' />
+&lt;sensor value='...' id='...' type='...' seuil='...' /&gt;
 </pre>
 
-# Implémentation
+## Implémentation
 
 <table>
   <tr>
@@ -172,7 +172,7 @@ How to configure Preferences of the Java project ?
 
     Beerduino global preferences.
 
-# Attributs
+## Attributs
 
 <table>
   <tr>
@@ -190,7 +190,7 @@ How to configure Preferences of the Java project ?
 </table>
 
 
-# Elements
+## Elements
 
 <table>
   <tr>
@@ -256,74 +256,74 @@ How to configure Preferences of the Java project ?
 </table>
 
 
-# Exemple
+## Exemple
 
 <pre>
-<preferences noNamespaceSchemaLocation='...'>
-   <!-- Description de 'arduinoIp' -->
-   <arduinoIp>. . .</arduinoIp>
+&lt;preferences noNamespaceSchemaLocation='...'&gt;
+   &lt;!-- Description de 'arduinoIp' --&gt;
+   &lt;arduinoIp&gt;. . .&lt;/arduinoIp&gt;
 
-   <!-- Description de 'arduinoPort' -->
-   <arduinoPort>. . .</arduinoPort>
+   &lt;!-- Description de 'arduinoPort' --&gt;
+   &lt;arduinoPort&gt;. . .&lt;/arduinoPort&gt;
 
-   <!-- Description de 'arduinoCheckFrequency' -->
-   <arduinoCheckFrequency>. . .</arduinoCheckFrequency>
+   &lt;!-- Description de 'arduinoCheckFrequency' --&gt;
+   &lt;arduinoCheckFrequency&gt;. . .&lt;/arduinoCheckFrequency&gt;
 
-   <!-- Description de 'seuils' -->
-   <seuils>
+   &lt;!-- Description de 'seuils' --&gt;
+   &lt;seuils&gt;
    . . .
-   </seuils>
+   &lt;/seuils&gt;
 
-   <!-- Liste de 'mail' -->
-   <mail>
+   &lt;!-- Liste de 'mail' --&gt;
+   &lt;mail&gt;
    . . .
-   </mail>
+   &lt;/mail&gt;
    .
    .
    .
-   <mail>
+   &lt;mail&gt;
    . . .
-   </mail>
+   &lt;/mail&gt;
 
-   <!-- Liste de 'sms' -->
-   <sms>
+   &lt;!-- Liste de 'sms' --&gt;
+   &lt;sms&gt;
    . . .
-   </sms>
+   &lt;/sms&gt;
    .
    .
    .
-   <sms>
+   &lt;sms&gt;
    . . .
-   </sms>
+   &lt;/sms&gt;
 
-   <!-- Liste de 'push' -->
-   <push>
+   &lt;!-- Liste de 'push' --&gt;
+   &lt;push&gt;
    . . .
-   </push>
+   &lt;/push&gt;
    .
    .
    .
-   <push>
+   &lt;push&gt;
    . . .
-   </push>
+   &lt;/push&gt;
 
-   <!-- Liste de 'url' -->
-   <url>
+   &lt;!-- Liste de 'url' --&gt;
+   &lt;url&gt;
    . . .
-   </url>
+   &lt;/url&gt;
    .
    .
    .
-   <url>
+   &lt;url&gt;
    . . .
-   </url>
+   &lt;/url&gt;
 
-   <!-- Description de 'workDir' -->
-   <workDir>. . .</workDir>
-</preferences>
+   &lt;!-- Description de 'workDir' --&gt;
+   &lt;workDir&gt;. . .&lt;/workDir&gt;
+&lt;/preferences&gt;
 </pre>
 
-# Implémentation
+## Implémentation
 
 <table>
   <tr>
@@ -342,7 +342,7 @@ How to configure Preferences of the Java project ?
 
     Definition of a temperature limit for a sensor
 
-# Attributs
+## Attributs
 
 <table>
   <tr>
@@ -366,13 +366,13 @@ How to configure Preferences of the Java project ?
 </table>
 
 
-# Exemple
+## Exemple
 
 <pre>
-<seuil capteur='...' temperature='...' />
+&lt;seuil capteur='...' temperature='...' /&gt;
 </pre>
 
-# Implémentation
+## Implémentation
 
 <table>
   <tr>
@@ -391,7 +391,7 @@ How to configure Preferences of the Java project ?
 
     Notification by sending an email.
 
-# Attributs
+## Attributs
 
 <table>
   <tr>
@@ -427,7 +427,7 @@ How to configure Preferences of the Java project ?
 </table>
 
 
-# Elements
+## Elements
 
 <table>
   <tr>
@@ -445,18 +445,18 @@ How to configure Preferences of the Java project ?
 </table>
 
 
-# Exemple
+## Exemple
 
 <pre>
-<mail smtpHostname='...' smtpLogin='...' smtpPassword='...' smtpPort='...'>
-   <!-- Description de 'destinataires' -->
-   <destinataires>
+&lt;mail smtpHostname='...' smtpLogin='...' smtpPassword='...' smtpPort='...'&gt;
+   &lt;!-- Description de 'destinataires' --&gt;
+   &lt;destinataires&gt;
    . . .
-   </destinataires>
-</mail>
+   &lt;/destinataires&gt;
+&lt;/mail&gt;
 </pre>
 
-# Implémentation
+## Implémentation
 
 <table>
   <tr>
@@ -475,7 +475,7 @@ How to configure Preferences of the Java project ?
 
     Mail recipient whom the mail will be sent
 
-# Attributs
+## Attributs
 
 <table>
   <tr>
@@ -499,13 +499,13 @@ How to configure Preferences of the Java project ?
 </table>
 
 
-# Exemple
+## Exemple
 
 <pre>
-<destinataire email='...' name='...' />
+&lt;destinataire email='...' name='...' /&gt;
 </pre>
 
-# Implémentation
+## Implémentation
 
 <table>
   <tr>
@@ -524,7 +524,7 @@ How to configure Preferences of the Java project ?
 
     Notification by sending an SMS. Not done yet. Where are the free SMS services by the way ?
 
-# Elements
+## Elements
 
 <table>
   <tr>
@@ -542,16 +542,16 @@ How to configure Preferences of the Java project ?
 </table>
 
 
-# Exemple
+## Exemple
 
 <pre>
-<sms>
-   <!-- Description de 'number' -->
-   <number>. . .</number>
-</sms>
+&lt;sms&gt;
+   &lt;!-- Description de 'number' --&gt;
+   &lt;number&gt;. . .&lt;/number&gt;
+&lt;/sms&gt;
 </pre>
 
-# Implémentation
+## Implémentation
 
 <table>
   <tr>
@@ -570,7 +570,7 @@ How to configure Preferences of the Java project ?
 
     Notification by activating a PushTo notification.
 
-# Attributs
+## Attributs
 
 <table>
   <tr>
@@ -606,13 +606,13 @@ How to configure Preferences of the Java project ?
 </table>
 
 
-# Exemple
+## Exemple
 
 <pre>
-<push url='...' pushto-url='...' id='...' signature='...' />
+&lt;push url='...' pushto-url='...' id='...' signature='...' /&gt;
 </pre>
 
-# Implémentation
+## Implémentation
 
 <table>
   <tr>
@@ -631,7 +631,7 @@ How to configure Preferences of the Java project ?
 
     Notification by activating a single URL.
 
-# Attributs
+## Attributs
 
 <table>
   <tr>
@@ -649,13 +649,13 @@ How to configure Preferences of the Java project ?
 </table>
 
 
-# Exemple
+## Exemple
 
 <pre>
-<url url='...' />
+&lt;url url='...' /&gt;
 </pre>
 
-# Implémentation
+## Implémentation
 
 <table>
   <tr>

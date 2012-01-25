@@ -36,6 +36,8 @@ public interface ISyntaxer {
 
 	String buildHeader(final int level, final String value);
 
+	String buildHTMLLink(String baliseName, String anchor);
+
 	/**
 	 * Builds the link.
 	 * 

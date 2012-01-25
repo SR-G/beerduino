@@ -81,10 +81,10 @@ Use a few libraries (included in this github) :
     <th><b>Description</b></th>
   </tr>
   <tr>
-    <td>Liste de [sensor](#2.sensor)</td>
-    <td>[sensor](#2.sensor)</td>
+    <td>Liste de <a href="#2.sensor">sensor</a></td>
+    <td><a href="#2.sensor">sensor</a></td>
     <td> X </td>
-    <td>(@TODO) Description de results</td>
+    <td>Individual sensor temperature result</td>
   </tr>
 </table>
 
@@ -240,31 +240,31 @@ Use a few libraries (included in this github) :
   </tr>
   <tr>
     <td>seuils</td>
-    <td>[seuil](#2.seuil)</td>
+    <td><a href="#2.seuil">seuil</a></td>
     <td>   </td>
     <td>Temperatures warnings (after / below whom a notification will be sent)</td>
   </tr>
   <tr>
-    <td>Liste de [mail](#3.mail)</td>
-    <td>[mail](#3.mail)</td>
+    <td>Liste de <a href="#3.mail">mail</a></td>
+    <td><a href="#3.mail">mail</a></td>
     <td> X </td>
     <td>Notifications mechanism. Multiple notifications may be defined at the same time.</td>
   </tr>
   <tr>
-    <td>Liste de [sms](#5.sms)</td>
-    <td>[sms](#5.sms)</td>
+    <td>Liste de <a href="#5.sms">sms</a></td>
+    <td><a href="#5.sms">sms</a></td>
     <td> X </td>
     <td>Notifications mechanism. Multiple notifications may be defined at the same time.</td>
   </tr>
   <tr>
-    <td>Liste de [push](#6.push)</td>
-    <td>[push](#6.push)</td>
+    <td>Liste de <a href="#6.push">push</a></td>
+    <td><a href="#6.push">push</a></td>
     <td> X </td>
     <td>Notifications mechanism. Multiple notifications may be defined at the same time.</td>
   </tr>
   <tr>
-    <td>Liste de [url](#7.url)</td>
-    <td>[url](#7.url)</td>
+    <td>Liste de <a href="#7.url">url</a></td>
+    <td><a href="#7.url">url</a></td>
     <td> X </td>
     <td>Notifications mechanism. Multiple notifications may be defined at the same time.</td>
   </tr>
@@ -463,7 +463,7 @@ Use a few libraries (included in this github) :
   </tr>
   <tr>
     <td>destinataires</td>
-    <td>[destinataire](#4.destinataire)</td>
+    <td><a href="#4.destinataire">destinataire</a></td>
     <td> X </td>
     <td>People to be notified by mail</td>
   </tr>

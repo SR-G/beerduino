@@ -67,6 +67,17 @@ public class SyntaxerMarkdown implements ISyntaxer {
 	}
 
 	/**
+	 * {@inheritDoc}
+	 * 
+	 * @see org.tensin.common.tools.documentation.updater.ISyntaxer#buildHTMLLink(java.lang.String,
+	 *      java.lang.String)
+	 */
+	@Override
+	public String buildHTMLLink(final String baliseName, final String anchor) {
+		return "<a href=\"#" + anchor + "\">" + baliseName + "</a>";
+	}
+
+	/**
 	 * [pookie](#pookie).
 	 * 
 	 * @param anchor

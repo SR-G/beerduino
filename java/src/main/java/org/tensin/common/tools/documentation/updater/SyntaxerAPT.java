@@ -102,6 +102,11 @@ public class SyntaxerAPT implements ISyntaxer {
 		return "* " + value;
 	}
 
+	@Override
+	public String buildHTMLLink(final String baliseName, final String anchor) {
+		return null;
+	}
+
 	/**
 	 * {@inheritDoc}
 	 * 

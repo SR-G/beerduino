@@ -98,7 +98,7 @@ public class SimpleXMLDocumentationOutputAPT implements
 			if (entity.isAttribute()) {
 				nbAttributs++;
 				sbAttributs.append(syntaxer.buildTableRow(new String[] {
-						entity.getBaliseName(), getLink(entity),
+						entity.getBaliseName(), getTableLink(entity),
 						getRequired(entity), entity.getDescription() }));
 				// sbAttributs.append("| " + entity.getBaliseName() + " | " +
 				// getLink(entity) + " | " + getRequired(entity) + " | " +
@@ -143,7 +143,7 @@ public class SimpleXMLDocumentationOutputAPT implements
 			if (entity.isElement()) {
 				nbElements++;
 				sbElements.append(syntaxer.buildTableRow(new String[] {
-						entity.getBaliseName(), getLink(entity),
+						entity.getBaliseName(), getTableLink(entity),
 						getRequired(entity), entity.getDescription() }));
 				// sbElements.append("| " + entity.getBaliseName() + " | " +
 				// getLink(entity) + " | " + getRequired(entity) + " | " +
@@ -164,8 +164,9 @@ public class SimpleXMLDocumentationOutputAPT implements
 				nbElements++;
 				if (entity.isInline()) {
 					sbElements.append(syntaxer.buildTableRow(new String[] {
-							"Liste de " + getLink(entity), getLink(entity),
-							getRequired(entity), entity.getDescription() }));
+							"Liste de " + getTableLink(entity),
+							getTableLink(entity), getRequired(entity),
+							entity.getDescription() }));
 					// sbElements.append("| Liste de " + getLink(entity) + " | "
 					// + getLink(entity) + " | " + getRequired(entity) + " | " +
 					// entity.getDescription() + " |\n");
@@ -187,7 +188,7 @@ public class SimpleXMLDocumentationOutputAPT implements
 							+ entity.getType().getBaliseName() + "&gt;\n");
 				} else {
 					sbElements.append(syntaxer.buildTableRow(new String[] {
-							entity.getBaliseName(), getLink(entity),
+							entity.getBaliseName(), getTableLink(entity),
 							getRequired(entity), entity.getDescription() }));
 					// sbElements.append("| " + entity.getBaliseName() +
 					// " | Liste de " + getLink(entity) + " | " +
@@ -227,7 +228,7 @@ public class SimpleXMLDocumentationOutputAPT implements
 			if (entity.isText()) {
 				nbTexts++;
 				sbTexts.append(syntaxer.buildTableRow(new String[] {
-						getLink(entity), getRequired(entity),
+						getTableLink(entity), getRequired(entity),
 						entity.getDescription() }));
 				// sbTexts.append("| " + getLink(entity) + " | " +
 				// getRequired(entity) + " | " + entity.getDescription() +
@@ -376,11 +377,7 @@ public class SimpleXMLDocumentationOutputAPT implements
 			return entity.getType().getSimpleName();
 		} else {
 			return syntaxer.buildLink(entity.getType().getBaliseName(), entity
-					.getType().getAnchor()); // "{{{" +
-												// entity.getType().getAnchor()
-												// + "}" +
-												// entity.getType().getBaliseName()
-												// + "}}";
+					.getType().getAnchor());
 		}
 	}
 
@@ -406,6 +403,15 @@ public class SimpleXMLDocumentationOutputAPT implements
 	 */
 	public ISyntaxer getSyntaxer() {
 		return syntaxer;
+	}
+
+	private String getTableLink(final SimpleXMLDocumentationEntity entity) {
+		if (entity.isPrimitive()) {
+			return entity.getType().getSimpleName();
+		} else {
+			return syntaxer.buildHTMLLink(entity.getType().getBaliseName(),
+					entity.getType().getAnchor());
+		}
 	}
 
 	/**

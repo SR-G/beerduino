@@ -45,7 +45,7 @@ public class SimpleXMLDocumentationOutputAPT implements
 		/* Titre */
 		StringBuffer sb = new StringBuffer();
 		sb.append(syntaxer.buildHeader(2, currentEntity.getType().getAnchor(),
-				currentEntity.getType().getBaliseName()));
+				currentEntity.getType().getAnchor()));
 		sb.append(currentEntity.getType().getDescription() + "\n\n");
 
 		/* Exemple */

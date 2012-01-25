@@ -69,9 +69,17 @@ public class SyntaxerMarkdown implements ISyntaxer {
 	@Override
 	public String buildHeader(final int level, final String value,
 			final String anchorName) {
-		String s = "<a name=\"" + anchorName + "\"></a>"
-				+ buildHeader(level, value) + "";
-		return s;
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < level; i++) {
+			sb.append("#");
+		}
+		sb.append(" ").append(value);
+		if (StringUtils.isNotEmpty(anchorName)) {
+			sb.append("<a name=\"" + anchorName.replaceAll(" ", "_")
+					+ "\"></a>");
+		}
+		sb.append(LINE_SEPARATOR).append(LINE_SEPARATOR);
+		return sb.toString();
 	}
 
 	/**
@@ -82,7 +90,8 @@ public class SyntaxerMarkdown implements ISyntaxer {
 	 */
 	@Override
 	public String buildHTMLLink(final String baliseName, final String anchor) {
-		return "<a href=\"#" + anchor + "\">" + baliseName + "</a>";
+		return "<a href=\"#" + anchor.replaceAll(" ", "_") + "\">" + baliseName
+				+ "</a>";
 	}
 
 	/**
@@ -108,7 +117,7 @@ public class SyntaxerMarkdown implements ISyntaxer {
 	 */
 	@Override
 	public String buildLink(final String text, final String anchor) {
-		return "[" + text + "](#" + anchor + ")";
+		return "[" + text + "](#" + anchor.replaceAll(" ", "_") + ")";
 	}
 
 	/**

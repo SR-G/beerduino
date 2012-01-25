@@ -19,6 +19,7 @@
             <xsd:element name="mail" type="org.tensin.beerduino.notifications.MailNotification" minOccurs="0" maxOccurs="unbounded" />
             <xsd:element name="sms" type="org.tensin.beerduino.notifications.SMSNotification" minOccurs="0" maxOccurs="unbounded" />
             <xsd:element name="push" type="org.tensin.beerduino.notifications.PushToNotification" minOccurs="0" maxOccurs="unbounded" />
+            <xsd:element name="twitter" type="org.tensin.beerduino.notifications.TwitterNotification" minOccurs="0" maxOccurs="unbounded" />
             <xsd:element name="url" type="org.tensin.beerduino.notifications.URLNotification" minOccurs="0" maxOccurs="unbounded" />
             <xsd:element name="workDir" type="xsd:string" />
          </xsd:choice>
@@ -62,6 +63,10 @@
          <xsd:attribute name="pushto-url" type="xsd:string" />
          <xsd:attribute name="id" type="xsd:string" use="required" />
          <xsd:attribute name="signature" type="xsd:string" />
+   </xsd:complexType>
+
+   <xsd:complexType name="org.tensin.beerduino.notifications.TwitterNotification">
+         <xsd:attribute name="dest" type="xsd:string" use="required" />
    </xsd:complexType>
 
    <xsd:complexType name="org.tensin.beerduino.notifications.URLNotification">

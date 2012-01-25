@@ -257,8 +257,14 @@ Beerduino global preferences.
     <td>Notifications mechanism. Multiple notifications may be defined at the same time.</td>
   </tr>
   <tr>
-    <td>Liste de <a href="#7._Url">url</a></td>
-    <td><a href="#7._Url">url</a></td>
+    <td>Liste de <a href="#7._Twitter">twitter</a></td>
+    <td><a href="#7._Twitter">twitter</a></td>
+    <td> X </td>
+    <td>Notifications mechanism. Multiple notifications may be defined at the same time.</td>
+  </tr>
+  <tr>
+    <td>Liste de <a href="#8._Url">url</a></td>
+    <td><a href="#8._Url">url</a></td>
     <td> X </td>
     <td>Notifications mechanism. Multiple notifications may be defined at the same time.</td>
   </tr>
@@ -321,6 +327,17 @@ Beerduino global preferences.
    &lt;push&gt;
    . . .
    &lt;/push&gt;
+
+   &lt;!-- Liste de 'twitter' --&gt;
+   &lt;twitter&gt;
+   . . .
+   &lt;/twitter&gt;
+   .
+   .
+   .
+   &lt;twitter&gt;
+   . . .
+   &lt;/twitter&gt;
 
    &lt;!-- Liste de 'url' --&gt;
    &lt;url&gt;
@@ -642,7 +659,50 @@ Notification by activating a PushTo notification.
 
 
 
-## 7. Url<a name="7._Url"></a>
+## 7. Twitter<a name="7._Twitter"></a>
+
+Notification by sending a Tweet.
+
+### Attributs
+
+<table>
+  <tr>
+    <th><b>Attributs</b></th>
+    <th><b>Type</b></th>
+    <th><b>Req</b></th>
+    <th><b>Description</b></th>
+  </tr>
+  <tr>
+    <td>dest</td>
+    <td>String</td>
+    <td> X </td>
+    <td>Recipient ID that will receive the tweets</td>
+  </tr>
+</table>
+
+
+### Exemple
+
+<pre>
+&lt;twitter dest='...' /&gt;
+</pre>
+
+### Implémentation
+
+<table>
+  <tr>
+    <td>Package</td>
+    <td>org.tensin.beerduino.notifications</td>
+  </tr>
+  <tr>
+    <td>Classe</td>
+    <td>TwitterNotification</td>
+  </tr>
+</table>
+
+
+
+## 8. Url<a name="8._Url"></a>
 
 Notification by activating a single URL.
 

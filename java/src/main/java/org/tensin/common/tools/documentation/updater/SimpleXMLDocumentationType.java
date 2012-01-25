@@ -14,210 +14,213 @@ import org.apache.commons.lang.StringUtils;
  */
 public class SimpleXMLDocumentationType {
 
-    /** Name. */
-    private String name;
+	/** Name. */
+	private final String name;
 
-    /** BaliseName. */
-    private String baliseName;
+	/** BaliseName. */
+	private String baliseName;
 
-    /** indice. */
-    private int indice;
+	/** indice. */
+	private int indice;
 
-    /** description. */
-    private String description;
+	/** description. */
+	private String description;
 
-    /** Documentation. */
-    private String documentation;
+	/** Documentation. */
+	private String documentation;
 
-    /** primitive. */
-    private boolean primitive;
+	/** primitive. */
+	private final boolean primitive;
 
-    /** enumeration. */
-    private List<String> enumeration;
+	/** enumeration. */
+	private List<String> enumeration;
 
-    /**
-     * Constructor.
-     * 
-     * @param clazz
-     *            the clazz
-     */
-    public SimpleXMLDocumentationType(Class<?> clazz) {
-        this.name = clazz.getName();
-        this.baliseName = clazz.getSimpleName();
-        this.indice = 0;
-        this.description = null;
-        this.documentation = null;
+	/**
+	 * Constructor.
+	 * 
+	 * @param clazz
+	 *            the clazz
+	 */
+	public SimpleXMLDocumentationType(final Class<?> clazz) {
+		name = clazz.getName();
+		baliseName = clazz.getSimpleName();
+		indice = 0;
+		description = null;
+		documentation = null;
 
-        /* enumeration */
-        if (clazz.isEnum()) {
-            this.enumeration = new ArrayList<String>();
-            Object[] enumConstants = clazz.getEnumConstants();
-            for (Object o : enumConstants) {
-                this.enumeration.add(o.toString());
-            }
-        }
+		/* enumeration */
+		if (clazz.isEnum()) {
+			enumeration = new ArrayList<String>();
+			Object[] enumConstants = clazz.getEnumConstants();
+			for (Object o : enumConstants) {
+				enumeration.add(o.toString());
+			}
+		}
 
-        /* Primitive */
-        this.primitive = (clazz.getSuperclass() == null || clazz.getName().startsWith("java.lang")
-                || clazz.getName().startsWith("java.util.Date"));
-    }
+		/* Primitive */
+		primitive = (clazz.getSuperclass() == null
+				|| clazz.getName().startsWith("java.lang") || clazz.getName()
+				.startsWith("java.util.Date"));
+	}
 
-    /**
-     * Constructor.
-     * 
-     * @param path
-     *            the path
-     */
-    public SimpleXMLDocumentationType(String path) {
-        this.name = path;
-        this.baliseName = getDisplayName();
-        this.indice = 0;
-        this.description = null;
-        this.documentation = null;
-        this.primitive = false;
-        this.enumeration = null;
-    }
+	/**
+	 * Constructor.
+	 * 
+	 * @param path
+	 *            the path
+	 */
+	public SimpleXMLDocumentationType(final String path) {
+		name = path;
+		baliseName = getDisplayName();
+		indice = 0;
+		description = null;
+		documentation = null;
+		primitive = false;
+		enumeration = null;
+	}
 
-    /**
-     * Method.
-     * 
-     * @return the anchor
-     */
-    public String getAnchor() {
-        return this.indice + "." + this.baliseName;
-    }
+	/**
+	 * Method.
+	 * 
+	 * @return the anchor
+	 */
+	public String getAnchor() {
+		return indice + ". " + StringUtils.capitalize(baliseName);
+	}
 
-    /**
-     * Method.
-     * 
-     * @return the balise name
-     */
-    public String getBaliseName() {
-        return baliseName;
-    }
+	/**
+	 * Method.
+	 * 
+	 * @return the balise name
+	 */
+	public String getBaliseName() {
+		return baliseName;
+	}
 
-    /**
-     * Method.
-     * 
-     * @return the description
-     */
-    public String getDescription() {
-        return StringUtils.defaultIfBlank(description, "(@TODO) Description de " + this.baliseName);
-    }
+	/**
+	 * Method.
+	 * 
+	 * @return the description
+	 */
+	public String getDescription() {
+		return StringUtils.defaultIfBlank(description,
+				"(@TODO) Description de " + baliseName);
+	}
 
-    /**
-     * Method.
-     * 
-     * @return the display name
-     */
-    private String getDisplayName() {
-        return StringUtils.removeStart(this.name, SimpleXMLDocumentationEntity.PATH_PREFIX);
-    }
+	/**
+	 * Method.
+	 * 
+	 * @return the display name
+	 */
+	private String getDisplayName() {
+		return StringUtils.removeStart(name,
+				SimpleXMLDocumentationEntity.PATH_PREFIX);
+	}
 
-    /**
-     * Method.
-     * 
-     * @return the documentation
-     */
-    public String getDocumentation() {
-        return documentation;
-    }
+	/**
+	 * Method.
+	 * 
+	 * @return the documentation
+	 */
+	public String getDocumentation() {
+		return documentation;
+	}
 
-    /**
-     * Method.
-     * 
-     * @return the enumeration
-     */
-    public List<String> getEnumeration() {
-        return this.enumeration;
-    }
+	/**
+	 * Method.
+	 * 
+	 * @return the enumeration
+	 */
+	public List<String> getEnumeration() {
+		return enumeration;
+	}
 
-    /**
-     * Method.
-     * 
-     * @return the indice
-     */
-    public int getIndice() {
-        return indice;
-    }
+	/**
+	 * Method.
+	 * 
+	 * @return the indice
+	 */
+	public int getIndice() {
+		return indice;
+	}
 
-    /**
-     * Method.
-     * 
-     * @return the name
-     */
-    public String getName() {
-        return this.name;
-    }
+	/**
+	 * Method.
+	 * 
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
 
-    /**
-     * Method.
-     * 
-     * @return the simple name
-     */
-    public String getSimpleName() {
-        int lastIndex = this.name.lastIndexOf(".");
-        if (lastIndex > -1) {
-            return this.name.substring(lastIndex + 1);
-        }
-        return this.name;
-    }
+	/**
+	 * Method.
+	 * 
+	 * @return the simple name
+	 */
+	public String getSimpleName() {
+		int lastIndex = name.lastIndexOf(".");
+		if (lastIndex > -1) {
+			return name.substring(lastIndex + 1);
+		}
+		return name;
+	}
 
-    /**
-     * Method.
-     * 
-     * @return true, if is enum
-     */
-    public boolean isEnum() {
-        return (this.enumeration != null);
-    }
+	/**
+	 * Method.
+	 * 
+	 * @return true, if is enum
+	 */
+	public boolean isEnum() {
+		return (enumeration != null);
+	}
 
-    /**
-     * Method.
-     * 
-     * @return true, if is primitive
-     */
-    public boolean isPrimitive() {
-        return this.primitive;
-    }
+	/**
+	 * Method.
+	 * 
+	 * @return true, if is primitive
+	 */
+	public boolean isPrimitive() {
+		return primitive;
+	}
 
-    /**
-     * Method.
-     * 
-     * @param baliseName
-     *            the new balise name
-     */
-    public void setBaliseName(String baliseName) {
-        this.baliseName = baliseName;
-    }
+	/**
+	 * Method.
+	 * 
+	 * @param baliseName
+	 *            the new balise name
+	 */
+	public void setBaliseName(final String baliseName) {
+		this.baliseName = baliseName;
+	}
 
-    /**
-     * Method.
-     * 
-     * @param description
-     *            the new description
-     */
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	/**
+	 * Method.
+	 * 
+	 * @param description
+	 *            the new description
+	 */
+	public void setDescription(final String description) {
+		this.description = description;
+	}
 
-    /**
-     * Method.
-     * 
-     * @param documentation
-     *            the new documentation
-     */
-    public void setDocumentation(String documentation) {
-        this.documentation = documentation;
-    }
+	/**
+	 * Method.
+	 * 
+	 * @param documentation
+	 *            the new documentation
+	 */
+	public void setDocumentation(final String documentation) {
+		this.documentation = documentation;
+	}
 
-    /**
-     * Method.
-     * 
-     * @param indice
-     *            the new indice
-     */
-    public void setIndice(int indice) {
-        this.indice = indice;
-    }
+	/**
+	 * Method.
+	 * 
+	 * @param indice
+	 *            the new indice
+	 */
+	public void setIndice(final int indice) {
+		this.indice = indice;
+	}
 }

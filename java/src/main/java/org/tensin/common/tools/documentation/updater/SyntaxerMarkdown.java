@@ -66,6 +66,14 @@ public class SyntaxerMarkdown implements ISyntaxer {
 		return sb.toString();
 	}
 
+	@Override
+	public String buildHeader(final int level, final String value,
+			final String anchorName) {
+		String s = "<a name=\"" + anchorName + "\"></a>"
+				+ buildHeader(level, value) + "";
+		return s;
+	}
+
 	/**
 	 * {@inheritDoc}
 	 * 

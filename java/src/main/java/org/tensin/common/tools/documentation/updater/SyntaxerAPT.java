@@ -103,6 +103,12 @@ public class SyntaxerAPT implements ISyntaxer {
 	}
 
 	@Override
+	public String buildHeader(final int level, final String value,
+			final String anchorName) {
+		return "{" + anchorName + "}" + buildHeader(level, value);
+	}
+
+	@Override
 	public String buildHTMLLink(final String baliseName, final String anchor) {
 		return null;
 	}

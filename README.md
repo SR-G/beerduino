@@ -36,6 +36,14 @@ Use a few libraries (included in this github) :
 
 * DallasTemperature ( http://www.milesburton.com/?title=Dallas_Temperature_Control_Library ) ;
 
+## The Arduino schema
+
+![Beerduino bread board schema](beerduino_breadboard.png)
+
+![Beerduino card picture](beerduino_picture.png)
+
+![Beerduino schema](beerduino_schema.png)
+
 ## Links.
 * A good tutorial (for electric schema and various other information on 1wire) : http://www.mon-club-elec.fr/pmwiki_mon_club_elec/pmwiki.php?n=MAIN.ArduinoExpertCapteursComplexesDS18B20Detection
 * Dallas DS18B20 specs : http://datasheets.maxim-ic.com/en/ds/DS18B20.pdf

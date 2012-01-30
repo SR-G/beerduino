@@ -51,6 +51,7 @@ Use a few libraries (included in this github) :
 * Dallas DS18B20 specs : http://datasheets.maxim-ic.com/en/ds/DS18B20.pdf
 * Arduino utorial about 1wire : http://www.arduino.cc/playground/Learning/OneWire
 * Dallas sensors can be bought on ebay or here : http://www.domadoo.fr
+* Fritzing editor for building Arduino schemas : http://fritzing.org/download/
 * Another GITHub project with the same name and a related purpose : https://github.com/malcolmmp/Beerduino/blob/master/Beerduino.pde
 * Yet another related project : http://www.uchobby.com/index.php/2007/10/08/arduino-beer-thermostat/
 

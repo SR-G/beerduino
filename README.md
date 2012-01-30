@@ -38,11 +38,13 @@ Use a few libraries (included in this github) :
 
 ## The Arduino schema
 
-![Beerduino bread board schema](beerduino_breadboard.png)
+![Beerduino bread board schema](https://github.com/SR-G/beerduino/raw/master/beerduino_breadboard.png)
 
+![Beerduino schema](https://github.com/SR-G/beerduino/raw/master/beerduino_schema.png)
+
+<!--
 ![Beerduino card picture](beerduino_picture.png)
-
-![Beerduino schema](beerduino_schema.png)
+-->
 
 ## Links.
 * A good tutorial (for electric schema and various other information on 1wire) : http://www.mon-club-elec.fr/pmwiki_mon_club_elec/pmwiki.php?n=MAIN.ArduinoExpertCapteursComplexesDS18B20Detection

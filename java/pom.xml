@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<properties>
@@ -36,38 +37,38 @@
 		</testResources>
 
 		<plugins>
-                        <plugin>
-                                <groupId>org.apache.maven.plugins</groupId>
-                                <artifactId>maven-jar-plugin</artifactId>
-                                <configuration>
-                                        <archive>
-                                                <manifestEntries>
-                                                        <Extension-Name>${project.name}</Extension-Name>
-                                                        <Specification-Title>${project.description}</Specification-Title>
-                                                        <Specification-Vendor>Tensin</Specification-Vendor>
-                                                        <Implementation-Vendor>Tensin</Implementation-Vendor>
-                                                        <Implementation-Title>${project.name}</Implementation-Title>
-                                                        <Implementation-Version>${project.version}</Implementation-Version>
-                                                </manifestEntries>
-                                        </archive>
-                                        <excludes>
-                                                <exclude>**/*.java</exclude>
-                                        </excludes>
-                                </configuration>
-                        </plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifestEntries>
+							<Extension-Name>${project.name}</Extension-Name>
+							<Specification-Title>${project.description}</Specification-Title>
+							<Specification-Vendor>Tensin</Specification-Vendor>
+							<Implementation-Vendor>Tensin</Implementation-Vendor>
+							<Implementation-Title>${project.name}</Implementation-Title>
+							<Implementation-Version>${project.version}</Implementation-Version>
+						</manifestEntries>
+					</archive>
+					<excludes>
+						<exclude>**/*.java</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
 
 			<plugin>
-			    <groupId>org.apache.maven.plugins</groupId>
-			    <artifactId>maven-compiler-plugin</artifactId>
-			    <configuration>
-			        <source>1.6</source>
-			        <target>1.6</target>
-			    </configuration>
-			</plugin>		
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
 
 			<plugin>
-                                <groupId>org.apache.maven.plugins</groupId>
-                                <artifactId>maven-dependency-plugin</artifactId>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
 				<configuration>
 					<includeScope>compile</includeScope>
 				</configuration>
@@ -80,37 +81,37 @@
 		<profile>
 			<id>dependencyList</id>
 			<build>
-			<plugins>
-                        <plugin>
-                                <groupId>org.apache.maven.plugins</groupId>
-                                <artifactId>maven-dependency-plugin</artifactId>
-                                <configuration>
-                                        <outputFile>target/maven-dependencies.txt</outputFile>
-                                        <outputType>txt</outputType>
-                                </configuration>
-                                <!-- Inutilisable avec une phase : il faut que les fichiers soient créés 
-                                        sur disque *avant* compilation du premier module (ltp-start) ... impossible 
-                                        avec maven, donc exécution obligatoire manuelle de "dependency:list" en goal 
-                                        sur la commande mvn : mvn dependency:list install pour créer les jars et 
-                                        avoir le start à jour -->
-                                <!-- <executions> <execution> <phase>validate</phase> <configuration> 
-                                        <outputFile>target/maven_dependencies.txt</outputFile> <outputType>txt</outputType> 
-                                        </configuration> <goals> <goal>list</goal> </goals> </execution> </executions> -->
-                        </plugin>
-			</plugins>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-dependency-plugin</artifactId>
+						<configuration>
+							<outputFile>target/maven-dependencies.txt</outputFile>
+							<outputType>txt</outputType>
+						</configuration>
+						<!-- Inutilisable avec une phase : il faut que les fichiers soient 
+							créés sur disque *avant* compilation du premier module (ltp-start) ... impossible 
+							avec maven, donc exécution obligatoire manuelle de "dependency:list" en goal 
+							sur la commande mvn : mvn dependency:list install pour créer les jars et 
+							avoir le start à jour -->
+						<!-- <executions> <execution> <phase>validate</phase> <configuration> 
+							<outputFile>target/maven_dependencies.txt</outputFile> <outputType>txt</outputType> 
+							</configuration> <goals> <goal>list</goal> </goals> </execution> </executions> -->
+					</plugin>
+				</plugins>
 			</build>
 		</profile>
 	</profiles>
 
 	<dependencies>
-      <dependency>
-           <groupId>org.twitter4j</groupId>
-           <artifactId>twitter4j-core</artifactId>
-           <version>[2.2,)</version>
-       </dependency>	
 		<dependency>
-			<groupId>de.huxhorn.lilith</groupId>
-			<artifactId>de.huxhorn.lilith.3rdparty.rrd4j</artifactId>
+			<groupId>org.twitter4j</groupId>
+			<artifactId>twitter4j-core</artifactId>
+			<version>[2.2,)</version>
+		</dependency>
+		<dependency>
+			<groupId>org.fusesource.rrd4j</groupId>
+			<artifactId>rrd4j</artifactId>
 			<version>2.0.7</version>
 		</dependency>
 		<dependency>
@@ -131,7 +132,7 @@
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
-			<version>3.0.1</version>
+			<version>3.1</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-net</groupId>
@@ -185,13 +186,8 @@
 			<scope>test</scope>
 			<optional>true</optional>
 		</dependency>
-		<!--
-			<dependency>
-			<groupId>javaee</groupId>
-			<artifactId>javaee-api</artifactId>
-			<version>5</version>
-			</dependency>
-		-->
+		<!-- <dependency> <groupId>javaee</groupId> <artifactId>javaee-api</artifactId> 
+			<version>5</version> </dependency> -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-email</artifactId>

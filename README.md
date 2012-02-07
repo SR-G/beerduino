@@ -262,20 +262,26 @@ Beerduino global preferences.
     <td>Notifications mechanism. Multiple notifications may be defined at the same time.</td>
   </tr>
   <tr>
-    <td>Liste de <a href="#6._Push">push</a></td>
-    <td><a href="#6._Push">push</a></td>
+    <td>Liste de <a href="#6._Notifry">notifry</a></td>
+    <td><a href="#6._Notifry">notifry</a></td>
     <td> X </td>
     <td>Notifications mechanism. Multiple notifications may be defined at the same time.</td>
   </tr>
   <tr>
-    <td>Liste de <a href="#7._Twitter">twitter</a></td>
-    <td><a href="#7._Twitter">twitter</a></td>
+    <td>Liste de <a href="#7._Push">push</a></td>
+    <td><a href="#7._Push">push</a></td>
     <td> X </td>
     <td>Notifications mechanism. Multiple notifications may be defined at the same time.</td>
   </tr>
   <tr>
-    <td>Liste de <a href="#8._Url">url</a></td>
-    <td><a href="#8._Url">url</a></td>
+    <td>Liste de <a href="#8._Twitter">twitter</a></td>
+    <td><a href="#8._Twitter">twitter</a></td>
+    <td> X </td>
+    <td>Notifications mechanism. Multiple notifications may be defined at the same time.</td>
+  </tr>
+  <tr>
+    <td>Liste de <a href="#9._Url">url</a></td>
+    <td><a href="#9._Url">url</a></td>
     <td> X </td>
     <td>Notifications mechanism. Multiple notifications may be defined at the same time.</td>
   </tr>
@@ -327,6 +333,17 @@ Beerduino global preferences.
    &lt;sms&gt;
    . . .
    &lt;/sms&gt;
+
+   &lt;!-- Liste de 'notifry' --&gt;
+   &lt;notifry&gt;
+   . . .
+   &lt;/notifry&gt;
+   .
+   .
+   .
+   &lt;notifry&gt;
+   . . .
+   &lt;/notifry&gt;
 
    &lt;!-- Liste de 'push' --&gt;
    &lt;push&gt;
@@ -609,7 +626,68 @@ Notification by sending an SMS. Not done yet. Where are the free SMS services by
 
 
 
-## 6. Push<a name="6._Push"></a>
+## 6. Notifry<a name="6._Notifry"></a>
+
+Notification by activating a Notifry notification. See http://notifrier.appspot.com/.
+
+### Attributs
+
+<table>
+  <tr>
+    <th><b>Attributs</b></th>
+    <th><b>Type</b></th>
+    <th><b>Req</b></th>
+    <th><b>Description</b></th>
+  </tr>
+  <tr>
+    <td>url</td>
+    <td>String</td>
+    <td>   </td>
+    <td>The single URL that will be activated.</td>
+  </tr>
+  <tr>
+    <td>notifry-url</td>
+    <td>String</td>
+    <td>   </td>
+    <td>Notifry URL to use. Something like 'https://notifrier.appspot.com/notifry'.</td>
+  </tr>
+  <tr>
+    <td>source</td>
+    <td>String</td>
+    <td> X </td>
+    <td>The Notifry source identification (to be grabbed from your notifry configuration panel).</td>
+  </tr>
+  <tr>
+    <td>signature</td>
+    <td>String</td>
+    <td>   </td>
+    <td>Signature that will be shown in the notifry notification sent.</td>
+  </tr>
+</table>
+
+
+### Exemple
+
+<pre>
+&lt;notifry url='...' notifry-url='...' source='...' signature='...' /&gt;
+</pre>
+
+### Implémentation
+
+<table>
+  <tr>
+    <td>Package</td>
+    <td>org.tensin.beerduino.notifications</td>
+  </tr>
+  <tr>
+    <td>Classe</td>
+    <td>NotifryNotification</td>
+  </tr>
+</table>
+
+
+
+## 7. Push<a name="7._Push"></a>
 
 Notification by activating a PushTo notification.
 
@@ -670,7 +748,7 @@ Notification by activating a PushTo notification.
 
 
 
-## 7. Twitter<a name="7._Twitter"></a>
+## 8. Twitter<a name="8._Twitter"></a>
 
 Notification by sending a Tweet.
 
@@ -713,7 +791,7 @@ Notification by sending a Tweet.
 
 
 
-## 8. Url<a name="8._Url"></a>
+## 9. Url<a name="9._Url"></a>
 
 Notification by activating a single URL.
 

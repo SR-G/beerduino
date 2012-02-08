@@ -79,7 +79,7 @@
          <xsd:attribute name="id" type="xsd:string" />
          <xsd:attribute name="url" type="xsd:string" />
          <xsd:attribute name="pushto-url" type="xsd:string" />
-         <xsd:attribute name="id" type="xsd:string" use="required" />
+         <xsd:attribute name="pushto-id" type="xsd:string" use="required" />
          <xsd:attribute name="signature" type="xsd:string" />
    </xsd:complexType>
 

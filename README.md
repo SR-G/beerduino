@@ -438,7 +438,7 @@ Definition of a temperature limit for a sensor
     <td>temperature</td>
     <td>double</td>
     <td>   </td>
-    <td>Temperature limit : once reached, the notifications will be activated</td>
+    <td>Temperature limit : once reached, the notifications will be activated. Optional, if not set, the notification will always be emitted.</td>
   </tr>
   <tr>
     <td>notifiers</td>
@@ -487,7 +487,7 @@ Notification by sending an email.
     <td>id</td>
     <td>String</td>
     <td>   </td>
-    <td>(@TODO) Description de id</td>
+    <td>Internal ID defining the notification. Can be reused below (on the temperature limits for example)</td>
   </tr>
   <tr>
     <td>smtpHostname</td>
@@ -627,7 +627,7 @@ Notification by sending an SMS. Not done yet. Where are the free SMS services by
     <td>id</td>
     <td>String</td>
     <td>   </td>
-    <td>(@TODO) Description de id</td>
+    <td>Internal ID defining the notification. Can be reused below (on the temperature limits for example)</td>
   </tr>
 </table>
 
@@ -691,7 +691,7 @@ Notification by activating a Notifry notification. See http://notifrier.appspot.
     <td>id</td>
     <td>String</td>
     <td>   </td>
-    <td>(@TODO) Description de id</td>
+    <td>Internal ID defining the notification. Can be reused below (on the temperature limits for example)</td>
   </tr>
   <tr>
     <td>url</td>
@@ -758,7 +758,7 @@ Notification by pushing data to pachube.
     <td>id</td>
     <td>String</td>
     <td>   </td>
-    <td>(@TODO) Description de id</td>
+    <td>Internal ID defining the notification. Can be reused below (on the temperature limits for example)</td>
   </tr>
 </table>
 
@@ -801,7 +801,7 @@ Notification by activating a PushTo notification.
     <td>id</td>
     <td>String</td>
     <td>   </td>
-    <td>(@TODO) Description de id</td>
+    <td>Internal ID defining the notification. Can be reused below (on the temperature limits for example)</td>
   </tr>
   <tr>
     <td>url</td>
@@ -816,7 +816,7 @@ Notification by activating a PushTo notification.
     <td>The push-to URL to use. Something like 'http://pushme.to/'.</td>
   </tr>
   <tr>
-    <td>id</td>
+    <td>pushto-id</td>
     <td>String</td>
     <td> X </td>
     <td>Your pushTo ID (login)</td>
@@ -833,7 +833,7 @@ Notification by activating a PushTo notification.
 ### Exemple
 
 <pre>
-&lt;push id='...' url='...' pushto-url='...' id='...' signature='...' /&gt;
+&lt;push id='...' url='...' pushto-url='...' pushto-id='...' signature='...' /&gt;
 </pre>
 
 ### Implémentation
@@ -868,7 +868,7 @@ Notification by sending a Tweet.
     <td>id</td>
     <td>String</td>
     <td>   </td>
-    <td>(@TODO) Description de id</td>
+    <td>Internal ID defining the notification. Can be reused below (on the temperature limits for example)</td>
   </tr>
   <tr>
     <td>dest</td>
@@ -917,7 +917,7 @@ Notification by activating a single URL.
     <td>id</td>
     <td>String</td>
     <td>   </td>
-    <td>(@TODO) Description de id</td>
+    <td>Internal ID defining the notification. Can be reused below (on the temperature limits for example)</td>
   </tr>
   <tr>
     <td>url</td>

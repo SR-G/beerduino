@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.tensin.beerduino.notifications.INotification;
 import org.tensin.beerduino.notifications.MailNotification;
 import org.tensin.beerduino.notifications.NotifryNotification;
+import org.tensin.beerduino.notifications.PachubeNotification;
 import org.tensin.beerduino.notifications.PushToNotification;
 import org.tensin.beerduino.notifications.SMSNotification;
 import org.tensin.beerduino.notifications.TwitterNotification;
@@ -91,6 +92,7 @@ public class Preferences {
     @ElementListUnion({ @ElementList(entry = "mail", inline = true, type = MailNotification.class),
             @ElementList(entry = "sms", inline = true, type = SMSNotification.class),
             @ElementList(entry = "notifry", inline = true, type = NotifryNotification.class),
+            @ElementList(entry = "pachube", inline = true, type = PachubeNotification.class),
             @ElementList(entry = "push", inline = true, type = PushToNotification.class),
             @ElementList(entry = "twitter", inline = true, type = TwitterNotification.class),
             @ElementList(entry = "url", inline = true, type = URLNotification.class) })
@@ -155,15 +157,16 @@ public class Preferences {
      *            the sensor id
      * @return the limit for sensor
      */
-    public TemperatureLimit getLimitForSensor(final String sensorId) {
+    public Collection<TemperatureLimit> getLimitForSensor(final String sensorId) {
+        Collection<TemperatureLimit> results = new ArrayList<TemperatureLimit>();
         if (StringUtils.isNotEmpty(sensorId)) {
             for (TemperatureLimit limit : limits) {
                 if (sensorId.equalsIgnoreCase(limit.getSensorId())) {
-                    return limit;
+                    results.add(limit);
                 }
             }
         }
-        return null;
+        return results;
     }
 
     /**

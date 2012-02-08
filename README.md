@@ -268,20 +268,26 @@ Beerduino global preferences.
     <td>Notifications mechanism. Multiple notifications may be defined at the same time.</td>
   </tr>
   <tr>
-    <td>Liste de <a href="#7._Push">push</a></td>
-    <td><a href="#7._Push">push</a></td>
+    <td>Liste de <a href="#7._Pachube">pachube</a></td>
+    <td><a href="#7._Pachube">pachube</a></td>
     <td> X </td>
     <td>Notifications mechanism. Multiple notifications may be defined at the same time.</td>
   </tr>
   <tr>
-    <td>Liste de <a href="#8._Twitter">twitter</a></td>
-    <td><a href="#8._Twitter">twitter</a></td>
+    <td>Liste de <a href="#8._Push">push</a></td>
+    <td><a href="#8._Push">push</a></td>
     <td> X </td>
     <td>Notifications mechanism. Multiple notifications may be defined at the same time.</td>
   </tr>
   <tr>
-    <td>Liste de <a href="#9._Url">url</a></td>
-    <td><a href="#9._Url">url</a></td>
+    <td>Liste de <a href="#9._Twitter">twitter</a></td>
+    <td><a href="#9._Twitter">twitter</a></td>
+    <td> X </td>
+    <td>Notifications mechanism. Multiple notifications may be defined at the same time.</td>
+  </tr>
+  <tr>
+    <td>Liste de <a href="#10._Url">url</a></td>
+    <td><a href="#10._Url">url</a></td>
     <td> X </td>
     <td>Notifications mechanism. Multiple notifications may be defined at the same time.</td>
   </tr>
@@ -344,6 +350,17 @@ Beerduino global preferences.
    &lt;notifry&gt;
    . . .
    &lt;/notifry&gt;
+
+   &lt;!-- Liste de 'pachube' --&gt;
+   &lt;pachube&gt;
+   . . .
+   &lt;/pachube&gt;
+   .
+   .
+   .
+   &lt;pachube&gt;
+   . . .
+   &lt;/pachube&gt;
 
    &lt;!-- Liste de 'push' --&gt;
    &lt;push&gt;
@@ -420,8 +437,14 @@ Definition of a temperature limit for a sensor
   <tr>
     <td>temperature</td>
     <td>double</td>
-    <td> X </td>
+    <td>   </td>
     <td>Temperature limit : once reached, the notifications will be activated</td>
+  </tr>
+  <tr>
+    <td>notifiers</td>
+    <td>String</td>
+    <td>   </td>
+    <td>The ID of the notifiers that are concerned by this limit. If empty, all notifiers will be notified.</td>
   </tr>
 </table>
 
@@ -429,7 +452,7 @@ Definition of a temperature limit for a sensor
 ### Exemple
 
 <pre>
-&lt;seuil capteur='...' temperature='...' /&gt;
+&lt;seuil capteur='...' temperature='...' notifiers='...' /&gt;
 </pre>
 
 ### Implémentation
@@ -459,6 +482,12 @@ Notification by sending an email.
     <th><b>Type</b></th>
     <th><b>Req</b></th>
     <th><b>Description</b></th>
+  </tr>
+  <tr>
+    <td>id</td>
+    <td>String</td>
+    <td>   </td>
+    <td>(@TODO) Description de id</td>
   </tr>
   <tr>
     <td>smtpHostname</td>
@@ -508,7 +537,8 @@ Notification by sending an email.
 ### Exemple
 
 <pre>
-&lt;mail smtpHostname='...' smtpLogin='...' smtpPassword='...' smtpPort='...'&gt;
+&lt;mail id='...' smtpHostname='...' smtpLogin='...' smtpPassword='...'
+         smtpPort='...'&gt;
    &lt;!-- Description de 'destinataires' --&gt;
    &lt;destinataires&gt;
    . . .
@@ -584,6 +614,24 @@ Mail recipient whom the mail will be sent
 
 Notification by sending an SMS. Not done yet. Where are the free SMS services by the way ?
 
+### Attributs
+
+<table>
+  <tr>
+    <th><b>Attributs</b></th>
+    <th><b>Type</b></th>
+    <th><b>Req</b></th>
+    <th><b>Description</b></th>
+  </tr>
+  <tr>
+    <td>id</td>
+    <td>String</td>
+    <td>   </td>
+    <td>(@TODO) Description de id</td>
+  </tr>
+</table>
+
+
 ### Elements
 
 <table>
@@ -605,7 +653,7 @@ Notification by sending an SMS. Not done yet. Where are the free SMS services by
 ### Exemple
 
 <pre>
-&lt;sms&gt;
+&lt;sms id='...'&gt;
    &lt;!-- Description de 'number' --&gt;
    &lt;number&gt;. . .&lt;/number&gt;
 &lt;/sms&gt;
@@ -640,6 +688,12 @@ Notification by activating a Notifry notification. See http://notifrier.appspot.
     <th><b>Description</b></th>
   </tr>
   <tr>
+    <td>id</td>
+    <td>String</td>
+    <td>   </td>
+    <td>(@TODO) Description de id</td>
+  </tr>
+  <tr>
     <td>url</td>
     <td>String</td>
     <td>   </td>
@@ -669,7 +723,7 @@ Notification by activating a Notifry notification. See http://notifrier.appspot.
 ### Exemple
 
 <pre>
-&lt;notifry url='...' notifry-url='...' source='...' signature='...' /&gt;
+&lt;notifry id='...' url='...' notifry-url='...' source='...' signature='...' /&gt;
 </pre>
 
 ### Implémentation
@@ -687,7 +741,50 @@ Notification by activating a Notifry notification. See http://notifrier.appspot.
 
 
 
-## 7. Push<a name="7._Push"></a>
+## 7. Pachube<a name="7._Pachube"></a>
+
+Notification by pushing data to pachube.
+
+### Attributs
+
+<table>
+  <tr>
+    <th><b>Attributs</b></th>
+    <th><b>Type</b></th>
+    <th><b>Req</b></th>
+    <th><b>Description</b></th>
+  </tr>
+  <tr>
+    <td>id</td>
+    <td>String</td>
+    <td>   </td>
+    <td>(@TODO) Description de id</td>
+  </tr>
+</table>
+
+
+### Exemple
+
+<pre>
+&lt;pachube id='...' /&gt;
+</pre>
+
+### Implémentation
+
+<table>
+  <tr>
+    <td>Package</td>
+    <td>org.tensin.beerduino.notifications</td>
+  </tr>
+  <tr>
+    <td>Classe</td>
+    <td>PachubeNotification</td>
+  </tr>
+</table>
+
+
+
+## 8. Push<a name="8._Push"></a>
 
 Notification by activating a PushTo notification.
 
@@ -699,6 +796,12 @@ Notification by activating a PushTo notification.
     <th><b>Type</b></th>
     <th><b>Req</b></th>
     <th><b>Description</b></th>
+  </tr>
+  <tr>
+    <td>id</td>
+    <td>String</td>
+    <td>   </td>
+    <td>(@TODO) Description de id</td>
   </tr>
   <tr>
     <td>url</td>
@@ -730,7 +833,7 @@ Notification by activating a PushTo notification.
 ### Exemple
 
 <pre>
-&lt;push url='...' pushto-url='...' id='...' signature='...' /&gt;
+&lt;push id='...' url='...' pushto-url='...' id='...' signature='...' /&gt;
 </pre>
 
 ### Implémentation
@@ -748,7 +851,7 @@ Notification by activating a PushTo notification.
 
 
 
-## 8. Twitter<a name="8._Twitter"></a>
+## 9. Twitter<a name="9._Twitter"></a>
 
 Notification by sending a Tweet.
 
@@ -762,6 +865,12 @@ Notification by sending a Tweet.
     <th><b>Description</b></th>
   </tr>
   <tr>
+    <td>id</td>
+    <td>String</td>
+    <td>   </td>
+    <td>(@TODO) Description de id</td>
+  </tr>
+  <tr>
     <td>dest</td>
     <td>String</td>
     <td> X </td>
@@ -773,7 +882,7 @@ Notification by sending a Tweet.
 ### Exemple
 
 <pre>
-&lt;twitter dest='...' /&gt;
+&lt;twitter id='...' dest='...' /&gt;
 </pre>
 
 ### Implémentation
@@ -791,7 +900,7 @@ Notification by sending a Tweet.
 
 
 
-## 9. Url<a name="9._Url"></a>
+## 10. Url<a name="10._Url"></a>
 
 Notification by activating a single URL.
 
@@ -805,6 +914,12 @@ Notification by activating a single URL.
     <th><b>Description</b></th>
   </tr>
   <tr>
+    <td>id</td>
+    <td>String</td>
+    <td>   </td>
+    <td>(@TODO) Description de id</td>
+  </tr>
+  <tr>
     <td>url</td>
     <td>String</td>
     <td>   </td>
@@ -816,7 +931,7 @@ Notification by activating a single URL.
 ### Exemple
 
 <pre>
-&lt;url url='...' /&gt;
+&lt;url id='...' url='...' /&gt;
 </pre>
 
 ### Implémentation

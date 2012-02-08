@@ -11,147 +11,159 @@ import org.tensin.common.tools.documentation.updater.Description;
  */
 @Root(name = "sensor")
 @Description("Individual result for one sensor.")
-public class TemperatureResult {
+public class TemperatureResult implements Cloneable {
 
-    /** The temperature. */
-    @Attribute(name = "value")
-    @Description("The read temperature")
-    private double temperature;
+	/** The temperature. */
+	@Attribute(name = "value")
+	@Description("The read temperature")
+	private double temperature;
 
-    /** The sensor id. */
-    @Attribute(name = "id")
-    @Description("The arduino sensor ID.")
-    private String sensorId;
+	/** The sensor id. */
+	@Attribute(name = "id")
+	@Description("The arduino sensor ID.")
+	private String sensorId;
 
-    /** The type. */
-    @Attribute(required = false)
-    @Description("The temperature type (F|C).")
-    private String type = "C";
+	/** The type. */
+	@Attribute(required = false)
+	@Description("The temperature type (F|C).")
+	private String type = "C";
 
-    /** The limit. */
-    @Attribute(name = "seuil", required = false)
-    @Description("The arduino temperature limit for this sensor (defined on the arduino board).")
-    private double limit = Double.NaN;
+	/** The limit. */
+	@Attribute(name = "seuil", required = false)
+	@Description("The arduino temperature limit for this sensor (defined on the arduino board).")
+	private double limit = Double.NaN;
 
-    /**
-     * Instantiates a new temperature result.
-     */
-    public TemperatureResult() {
-        super();
-    }
+	/**
+	 * Instantiates a new temperature result.
+	 */
+	public TemperatureResult() {
+		super();
+	}
 
-    /**
-     * Instantiates a new temperature result.
-     * 
-     * @param sensorId
-     *            the sensor id
-     * @param temperature
-     *            the temperature
-     */
-    public TemperatureResult(final String sensorId, final double temperature) {
-        super();
-        this.temperature = temperature;
-        this.sensorId = sensorId;
-    }
+	/**
+	 * Instantiates a new temperature result.
+	 * 
+	 * @param sensorId
+	 *            the sensor id
+	 * @param temperature
+	 *            the temperature
+	 */
+	public TemperatureResult(final String sensorId, final double temperature) {
+		super();
+		this.temperature = temperature;
+		this.sensorId = sensorId;
+	}
 
-    /**
-     * Gets the limit.
-     * 
-     * @return the limit
-     */
-    public double getLimit() {
-        return limit;
-    }
+	@Override
+	protected TemperatureResult clone() throws CloneNotSupportedException {
+		TemperatureResult clone = new TemperatureResult();
+		clone.setTemperature(temperature);
+		clone.setSensorId(sensorId);
+		clone.setType(type);
+		clone.setLimit(limit);
+		return clone;
+	}
 
-    /**
-     * Gets the sensor id.
-     * 
-     * @return the sensor id
-     */
-    public String getSensorId() {
-        return sensorId;
-    }
+	/**
+	 * Gets the limit.
+	 * 
+	 * @return the limit
+	 */
+	public double getLimit() {
+		return limit;
+	}
 
-    /**
-     * Gets the state.
-     * 
-     * @return the state
-     */
-    public TemperatureState getState() {
-        if (temperature >= limit) {
-            return TemperatureState.OVERHEAT;
-        } else {
-            return TemperatureState.NORMAL;
-        }
-    }
+	/**
+	 * Gets the sensor id.
+	 * 
+	 * @return the sensor id
+	 */
+	public String getSensorId() {
+		return sensorId;
+	}
 
-    /**
-     * Gets the temperature.
-     * 
-     * @return the temperature
-     */
-    public double getTemperature() {
-        return temperature;
-    }
+	/**
+	 * Gets the state.
+	 * 
+	 * @return the state
+	 */
+	public TemperatureState getState() {
+		if (temperature >= limit) {
+			return TemperatureState.OVERHEAT;
+		} else {
+			return TemperatureState.NORMAL;
+		}
+	}
 
-    /**
-     * Gets the type.
-     * 
-     * @return the type
-     */
-    public String getType() {
-        return type;
-    }
+	/**
+	 * Gets the temperature.
+	 * 
+	 * @return the temperature
+	 */
+	public double getTemperature() {
+		return temperature;
+	}
 
-    /**
-     * Sets the limit.
-     * 
-     * @param limit
-     *            the new limit
-     */
-    public void setLimit(final double limit) {
-        this.limit = limit;
-    }
+	/**
+	 * Gets the type.
+	 * 
+	 * @return the type
+	 */
+	public String getType() {
+		return type;
+	}
 
-    /**
-     * Sets the sensor id.
-     * 
-     * @param sensorId
-     *            the new sensor id
-     */
-    public void setSensorId(final String sensorId) {
-        this.sensorId = sensorId;
-    }
+	/**
+	 * Sets the limit.
+	 * 
+	 * @param limit
+	 *            the new limit
+	 */
+	public void setLimit(final double limit) {
+		this.limit = limit;
+	}
 
-    /**
-     * Sets the temperature.
-     * 
-     * @param temperature
-     *            the new temperature
-     */
-    public void setTemperature(final double temperature) {
-        this.temperature = temperature;
-    }
+	/**
+	 * Sets the sensor id.
+	 * 
+	 * @param sensorId
+	 *            the new sensor id
+	 */
+	public void setSensorId(final String sensorId) {
+		this.sensorId = sensorId;
+	}
 
-    /**
-     * Sets the type.
-     * 
-     * @param type
-     *            the new type
-     */
-    public void setType(final String type) {
-        this.type = type;
-    }
+	/**
+	 * Sets the temperature.
+	 * 
+	 * @param temperature
+	 *            the new temperature
+	 */
+	public void setTemperature(final double temperature) {
+		this.temperature = temperature;
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Temp [").append(temperature).append("], sensorId [").append(sensorId).append("], seuil [").append(limit).append("]");
-        return sb.toString();
-    }
+	/**
+	 * Sets the type.
+	 * 
+	 * @param type
+	 *            the new type
+	 */
+	public void setType(final String type) {
+		this.type = type;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("Temp [").append(temperature).append("], sensorId [")
+				.append(sensorId).append("], seuil [").append(limit)
+				.append("]");
+		return sb.toString();
+	}
 }

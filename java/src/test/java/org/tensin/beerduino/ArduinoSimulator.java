@@ -34,7 +34,7 @@ public class ArduinoSimulator extends MockHttpServer {
         try {
             Thread.sleep(250);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            throw new CoreException(e);
         }
     }
 
@@ -48,8 +48,8 @@ public class ArduinoSimulator extends MockHttpServer {
         super(port);
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * {@inheritDoc}
      * 
      * @see org.tensin.beerduino.MockHttpServer#handle(java.lang.String, org.eclipse.jetty.server.Request, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
@@ -59,7 +59,7 @@ public class ArduinoSimulator extends MockHttpServer {
         ServletOutputStream outputStream = response.getOutputStream();
 
         TemperatureResults results = new TemperatureResults();
-        results.getResults().add(new TemperatureResult("1", 21 + Math.random()));
+        results.getResults().add(new TemperatureResult("1", 1 + Math.random()));
         results.getResults().add(new TemperatureResult("2", 22 + Math.random()));
         results.getResults().add(new TemperatureResult("3", 26 + Math.random()));
         results.getResults().add(new TemperatureResult("4", 28 + Math.random()));
@@ -69,10 +69,8 @@ public class ArduinoSimulator extends MockHttpServer {
         try {
             serializer.write(results, outputStream);
         } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            // e.printStackTrace();
         }
         outputStream.flush();
     }
-
 }

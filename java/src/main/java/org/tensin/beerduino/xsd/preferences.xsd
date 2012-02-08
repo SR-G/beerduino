@@ -18,6 +18,8 @@
             </xsd:element>
             <xsd:element name="mail" type="org.tensin.beerduino.notifications.MailNotification" minOccurs="0" maxOccurs="unbounded" />
             <xsd:element name="sms" type="org.tensin.beerduino.notifications.SMSNotification" minOccurs="0" maxOccurs="unbounded" />
+            <xsd:element name="notifry" type="org.tensin.beerduino.notifications.NotifryNotification" minOccurs="0" maxOccurs="unbounded" />
+            <xsd:element name="pachube" type="org.tensin.beerduino.notifications.PachubeNotification" minOccurs="0" maxOccurs="unbounded" />
             <xsd:element name="push" type="org.tensin.beerduino.notifications.PushToNotification" minOccurs="0" maxOccurs="unbounded" />
             <xsd:element name="twitter" type="org.tensin.beerduino.notifications.TwitterNotification" minOccurs="0" maxOccurs="unbounded" />
             <xsd:element name="url" type="org.tensin.beerduino.notifications.URLNotification" minOccurs="0" maxOccurs="unbounded" />
@@ -28,7 +30,8 @@
 
    <xsd:complexType name="org.tensin.beerduino.TemperatureLimit">
          <xsd:attribute name="capteur" type="xsd:string" use="required" />
-         <xsd:attribute name="temperature" type="xsd:string" use="required" />
+         <xsd:attribute name="temperature" type="xsd:string" />
+         <xsd:attribute name="notifiers" type="xsd:string" />
    </xsd:complexType>
 
    <xsd:complexType name="org.tensin.beerduino.notifications.MailNotification">
@@ -41,6 +44,7 @@
                </xsd:complexType>
             </xsd:element>
          </xsd:choice>
+         <xsd:attribute name="id" type="xsd:string" />
          <xsd:attribute name="smtpHostname" type="xsd:string" />
          <xsd:attribute name="smtpLogin" type="xsd:string" />
          <xsd:attribute name="smtpPassword" type="xsd:string" />
@@ -56,9 +60,23 @@
          <xsd:choice maxOccurs="unbounded">
             <xsd:element name="number" type="xsd:string" />
          </xsd:choice>
+         <xsd:attribute name="id" type="xsd:string" />
+   </xsd:complexType>
+
+   <xsd:complexType name="org.tensin.beerduino.notifications.NotifryNotification">
+         <xsd:attribute name="id" type="xsd:string" />
+         <xsd:attribute name="url" type="xsd:string" />
+         <xsd:attribute name="notifry-url" type="xsd:string" />
+         <xsd:attribute name="source" type="xsd:string" use="required" />
+         <xsd:attribute name="signature" type="xsd:string" />
+   </xsd:complexType>
+
+   <xsd:complexType name="org.tensin.beerduino.notifications.PachubeNotification">
+         <xsd:attribute name="id" type="xsd:string" />
    </xsd:complexType>
 
    <xsd:complexType name="org.tensin.beerduino.notifications.PushToNotification">
+         <xsd:attribute name="id" type="xsd:string" />
          <xsd:attribute name="url" type="xsd:string" />
          <xsd:attribute name="pushto-url" type="xsd:string" />
          <xsd:attribute name="id" type="xsd:string" use="required" />
@@ -66,10 +84,12 @@
    </xsd:complexType>
 
    <xsd:complexType name="org.tensin.beerduino.notifications.TwitterNotification">
+         <xsd:attribute name="id" type="xsd:string" />
          <xsd:attribute name="dest" type="xsd:string" use="required" />
    </xsd:complexType>
 
    <xsd:complexType name="org.tensin.beerduino.notifications.URLNotification">
+         <xsd:attribute name="id" type="xsd:string" />
          <xsd:attribute name="url" type="xsd:string" />
    </xsd:complexType>
 </xsd:schema>

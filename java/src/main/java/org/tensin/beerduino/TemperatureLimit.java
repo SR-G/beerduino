@@ -17,9 +17,13 @@ public class TemperatureLimit {
     private String sensorId;
 
     /** The limit. */
-    @Attribute(name = "temperature")
-    @Description("Temperature limit : once reached, the notifications will be activated")
-    private double limit;
+    @Attribute(name = "temperature", required = false)
+    @Description("Temperature limit : once reached, the notifications will be activated. Optional, if not set, the notification will always be emitted.")
+    private double limit = Double.NaN;
+
+    @Attribute(name = "notifiers", required = false)
+    @Description("The ID of the notifiers that are concerned by this limit. If empty, all notifiers will be notified.")
+    private String notifiers;
 
     /**
      * Instantiates a new temperature limit.
@@ -35,6 +39,15 @@ public class TemperatureLimit {
      */
     public double getLimit() {
         return limit;
+    }
+
+    /**
+     * Gets the notifiers.
+     * 
+     * @return the notifiers
+     */
+    public String getNotifiers() {
+        return notifiers;
     }
 
     /**
@@ -64,6 +77,16 @@ public class TemperatureLimit {
      */
     public void setLimit(final String limit) {
         this.limit = Double.valueOf(limit);
+    }
+
+    /**
+     * Sets the notifiers.
+     * 
+     * @param notifiers
+     *            the new notifiers
+     */
+    public void setNotifiers(final String notifiers) {
+        this.notifiers = notifiers;
     }
 
     /**

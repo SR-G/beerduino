@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<preferences xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="./preferences.xsd">
-   <mail>
+<preferences xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="./beerduino.xsd">
+   <mail id="mail">
          <destinataires>
             <destinataire email="serge.simon@gmail.com" name="Yes it's you"/>
          </destinataires>
    </mail>
+   <pachube id="pachube" />
 <!--
    <push id="PushTo ID - see http://pushme.to" />
 -->
-   <arduinoIp>192.168.1.101</arduinoIp>
-   <arduinoPort>80</arduinoPort>
-   <arduinoCheckFrequency>2000</arduinoCheckFrequency>
+   <arduinoIp>127.0.0.1</arduinoIp>
+   <arduinoPort>8080</arduinoPort>
+   <arduinoCheckFrequency>2000000</arduinoCheckFrequency>
    <seuils>
-     <seuil capteur="1" temperature="21.9" />
-     <seuil capteur="2" temperature="23" />
-     <seuil capteur="3" temperature="27" />
-     <seuil capteur="4" temperature="29" />
-     <seuil capteur="5" temperature="31" />
+     <seuil capteur="1" temperature="0.9" notifiers="mail" />
+     <seuil capteur="1" notifiers="pachube" />
+     <seuil capteur="2" temperature="23" notifiers="mail,twitter" />
+     <seuil capteur="3" temperature="27" notifiers="mail" />
+     <seuil capteur="4" temperature="29" notifiers="mail" />
+     <seuil capteur="5" temperature="31" notifiers="mail" />
    </seuils>
 </preferences>

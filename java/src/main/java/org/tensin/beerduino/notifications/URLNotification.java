@@ -27,6 +27,7 @@ public class URLNotification extends AbstractNotification implements
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(URLNotification.class);
 
+	/** The Constant NOT_IMPLEMENTED_501. */
 	public static final int NOT_IMPLEMENTED_501 = 501;
 
 	/**

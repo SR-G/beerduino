@@ -41,22 +41,31 @@ public class ThreadNotify extends AbstractThread {
             try {
                 final TemperatureResults results = queue.take();
 
-                LOGGER.info("Notification emited due to new state [" + results.getState() + "]");
                 Collection<INotification> notifiers = Beerduino.getInstance().getPreferences().getNotifiers();
                 for (final INotification notifier : notifiers) {
-                    new Thread() {
-                        @Override
-                        public void run() {
-                            try {
+                    // Each notifier determines if he's concerned about current results set
+                    // If yes, the nofitication is done
+                    final TemperatureResults clonedResults = results.clone();
+                    if (notifier.isNotifierEligibleToResults(clonedResults)) {
+                        new Thread() {
+                            @Override
+                            public void run() {
                                 setName("THREAD-NOTIFY-" + notifier.getClass().getSimpleName().toUpperCase());
-                                notifier.execute(results);
-                            } catch (CoreException e) {
-                                LOGGER.error("Error while notifying with notifier [" + notifier.getClass().getSimpleName() + "]", e);
+                                try {
+                                    LOGGER.info("Notification emited with state [" + results.getState() + "] to notifier [" + notifier.getClass().getSimpleName() + "]");
+                                    notifier.execute(clonedResults);
+                                } catch (CoreException e) {
+                                    LOGGER.error("Error while notifying with notifier [" + notifier.getClass().getSimpleName() + "]", e);
+                                }
                             }
-                        }
-                    }.start();
+                        }.start();
+                    }
                 }
             } catch (InterruptedException e) {
+                LOGGER.error("Global error while notifying", e);
+            } catch (CoreException e) {
+                LOGGER.error("Global error while notifying", e);
+            } catch (CloneNotSupportedException e) {
                 LOGGER.error("Global error while notifying", e);
             }
         }

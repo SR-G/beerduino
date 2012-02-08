@@ -22,7 +22,8 @@ import twitter4j.TwitterFactory;
  */
 @Root(name = "twitter")
 @Description("Notification by sending a Tweet.")
-public class TwitterNotification implements INotification {
+public class TwitterNotification extends AbstractNotification implements
+		INotification {
 
 	/** The Constant LOGGER. */
 	private static final Logger LOGGER = LoggerFactory

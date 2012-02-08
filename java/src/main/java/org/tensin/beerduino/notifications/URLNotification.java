@@ -20,46 +20,53 @@ import org.tensin.common.tools.documentation.updater.Description;
  */
 @Root(name = "url")
 @Description("Notification by activating a single URL.")
-public class URLNotification implements INotification {
+public class URLNotification extends AbstractNotification implements
+		INotification {
 
-    /** The Constant LOGGER. */
-    private static final Logger LOGGER = LoggerFactory.getLogger(URLNotification.class);
+	/** The Constant LOGGER. */
+	private static final Logger LOGGER = LoggerFactory
+			.getLogger(URLNotification.class);
 
-    public static final int NOT_IMPLEMENTED_501 = 501;
+	public static final int NOT_IMPLEMENTED_501 = 501;
 
-    /** The url. @Todo standard parameters should be available {temp1} => substitued by the right value once the URL is called */
-    @Attribute(required = false)
-    @Description("The single URL that will be activated.")
-    private String url;
+	/**
+	 * The url. @Todo standard parameters should be available {temp1} =>
+	 * substitued by the right value once the URL is called
+	 */
+	@Attribute(required = false)
+	@Description("The single URL that will be activated.")
+	private String url;
 
-    /**
-     * Activate url.
-     * 
-     * @param address
-     *            the address
-     */
-    protected void activateUrl(final String address) {
-        try {
-            URL u = new URL(address);
-            InputStream is = u.openStream();
-            CloseHelper.close(is);
-        } catch (MalformedURLException e) {
-            LOGGER.error("Error while activating to [" + address + "]", e);
-        } catch (IOException e) {
-            LOGGER.error("Error while activating to [" + address + "]", e);
-        }
-    }
+	/**
+	 * Activate url.
+	 * 
+	 * @param address
+	 *            the address
+	 */
+	protected void activateUrl(final String address) {
+		try {
+			URL u = new URL(address);
+			InputStream is = u.openStream();
+			CloseHelper.close(is);
+		} catch (MalformedURLException e) {
+			LOGGER.error("Error while activating to [" + address + "]", e);
+		} catch (IOException e) {
+			LOGGER.error("Error while activating to [" + address + "]", e);
+		}
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.tensin.beerduino.notifications.INotification#execute(org.tensin.beerduino.TemperatureResults)
-     */
-    @Override
-    public void execute(final TemperatureResults results) throws CoreException {
-        if (results.getState().compareTo(TemperatureState.OVERHEAT) == 0) {
-            activateUrl(url);
-        }
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.tensin.beerduino.notifications.INotification#execute(org.tensin.beerduino
+	 * .TemperatureResults)
+	 */
+	@Override
+	public void execute(final TemperatureResults results) throws CoreException {
+		if (results.getState().compareTo(TemperatureState.OVERHEAT) == 0) {
+			activateUrl(url);
+		}
+	}
 
 }

@@ -1,23 +1,36 @@
 package org.tensin.beerduino.notifications;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
 import org.apache.commons.lang3.StringUtils;
 import org.simpleframework.xml.Attribute;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tensin.beerduino.Beerduino;
 import org.tensin.beerduino.TemperatureLimit;
 import org.tensin.beerduino.TemperatureResult;
 import org.tensin.beerduino.TemperatureResults;
 import org.tensin.beerduino.TemperatureState;
 import org.tensin.common.CoreException;
+import org.tensin.common.helpers.CloseHelper;
 import org.tensin.common.tools.documentation.updater.Description;
 
 /**
  * The Class AbstractNotification.
  */
 public abstract class AbstractNotification {
+
+    /** The Constant LOGGER. */
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractNotification.class);
+
+    /** The Constant NOT_IMPLEMENTED_501. */
+    public static final int NOT_IMPLEMENTED_501 = 501;
 
     /** The id. */
     @Attribute(required = false)
@@ -26,6 +39,24 @@ public abstract class AbstractNotification {
 
     /** The overheat. */
     private boolean overheat = false;
+
+    /**
+     * Activate url.
+     * 
+     * @param address
+     *            the address
+     */
+    protected void activateUrl(final String address) {
+        try {
+            URL u = new URL(address);
+            InputStream is = u.openStream();
+            CloseHelper.close(is);
+        } catch (MalformedURLException e) {
+            LOGGER.error("Error while activating to [" + address + "]", e);
+        } catch (IOException e) {
+            LOGGER.error("Error while activating to [" + address + "]", e);
+        }
+    }
 
     /**
      * Are temperatures back to normal.

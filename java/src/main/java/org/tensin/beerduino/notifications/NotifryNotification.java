@@ -26,7 +26,7 @@ import org.tensin.common.tools.documentation.updater.Description;
  */
 @Root(name = "notifry")
 @Description("Notification by activating a Notifry notification. See http://notifrier.appspot.com/.")
-public class NotifryNotification extends URLNotification implements INotification {
+public class NotifryNotification extends AbstractNotification implements INotification {
 
     /** The Constant LOGGER. */
     private static final Logger LOGGER = LoggerFactory.getLogger(NotifryNotification.class);
@@ -165,7 +165,7 @@ public class NotifryNotification extends URLNotification implements INotificatio
      *            the new notifry source
      */
     public void setNotifrySource(final String notifryId) {
-        this.notifrySource = notifryId;
+        notifrySource = notifryId;
     }
 
     /**

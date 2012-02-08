@@ -65,7 +65,6 @@
 
    <xsd:complexType name="org.tensin.beerduino.notifications.NotifryNotification">
          <xsd:attribute name="id" type="xsd:string" />
-         <xsd:attribute name="url" type="xsd:string" />
          <xsd:attribute name="notifry-url" type="xsd:string" />
          <xsd:attribute name="source" type="xsd:string" use="required" />
          <xsd:attribute name="signature" type="xsd:string" />
@@ -77,7 +76,6 @@
 
    <xsd:complexType name="org.tensin.beerduino.notifications.PushToNotification">
          <xsd:attribute name="id" type="xsd:string" />
-         <xsd:attribute name="url" type="xsd:string" />
          <xsd:attribute name="pushto-url" type="xsd:string" />
          <xsd:attribute name="pushto-id" type="xsd:string" use="required" />
          <xsd:attribute name="signature" type="xsd:string" />

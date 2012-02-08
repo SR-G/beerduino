@@ -26,7 +26,7 @@ import org.tensin.common.tools.documentation.updater.Description;
  */
 @Root(name = "push")
 @Description("Notification by activating a PushTo notification.")
-public class PushToNotification extends URLNotification implements INotification {
+public class PushToNotification extends AbstractNotification implements INotification {
 
     /** The Constant LOGGER. */
     private static final Logger LOGGER = LoggerFactory.getLogger(PushToNotification.class);

@@ -694,12 +694,6 @@ Notification by activating a Notifry notification. See http://notifrier.appspot.
     <td>Internal ID defining the notification. Can be reused below (on the temperature limits for example)</td>
   </tr>
   <tr>
-    <td>url</td>
-    <td>String</td>
-    <td>   </td>
-    <td>The single URL that will be activated.</td>
-  </tr>
-  <tr>
     <td>notifry-url</td>
     <td>String</td>
     <td>   </td>
@@ -723,7 +717,7 @@ Notification by activating a Notifry notification. See http://notifrier.appspot.
 ### Exemple
 
 <pre>
-&lt;notifry id='...' url='...' notifry-url='...' source='...' signature='...' /&gt;
+&lt;notifry id='...' notifry-url='...' source='...' signature='...' /&gt;
 </pre>
 
 ### Implémentation
@@ -804,12 +798,6 @@ Notification by activating a PushTo notification.
     <td>Internal ID defining the notification. Can be reused below (on the temperature limits for example)</td>
   </tr>
   <tr>
-    <td>url</td>
-    <td>String</td>
-    <td>   </td>
-    <td>The single URL that will be activated.</td>
-  </tr>
-  <tr>
     <td>pushto-url</td>
     <td>String</td>
     <td>   </td>
@@ -833,7 +821,7 @@ Notification by activating a PushTo notification.
 ### Exemple
 
 <pre>
-&lt;push id='...' url='...' pushto-url='...' pushto-id='...' signature='...' /&gt;
+&lt;push id='...' pushto-url='...' pushto-id='...' signature='...' /&gt;
 </pre>
 
 ### Implémentation

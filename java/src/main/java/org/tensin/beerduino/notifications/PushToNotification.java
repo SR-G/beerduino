@@ -37,7 +37,7 @@ public class PushToNotification extends URLNotification implements INotification
     private String pushtoUrl = "http://pushme.to/";
 
     /** The pushto id. */
-    @Attribute(name = "id")
+    @Attribute(name = "pushto-id")
     @Description("Your pushTo ID (login)")
     private String pushtoId;
 

@@ -12,6 +12,7 @@ import org.tensin.beerduino.TemperatureResult;
 import org.tensin.beerduino.TemperatureResults;
 import org.tensin.beerduino.TemperatureState;
 import org.tensin.common.CoreException;
+import org.tensin.common.tools.documentation.updater.Description;
 
 /**
  * The Class AbstractNotification.
@@ -20,6 +21,7 @@ public abstract class AbstractNotification {
 
     /** The id. */
     @Attribute(required = false)
+    @Description("Internal ID defining the notification. Can be reused below (on the temperature limits for example)")
     private String id;
 
     /** The overheat. */

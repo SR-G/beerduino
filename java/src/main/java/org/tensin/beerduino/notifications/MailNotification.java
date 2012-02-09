@@ -141,7 +141,7 @@ public class MailNotification extends AbstractNotification implements
 															// complet
 			} else {
 				graphFilename = "file:///" + System.getProperty("user.dir")
-						+ File.separator + graphFilename; // cas où les fichiers
+						+ "/" + graphFilename; // cas où les fichiers
 															// générés ont un
 															// path
 															// relatifs

@@ -46,6 +46,68 @@ public class PachubeNotification extends AbstractNotification implements
                         if (isNotifierEligibleToLimit(limit)) {
                             // if (limit.getLimit() == Double.NaN) {
                             LOGGER.info("Pushing data to PACHUBE");
+
+                            /*
+                             * public static void main(String arsg[]) throws InterruptedException{
+                             * try {
+                             * //Creates a Pachube object authenicated using the provided API KEY
+                             * 
+                             * Pachube p = new Pachube(API KEY HERE);
+                             * Feed f = new Feed();
+                             * f.setTitle("JAVA API TEST FEED");
+                             * Data a = new Data();
+                             * a.setId(0);
+                             * a.setMaxValue(100d);
+                             * a.setMinValue(0d);
+                             * a.setTag("Test");
+                             * a.setValue(30d);
+                             * f.addData(a);
+                             * Feed g = p.createFeed(f);
+                             * //The Feed 'f' is does not represent the feed on pachube any
+                             * // Changes made to this object will not alter the online feed.
+                             * System.out.println("The id of the new feed is:");
+                             * System.out.println(g.getId());
+                             * 
+                             * } catch (PachubeException e) {
+                             * //If an exception occurs it will print the error message from the failed
+                             * // HTTP command
+                             * System.out.println(e.errorMessage);
+                             * }
+                             * }
+                             * 
+                             * }
+                             * To update an existing feed's datastream the example code is shown below; This code will update the feed with id 2993
+                             * 
+                             * try {
+                             * Pachube p = new Pachube(API KEY HERE);
+                             * Feed f = p.getFeed(2993);
+                             * f.updateDatastream(0, 90d);
+                             * } catch (PachubeException e) {
+                             * System.out.println(e.errorMessage);
+                             * }
+                             * In this API Triggers are modeled using the Trigger class which is capable of forming the correct HTTP headers. The code below create a Trigger on the feed 2993 datastream 0 and will post to the specified URL
+                             * if the streams value is greater than 10.
+                             * 
+                             * try {
+                             * Pachube p = new Pachube(APU_KEY);
+                             * Trigger t = new Trigger();
+                             * t.setEnv_id(2993);
+                             * t.setStream_id(0);
+                             * t.setThreshold(10d);
+                             * t.setType(TriggerType.gt);
+                             * 
+                             * t.setUrl(new URL("http://google.com"));
+                             * 
+                             * p.createTrigger(t);
+                             * } catch (PachubeException e) {
+                             * // TODO Auto-generated catch block
+                             * e.printStackTrace();
+                             * } catch (MalformedURLException e) {
+                             * // TODO Auto-generated catch block
+                             * e.printStackTrace();
+                             * }
+                             */
+
                         }
                     }
                 }

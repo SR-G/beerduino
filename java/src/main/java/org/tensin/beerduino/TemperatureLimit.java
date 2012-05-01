@@ -21,6 +21,11 @@ public class TemperatureLimit {
     @Description("Temperature limit : once reached, the notifications will be activated. Optional, if not set, the notification will always be emitted.")
     private double limit = Double.NaN;
 
+    /** The limit. */
+    @Attribute(name = "mini", required = false)
+    @Description("Temperature limit : once reached, the notifications will be activated. Optional, if not set, the notification will always be emitted.")
+    private double mini = Double.NaN;
+
     @Attribute(name = "notifiers", required = false)
     @Description("The ID of the notifiers that are concerned by this limit. If empty, all notifiers will be notified.")
     private String notifiers;
@@ -39,6 +44,10 @@ public class TemperatureLimit {
      */
     public double getLimit() {
         return limit;
+    }
+
+    public double getMini() {
+        return mini;
     }
 
     /**
@@ -77,6 +86,10 @@ public class TemperatureLimit {
      */
     public void setLimit(final String limit) {
         this.limit = Double.valueOf(limit);
+    }
+
+    public void setMini(final double mini) {
+        this.mini = mini;
     }
 
     /**

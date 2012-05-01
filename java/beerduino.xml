@@ -13,7 +13,7 @@
    <arduinoPort>8080</arduinoPort>
    <arduinoCheckFrequency>2000000</arduinoCheckFrequency>
    <seuils>
-     <seuil capteur="1" temperature="0.9" notifiers="mail" />
+     <seuil capteur="1" temperature="25" notifiers="mail" />
      <seuil capteur="1" notifiers="pachube" />
      <seuil capteur="2" temperature="23" notifiers="mail,twitter" />
      <seuil capteur="3" temperature="27" notifiers="mail" />
